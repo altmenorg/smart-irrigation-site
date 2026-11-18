@@ -1,0 +1,2442 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Home Assistant integration that waters your garden for what it actually lost to the weather.">
+      
+      
+      
+        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/configuration-closed-loop.html">
+      
+      
+        <link rel="prev" href="configuration-sensor-groups.html">
+      
+      
+        <link rel="next" href="how-it-works.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/logo-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Closed-loop watering - Smart Irrigation</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#closed-loop-watering" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Smart Irrigation" class="md-header__button md-logo" aria-label="Smart Irrigation" data-md-component="logo">
+      
+  <img src="assets/images/logo-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Smart Irrigation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Closed-loop watering
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/altmenorg/HAsmartirrigation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    altmenorg/HAsmartirrigation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="installation.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Installation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="configuration.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Configuration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="how-it-works.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  How it works
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="usage.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Usage
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="help.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Help
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Smart Irrigation" class="md-nav__button md-logo" aria-label="Smart Irrigation" data-md-component="logo">
+      
+  <img src="assets/images/logo-mark.svg" alt="logo">
+
+    </a>
+    Smart Irrigation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/altmenorg/HAsmartirrigation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    altmenorg/HAsmartirrigation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting-started-from-scratch.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From nothing to a watered garden
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Installation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-download.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloading the integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-weatherservice.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weather service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="weather-services.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Which weather service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="MANUAL_COORDINATES.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manual coordinates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Options: the Configure button
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-updating.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Updating
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-migration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrating from V1 to V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-uninstalling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uninstalling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-setup.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-general.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-weather.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weather
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-zones.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-sensor-groups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensor groups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed-loop watering
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="configuration-closed-loop.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Closed-loop watering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#observed-watering-credit-the-water-balance-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed watering (credit the water balance automatically)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Observed watering (credit the water balance automatically)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-leave-short-runs-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: leave short runs out
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-a-cumulative-volume-meter-more-precise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: a cumulative volume meter (more precise)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#water-flowing-with-every-valve-closed-advanced-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Water flowing with every valve closed (advanced mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-meter-tells-us-about-your-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the meter tells us about your throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-smart-irrigation-runs-the-valves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Smart Irrigation runs the valves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When Smart Irrigation runs the valves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#watering-one-zone-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watering one zone by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-auto-off-mqtt-on_time-dead-man" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware auto-off (MQTT on_time dead-man)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cycle-and-soak-and-the-pause-between-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cycle and soak, and the pause between zones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-for-your-own-automations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events for your own automations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-does-it-run-the-active-start-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When does it run? The active start trigger
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How it works
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="how-it-works.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Usage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-info.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home tab (Info and History)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-card.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard card
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-entities.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-services.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-events.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-automations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-output-contract.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The output contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-controllers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Off-the-shelf controllers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-enhanced-scheduling-integration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enhanced scheduling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-full-controller.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full controller
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-from-irrigation-unlimited.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coming from Irrigation Unlimited
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-assistants.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assistants (AI)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="usage-troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="help.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration: Help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#observed-watering-credit-the-water-balance-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observed watering (credit the water balance automatically)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Observed watering (credit the water balance automatically)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional-leave-short-runs-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: leave short runs out
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-a-cumulative-volume-meter-more-precise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: a cumulative volume meter (more precise)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#water-flowing-with-every-valve-closed-advanced-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Water flowing with every valve closed (advanced mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-meter-tells-us-about-your-throughput" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the meter tells us about your throughput
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-smart-irrigation-runs-the-valves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Smart Irrigation runs the valves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When Smart Irrigation runs the valves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#watering-one-zone-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watering one zone by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-auto-off-mqtt-on_time-dead-man" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware auto-off (MQTT on_time dead-man)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cycle-and-soak-and-the-pause-between-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cycle and soak, and the pause between zones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-for-your-own-automations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events for your own automations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-does-it-run-the-active-start-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When does it run? The active start trigger
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/altmenorg/HAsmartirrigation/edit/dev/docs/configuration-closed-loop.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="closed-loop-watering">Closed-loop watering<a class="headerlink" href="#closed-loop-watering" title="Permanent link">&para;</a></h1>
+<p>By default Smart Irrigation runs <strong>open loop</strong>: it calculates a duration and fires an event, but it does not know whether (or how much) watering actually happened, so you reset the water balance from an automation. The closed-loop features remove that guesswork. They are all opt-in and configured in the panel under <strong>General</strong>.</p>
+<p><a id="observed-watering-credit-the-bucket-automatically"></a></p>
+<h2 id="observed-watering-credit-the-water-balance-automatically">Observed watering (credit the water balance automatically)<a class="headerlink" href="#observed-watering-credit-the-water-balance-automatically" title="Permanent link">&para;</a></h2>
+<p>When enabled, Smart Irrigation watches each zone's linked valve/switch. Whenever it runs (a manual tap, an automation, or Smart Irrigation itself), the zone's water balance is credited from the run time and the zone's throughput (<code>depth_mm = throughput_L_per_min x minutes / size_m2</code>). No more manual reset.</p>
+<p>To set it up:</p>
+<ol>
+<li>Choosing <strong>Calculate and water</strong> turns it on. Otherwise, on the advanced panel, turn on <strong>Enable observed watering</strong> in <strong>Settings</strong>.</li>
+<li>In <strong>Zones</strong>, set each zone's <strong>Linked valve/switch</strong> to the entity that waters that zone (a <code>switch</code>, <code>valve</code> or <code>input_boolean</code>).</li>
+</ol>
+<p>The Smart Irrigation device has an <strong>Observed watering</strong> binary sensor (<code>binary_sensor.smart_irrigation_observed_watering</code>), on while the option is: one automation shared between several installs can read it to know whether it must reset the water balance itself.</p>
+<blockquote>
+<p>Important: when observed watering is on it becomes the only thing crediting the water balance. Remove any <code>set_bucket</code> or <code>reset_bucket</code> call from your irrigation automation, otherwise the water balance is accounted twice.</p>
+</blockquote>
+<h3 id="optional-leave-short-runs-out">Optional: leave short runs out<a class="headerlink" href="#optional-leave-short-runs-out" title="Permanent link">&para;</a></h3>
+<p>A short run that only cools the plants on a hot afternoon (a few minutes to keep the leaves from wilting) mostly stays on the leaves and evaporates. Set the zone's <strong>Ignore runs up to</strong> (seconds, advanced mode) and a run of the valve that lasts that long or less is not credited, nor counted as the zone's watering of the cycle. A longer run counts in full, its first seconds included. Empty credits every run. It applies to runs Smart Irrigation observes; the runs it drives itself are credited as they always were.</p>
+<h3 id="optional-a-cumulative-volume-meter-more-precise">Optional: a cumulative volume meter (more precise)<a class="headerlink" href="#optional-a-cumulative-volume-meter-more-precise" title="Permanent link">&para;</a></h3>
+<p>For exact accounting you can also set a zone's <strong>Cumulative volume meter</strong>. The applied depth is then taken from the measured volume delivered during the run (<code>meter_at_close - meter_at_open</code>) instead of throughput x time.</p>
+<p>It must be a <strong>cumulative</strong> water-meter total (state class <code>total_increasing</code>), not an instant flow rate. The unit is read automatically from the sensor (L, mL, m³, gal, ft³). An instant flow-rate sensor (for example L/min) will not work; if your hardware only exposes a rate, feed it through a Riemann-sum <strong>Integration</strong> helper first to get a cumulative total.</p>
+<h3 id="water-flowing-with-every-valve-closed-advanced-mode">Water flowing with every valve closed (advanced mode)<a class="headerlink" href="#water-flowing-with-every-valve-closed-advanced-mode" title="Permanent link">&para;</a></h3>
+<p>With <strong>Leak alert after</strong> set (in litres, 0 by default: not watched), a zone's meter is watched between the runs too. When it counts that much while none of the zones it measures has a valve open, nor had one open in the last three minutes (the pipe drains, a meter reports late), Smart Irrigation tells you: the hub's <strong>Leak</strong> binary sensor goes on, the event <code>smart_irrigation_leak</code> is fired (<code>flow_sensor</code>, <code>litres</code>, <code>zone_ids</code>, <code>zones</code>), a repair is raised and the programs' <a href="usage-full-controller.html#being-told-when-a-program-has-watered">notifications</a> are sent at once. It clears by itself once the meter has stood still for half an hour. An automation on the event or the sensor can close a main valve.</p>
+<p>Only for a meter that measures the garden alone: a meter on the house counts the taps and the washing machine too.</p>
+<h3 id="what-the-meter-tells-us-about-your-throughput">What the meter tells us about your throughput<a class="headerlink" href="#what-the-meter-tells-us-about-your-throughput" title="Permanent link">&para;</a></h3>
+<p>Every irrigation duration is derived from the zone's configured throughput: the water balance says how many mm are missing, the size turns that into litres, and the throughput turns litres into minutes. A throughput copied off a datasheet rather than measured at the tap is one of the quietest ways to water twice as long as intended, or half as long, for a whole season.</p>
+<p>A zone with a volume meter gives the answer for free, since a run knows both how many litres came out and how long the valve was open. Smart Irrigation divides one by the other, smooths the result over several runs, and raises a repair notice in <strong>Settings &gt; Repairs</strong> when it drifts more than 25% from what you configured. Runs shorter than two minutes are ignored: filling the pipe dominates them.</p>
+<p>It only ever tells you. The zone's throughput is never rewritten, because pressure varies, a meter can sit upstream of more than one zone, and silently changing how long valves stay open is not something to do behind your back. If the measurement looks right, copy it into the zone yourself.</p>
+<h2 id="when-smart-irrigation-runs-the-valves">When Smart Irrigation runs the valves<a class="headerlink" href="#when-smart-irrigation-runs-the-valves" title="Permanent link">&para;</a></h2>
+<p>With <strong>Calculate and water</strong> (the <a href="usage-full-controller.html">full controller</a>), Smart Irrigation opens each zone's linked valve, waits the calculated duration, then closes it. No execution automation needed. The water balance is credited for the runs <em>it</em> performs, since it knows exactly what it delivered. Observed watering, on with it, also credits <em>any</em> other run of that valve, which is what you want for a tap somebody opens by hand to water the same lawn. If that valve also does something else (filling a paddling pool, hosing the terrace), turn observed watering off in advanced mode.</p>
+<ul>
+<li><strong>Zone sequencing</strong>: <strong>Sequential</strong> runs one zone at a time (safe for water pressure); <strong>Parallel</strong> opens all eligible zones at once. This setting also decides how long the whole run is taken to be, which is what a start trigger works back from when it has to finish at sunrise: sequential is the sum of every zone's run time, parallel is the longest of them. It therefore applies whether Smart Irrigation opens the valves itself or an automation of your own does, and it is available in the general settings either way.</li>
+<li><strong>Open confirmation</strong>: before crediting, Smart Irrigation waits for the valve to report an on-state. If it never opens, the run is not credited (so the deficit stays and rolls over to the next day) and a <code>smart_irrigation_zone_problem</code> event is fired. A write-only valve with no readable state is given the benefit of the doubt.</li>
+<li><strong>Confirmation per zone</strong> (advanced mode): <strong>Wait for the valve to confirm</strong> (seconds), and <strong>Send the open again</strong> (how many times; <code>open_resends</code>, <strong>YAML only</strong>, for instance <code>open_resends: 0</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). Empty keeps the defaults: 8 seconds and no resend, or 30 seconds and two resends (at 10 and 20 seconds) with the full controller, and 5 seconds for the valve to report a close. Set, the wait applies to the open and to the close, and the resends are spread evenly over it, so 60 seconds and 2 resends sends the open again at 20 and 40 seconds. <code>0</code> never sends it again. A cloud valve, Gardena's for instance, confirms through the vendor's servers and counts every command against a quota: give it a longer wait and <code>0</code>. A close that is not confirmed is always tried a second time, whatever the resends, because a valve left open costs more than one command. This is Irrigation Unlimited's <code>check_back</code> (<code>delay</code>, <code>retries</code>), per zone.</li>
+<li><strong>Setting a failing zone aside</strong> (advanced mode, off by default, on the <strong>Observed watering</strong> card): with <strong>Set a zone aside after this many failed runs</strong> at 3, say, a zone whose valve did not open, gave no water or could not have its own timer set three runs in a row is no longer watered by any program or cycle, rather than failing every morning with the pump starting for nothing. You are told at once: the programs' <a href="usage-full-controller.html#being-told-when-a-program-has-watered">notifications</a>, a repair in <strong>Settings &gt; Repairs</strong> with a button to put the zone back, the zone's problem sensor (reason <code>zone_set_aside</code>) and a line on the zone in the panel, with <strong>Put back</strong>. It comes back by itself when its valve is seen opening, for instance tried by hand once repaired, and a successful run counts its failures from zero again.</li>
+<li><strong>Reboot resilience</strong>: a run that is in progress when Home Assistant restarts is resumed (or closed if it already exceeded its duration) and then credited.</li>
+<li><strong>One run per zone per cycle</strong>: a zone whose valve is already open is left out, and a zone watered while it waited its turn in a sequential run is not watered again when the queue reaches it. With observed watering on, that includes a valve opened outside Smart Irrigation, by hand or by another automation: running it too would close the valve under that run and count the overlap twice.</li>
+<li><strong>One cycle at a time, in sequential mode</strong>: a run asked for while one is already going joins the queue instead of starting beside it, so two valves are never open at once. A zone already waiting is not queued twice, the zone being watered right now is not queued behind itself, and the zones that joined are in the same end-of-run summary. In parallel mode there is nothing to join: every zone at once is what that setting asks for.</li>
+</ul>
+<blockquote>
+<p><strong>Safety:</strong> if Home Assistant goes down for a long time during a run, the physical valve stays open and keeps watering, because Home Assistant is no longer there to close it. Give your valve a hardware failsafe (a maximum runtime on the device itself). Smart Irrigation also caps the credited time at the zone's maximum duration. For an MQTT valve, the integration can arm that failsafe for you on every run -- see below.</p>
+</blockquote>
+<h3 id="watering-one-zone-by-hand">Watering one zone by hand<a class="headerlink" href="#watering-one-zone-by-hand" title="Permanent link">&para;</a></h3>
+<p><strong>Calculate and water</strong> also adds the <strong>Irrigate now</strong> button entities
+for existing zones and <strong>Irrigate all</strong> on the hub, without reloading the
+integration or restarting Home Assistant. Switching it off makes those buttons
+unavailable; switching it on again restores them with the same entity IDs.</p>
+<p>With <strong>Calculate and water</strong>, each zone with a linked valve has a <strong>Water</strong> button on its card in the Zones page. It asks for minutes, and left empty it waters the run the planning shows. The valve opens straight away, or takes its turn behind what is watering, and the water is credited to the zone's balance like any run of ours. It is the <code>smart_irrigation.water_zone</code> action, which an automation can call with the zone's entity or its <code>zone_id</code>.</p>
+<h3 id="hardware-auto-off-mqtt-on_time-dead-man">Hardware auto-off (MQTT on_time dead-man)<a class="headerlink" href="#hardware-auto-off-mqtt-on_time-dead-man" title="Permanent link">&para;</a></h3>
+<p>The closing of the valve normally happens in Home Assistant: the run opens the valve, waits, and closes it. If Home Assistant stops in that window and never comes back, nothing sends the close and the valve keeps watering. (A restart <em>does</em> recover: an in-flight run is resumed and closed when Home Assistant comes back. The gap is Home Assistant staying down.)</p>
+<p>For a valve controlled over <strong>MQTT</strong> -- a <a href="https://www.zigbee2mqtt.io/">zigbee2mqtt</a> device, for instance -- Smart Irrigation can close that gap with a hardware dead-man. On each pass it publishes an <em>on with timed off</em> command to the device, so the device's own firmware shuts the valve off after the run even if Home Assistant is no longer there. It is armed only after the valve is confirmed open, and it is additive: the normal close still runs, the <code>on_time</code> is set a little longer than the pass so it lands just after, as a failsafe rather than the primary off.</p>
+<p>Three optional per-zone fields configure it (the topic and the mode on the advanced panel, shown only with Calculate and water and a linked valve set; the state key in YAML). The first two are empty by default, so nothing changes until you fill them in:</p>
+<ul>
+<li><strong>Safety off MQTT topic</strong> -- the device's <code>set</code> topic, e.g. <code>zigbee2mqtt/front_lawn_valve/set</code>.</li>
+<li><strong>Safety off state key</strong> (<code>safety_off_state_key</code>, <strong>YAML only</strong>, for instance <code>safety_off_state_key: state_l1</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>; empty is <code>state</code>) -- the on/off property in the payload: <code>state</code> for a single-channel device, or <code>state_l1</code>...<code>state_l4</code> for one channel of a multi-channel device.</li>
+<li><strong>Safety off mode</strong> -- <code>auto</code> (the default), <code>zha</code> or <code>off</code>, described below.</li>
+</ul>
+<p>With those set, a pass that holds the valve for 300 seconds publishes <code>{"state_l1": "ON", "on_time": 330}</code> to the topic (the run time plus a 30-second margin). The device closes its own valve after <code>on_time</code> seconds whatever happens to Home Assistant.</p>
+<blockquote>
+<p><strong>Device support varies.</strong> <code>on_time</code> ("on with timed off") is honoured by the device firmware, not by Smart Irrigation, and <a href="https://www.zigbee2mqtt.io/devices/TYWB_4ch-RF.html">not every device implements it</a>. Test it before you rely on it: start a run, stop Home Assistant while the valve is open, and confirm the valve closes itself after <code>on_time</code>. Some devices need an <code>off_wait_time</code> alongside <code>on_time</code> to behave.</p>
+<p><strong>Verified:</strong> a Sonoff SWV (firmware 1.0.4) on zigbee2mqtt, topic <code>zigbee2mqtt/&lt;friendly name&gt;/set</code>, state key <code>state</code>: with the Zigbee coordinator unplugged in the middle of a run, the valve closed by itself at the end of it (reported in <a href="https://github.com/altmenorg/HAsmartirrigation/issues/893">#893</a>).</p>
+</blockquote>
+<p><strong>Valves on ZHA</strong> can be armed too. The linked valve must be a ZHA entity (found through the entity registry): each pass then sends the device an <em>on with timed off</em> command (On/Off cluster, command <code>0x42</code>) through <code>zha.issue_zigbee_cluster_command</code>, right after the normal open (a Sonoff SWV is the exception, see below). The unit of the time differs between devices, so the safety off mode matters:</p>
+<ul>
+<li><code>auto</code> (default): armed automatically only for a model known to be verified. That is the <strong>Sonoff SWV</strong> (manufacturer SONOFF, model SWV), tested on a real valve (firmware 1.0.04, ZHA): it honours the command, but counts the time in <strong>seconds</strong>, not in tenths of a second as the ZCL spec says. Smart Irrigation sends it the pass length plus the margin, in seconds (at most 65535 s, about 18 hours). If Home Assistant dies mid-run, the valve closes itself about 30 seconds after the time Home Assistant would have closed it. If a topic is set, the topic wins and ZHA is not used.</li>
+<li><code>zha</code>: explicit opt-in, arms any ZHA valve. A model that is not known is sent the time in the ZCL unit (tenths of a second); a pass longer than 6553 s is then not armed (a warning is logged once), as the device would close the valve too early. Other models are unverified: test them before you rely on them.</li>
+<li><code>off</code>: never armed.</li>
+</ul>
+<p><strong>A Sonoff SWV is opened by that same command.</strong> On a real valve, <em>on with timed off</em> sent to a closed SWV both opens it and starts its own timer, so there is no moment when it is open without a timer. For a SWV in <code>auto</code> mode (no MQTT topic, mode <code>auto</code>; in <code>zha</code> or <code>off</code> mode the normal open is used), Smart Irrigation therefore opens the linked valve with that single command instead of the normal open: the time is the pass length rounded up plus the 30-second margin, in seconds (at most 65535). The rest is unchanged: the open is confirmed the same way (an open that has to be repeated sends the same command), the close at the normal time also clears the device's timer, a cycle-and-soak pass opens again and so restarts the timer, and a run resumed after a restart opens the same way with the time that remains. The extra valves keep the normal open. Each attempt is short (6 seconds, because a battery valve is asleep most of the time and would otherwise hold the start for about 16 seconds), and the command is tried once. If it fails (ZHA not set up, an error, a valve that does not answer), a warning is logged once for the zone and the valve is opened the normal way, followed by the separate arm described above: the watering is never prevented. Any other valve (another ZHA model, the explicit <code>zha</code> mode on an unknown model, MQTT, other platforms) is opened and armed exactly as before.</p>
+<p>This timed off is separate from, and different from, the valve's own <em>water shortage auto close</em>, which does not cover Home Assistant stopping in the middle of a run. A failure to send the command never breaks the run: it is logged as a warning the first time for a zone, then at debug level.</p>
+<p>The per-zone <strong>safety off mode</strong> picks the behaviour: <code>auto</code> (the default) uses the MQTT topic if there is one, else arms a Sonoff SWV on ZHA, and otherwise nothing; <code>zha</code> also arms a ZHA valve when there is no topic; <code>off</code> never arms a dead-man for that zone, topic included. Only the zone's linked valve is armed, not its extra valves.</p>
+<p><strong>A valve that closes after a duration of its own</strong> is opened for that duration, not until it is told to close. A Gardena smart valve is one: the Gardena integration opens it for its <strong>watering duration</strong> number, one minute unless changed, so a 40-minute pass would water for one minute while Smart Irrigation counts it as open. For such a valve, set the zone's <strong>Valve's own duration</strong> (advanced panel, with Calculate and water and a linked valve set) to that number entity, or to an <code>input_number</code> your valve reads. Before each open Smart Irrigation writes the pass length plus the 30-second margin to it, in the entity's unit (<code>s</code>, <code>min</code> or <code>h</code>), rounded up to its step: a 40-minute pass sets a minutes number to 41. The valve then stays open for the whole pass, Smart Irrigation closes it at the normal time, and the valve's own timer is the dead-man. A pass longer than the entity's maximum gets the maximum, and a warning is logged once: the valve will then close before the pass ends. A missing entity, one whose unit is not a duration, or a failed write is logged and the valve opens with whatever duration it already has. The <strong>safety off mode</strong> <code>off</code> turns it off as well.</p>
+<p><strong>Only water with the valve's own timer.</strong> Setting the valve's own timer is best-effort: when it fails (a battery valve asleep, MQTT down, a duration that could not be written), the valve opens all the same, without that safety net for the run. A zone that would rather skip the watering can say so: <strong>If the valve's own timer can't be set</strong> (advanced panel, shown only for a zone whose valve has a timer Smart Irrigation can set: a ZHA valve, an MQTT topic or a valve's own duration) set to <strong>Leave the valve shut</strong>. The valve then stays shut, or is shut at once when the timer is armed right after the open (MQTT, or a ZHA valve other than a Sonoff SWV), nothing is credited, so the water is carried over to the next watering, and the zone reports <code>valve_timer_not_set</code>. A zone with that setting and no way of setting a timer at all is never opened. Home Assistant still closes the valve at the normal time either way: the valve's own timer is the second net, not a replacement.</p>
+<p><strong>Other valves</strong> (Wi-Fi switches, ESPHome, Tuya, or anything that is neither MQTT with a topic nor ZHA) get no automatic dead-man: leave the fields empty and the run behaves exactly as before. For those, set the failsafe on the device itself, which is more reliable than Home Assistant sending it every run: a Shelly has an <em>Auto-off timer</em>, Tasmota has <code>PulseTime</code>, ESPHome can turn a switch off after a delay, and many Tuya Wi-Fi switches have a <em>countdown</em> function.</p>
+<h3 id="cycle-and-soak-and-the-pause-between-zones">Cycle and soak, and the pause between zones<a class="headerlink" href="#cycle-and-soak-and-the-pause-between-zones" title="Permanent link">&para;</a></h3>
+<p>Two general settings, both off by default, for an installation that is already tuned. With <strong>Calculate and water</strong>, each step of a <a href="usage-full-controller.html#programs">program</a> has its own number of passes, and the soak time between them is one setting for every program, shown next to a step's passes; the order, passes and pause of the <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones</a> button are folded at the bottom of <strong>Watering &gt; Programs</strong>. With <strong>Calculate only</strong> they are in the settings, for the start trigger's timing.</p>
+<p><strong>Water in several passes</strong> splits a run into shorter passes with a pause between them. Clay and compacted soil have an infiltration rate: past it the water runs off or puddles, and the zone is billed for water the roots never see. Three passes of five minutes with fifteen minutes of soaking deliver the same water as one run of fifteen minutes, and the soil keeps more of it. Guidance: sand takes water as fast as you can give it, so leave this at one pass; loam rarely needs more than two; clay and slopes are what it is for.</p>
+<p>The plan is fixed when the run starts, and a run too short to split is left alone (no pass shorter than a minute). Each pass is credited as it closes, so a restart in the middle of a run never credits water twice and never leaves a valve open.</p>
+<p><strong>Pause between zones</strong> waits between two zones of a sequential run, for the line pressure to recover or for a slow valve to finish closing before the next one opens.</p>
+<p>Both lengthen the run without adding water to it, and a start trigger that has to finish at sunrise works back from the whole thing, soaking and pauses included: three zones of half an hour in three passes with fifteen minutes of soaking occupy two and a half hours, not an hour and a half. Watch that against the hour you want to be finished by. When an executor of your own opens the valves instead, neither setting applies and the run length is the watering alone.</p>
+<h3 id="events-for-your-own-automations">Events for your own automations<a class="headerlink" href="#events-for-your-own-automations" title="Permanent link">&para;</a></h3>
+<p>When Smart Irrigation waters, it fires events you can use to notify or react, so you do not need one automation per zone. With <strong>Calculate and water</strong>, the first two come from the run of the <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones</a> button, and from the program with the id <code>main</code> (on an installation that had a main program, the ordinary program it was turned into, <strong>Watering</strong>; there is <a href="usage-full-controller.html#no-main-program">no main program any more</a>), so an automation written for them keeps working; every program also fires <code>smart_irrigation_program_started</code> and <code>smart_irrigation_program_finished</code>.</p>
+<ul>
+<li><code>smart_irrigation_irrigation_started</code> when a run begins. Data: <code>sequencing</code> (<code>sequential</code>/<code>parallel</code>) and <code>zones</code>, a list of <code>{zone_id, zone, seconds}</code> about to be watered.</li>
+<li><code>smart_irrigation_irrigation_finished</code> when the whole run is done. Data: <code>zones</code>, a list of <code>{zone_id, zone, seconds, volume_l, bucket}</code> that ran (volume delivered and the new water balance), and <code>problems</code>, a list of <code>{zone_id, zone, reason}</code> for zones that delivered no water: the valve did not open (<code>valve_did_not_open</code>), or it opened and the zone's flow meter did not move (<code>no_flow</code>). A valve that watered but would not close is still in <code>zones</code>, since the water it delivered is credited, and is reported by its own <code>smart_irrigation_zone_problem</code> event.</li>
+<li><code>smart_irrigation_zone_problem</code> the moment something goes wrong with a valve. Data: <code>zone_id</code>, <code>zone</code>, <code>entity_id</code>, <code>reason</code>: <code>valve_did_not_open</code>, <code>valve_did_not_close</code> (the close failed or the valve still reads open, retried once), or <code>no_flow</code> (the valve opened but the zone's flow meter did not move, so the run is not credited), <code>valve_closed_early</code> (full controller: the valve read <code>off</code> or <code>closed</code> while it should have been open, so the zone's run ends and is credited for the time it was open), <code>supply_did_not_turn_on</code> (full controller: the pump or main valve the zone depends on never came on, so the zone's valve stays shut), or <code>valve_timer_not_set</code> (the zone asks for the valve's own timer and it could not be set, so the valve stays shut or is shut at once).</li>
+</ul>
+<p>Example: a single end-of-watering report for all zones.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Watering report</span>
+<span class="nt">triggers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">event</span>
+<span class="w">    </span><span class="nt">event_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">smart_irrigation_irrigation_finished</span>
+<span class="nt">actions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">variables</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">trigger.event.data.zones</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">      </span><span class="nt">problems</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">trigger.event.data.problems</span><span class="nv"> </span><span class="s">}}"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify.mobile_app_your_phone</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">'🚨'</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">problems</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">count</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">'🌱'</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">Watering</span><span class="nv"> </span><span class="s">finished"</span>
+<span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+<span class="w">        </span><span class="no">{% set l = namespace(t=[]) %}</span>
+<span class="w">        </span><span class="no">{% for z in zones %}</span>
+<span class="w">          </span><span class="no">{% set l.t = l.t + [z.zone ~ ": " ~ (z.seconds / 60) | round(1) ~ " min, " ~ z.volume_l ~ " L"] %}</span>
+<span class="w">        </span><span class="no">{% endfor %}</span>
+<span class="w">        </span><span class="no">{% for p in problems %}</span>
+<span class="w">          </span><span class="no">{% set l.t = l.t + ["WARNING " ~ p.zone ~ ": " ~ p.reason] %}</span>
+<span class="w">        </span><span class="no">{% endfor %}</span>
+<span class="w">        </span><span class="no">{{ l.t | join("\n") }}</span>
+<span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single</span>
+</code></pre></div>
+<blockquote>
+<p>If you previously had one automation per zone that opened the valve and called <code>set_bucket</code> or <code>reset_bucket</code>, remove them once you choose <strong>Calculate and water</strong>: Smart Irrigation now opens the valves and credits the water balance itself, so the old automations would double up. Keep only report/notification automations like the one above.</p>
+</blockquote>
+<p>The legacy <code>smart_irrigation_start_irrigation_all_zones</code> event still fires too (it carries the trigger identity), for setups that drive watering from their own automation or an external executor, with <strong>Calculate only</strong>.</p>
+<h2 id="when-does-it-run-the-active-start-trigger">When does it run? The active start trigger<a class="headerlink" href="#when-does-it-run-the-active-start-trigger" title="Permanent link">&para;</a></h2>
+<p>Irrigation starts on a single <strong>active trigger</strong>, chosen in <strong>General</strong> under the start triggers. The triggers you define are the pool of options; only the selected one starts watering, so a run happens once per day.</p>
+<p>The default, <strong>Default: done by sunrise</strong>, times the run so it finishes right at sunrise. Add custom triggers (sunset, solar azimuth, offsets) below and pick one as the active trigger if you prefer.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="configuration-sensor-groups.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Sensor groups">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Sensor groups
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="how-it-works.html" class="md-footer__link md-footer__link--next" aria-label="Next: How it works">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                How it works
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/altmenorg/HAsmartirrigation" target="_blank" rel="noopener" title="Smart Irrigation on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.instant", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit", "toc.follow"], "search": "assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
