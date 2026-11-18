@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Smart Irrigation for Home Assistant: water each zone for what its soil actually lost, skip when the sky does it, and set it all up by talking to your AI assistant.">
 <meta name="robots" content="noindex">
+<link rel="alternate" hreflang="fr" href="fr/">
 <title>Smart Irrigation for Home Assistant</title>
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,13 +71,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.92rem; }
 .nav a { color: var(--muted); text-decoration: none; }
 .nav a:hover, .nav a:focus-visible { color: var(--ink); }
-.lang { font: 600 0.8rem var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; font: 600 0.78rem var(--mono); }
+.lang a, .lang span { padding: 4px 9px; text-decoration: none; color: var(--muted); }
+.lang span { background: var(--leafg); color: #10300a; }
 @media (max-width: 720px) { .nav .hide-sm { display: none; } }
 
 /* Hero */
 .hero { position: relative; overflow: hidden; background: linear-gradient(180deg, #bdeefb 0%, #e3f7fd 45%, #f3fbe6 100%); padding-block: clamp(56px, 8vw, 100px) clamp(150px, 16vw, 210px); }
 .hero .wrap { position: relative; z-index: 2; }
-.hero .sun { position: absolute; z-index: 0; top: -70px; left: 46%; width: 240px; height: 240px; border-radius: 50%;
+.hero .sun { position: absolute; z-index: 0; top: -90px; right: -50px; width: 260px; height: 260px; border-radius: 50%;
   background: radial-gradient(circle, #fff3c4 0 30%, var(--sun) 31% 50%, rgba(255, 201, 60, 0.25) 51% 64%, transparent 65%); animation: glow 6s ease-in-out infinite alternate; }
 @keyframes glow { from { transform: scale(1); } to { transform: scale(1.06); } }
 .hero .hills { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(120px, 15vw, 200px); }
@@ -221,7 +224,7 @@ footer a { color: var(--muted); }
       <a class="hide-sm" href="#how">How it works</a>
       <a class="hide-sm" href="#install">Install</a>
       <a href="https://altmenorg.github.io/HAsmartirrigation/">Docs</a>
-      <span class="lang" title="English and French at launch">EN · FR</span>
+      <span class="lang" aria-label="Language"><span aria-current="true">EN</span><a href="fr/" hreflang="fr" lang="fr">FR</a></span>
     </nav>
   </div>
 </header>
