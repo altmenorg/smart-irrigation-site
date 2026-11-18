@@ -187,7 +187,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .node.ok { border-color: color-mix(in srgb, var(--leaf) 55%, var(--line)); }
 .node.ok .v { color: var(--leaf); }
 .timeline { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; overflow-x: auto; }
-.tl { min-width: 560px; display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; font: 0.8rem var(--mono); align-items: center; }
+.tl { display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; font: 0.8rem var(--mono); align-items: center; }
+@media (max-width: 480px) { .tl { grid-template-columns: 64px 1fr; gap: 8px; font-size: 0.72rem; } }
 .tl .lane { position: relative; height: 22px; background: var(--bg); border-radius: 6px; }
 .tl .seg { position: absolute; top: 3px; bottom: 3px; border-radius: 4px; background: var(--water); }
 .tl .seg.soak { background: repeating-linear-gradient(90deg, var(--water-soft) 0 4px, transparent 4px 8px); border: 1px dashed var(--water); }
@@ -309,7 +310,7 @@ footer a { color: var(--muted); }
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a5 5 0 1 1 1-9.9A6 6 0 0 1 19 9a4 4 0 0 1-1 7.9"/><path d="M9 19l-1 2M13 19l-1 2M17 19l-1 2"/></svg></div><div><h3>S'efface quand le ciel arrose</h3><p>Pluie mesurée ou prévue, gel, vent ou sol encore humide : l'arrosage est retenu, et la page dit pourquoi.</p></div></div>
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></div><div><h3>Des programmes lisibles</h3><p>Étapes, horaires au lever du soleil ou après un autre programme, arrosage fractionné. Chaque programme se dessine avant de démarrer.</p></div></div>
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><div><h3>La météo de chez vous</h3><p>Open-Meteo d'emblée, sans clé. Ou votre station météo, un pluviomètre, une sonde de sol, combinés comme vous voulez.</p></div></div>
-        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h3>Des vannes qui se ferment, toujours</h3><p>Il vérifie que chaque vanne s'est ouverte et refermée, utilise la minuterie de la vanne quand elle en a une, et met de côté une zone en panne.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h3>Des vannes dont la fermeture est vérifiée</h3><p>Il vérifie que chaque vanne s'est ouverte et refermée, utilise la minuterie de la vanne quand elle en a une, et met de côté une zone en panne.</p></div></div>
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-7"/></svg></div><div><h3>Compte ce qui a vraiment coulé</h3><p>Arrosé à la main, ou un débitmètre ? Il compte l'eau réellement sortie, et vous prévient en cas de fuite.</p></div></div>
       </div>
     </div>
@@ -326,7 +327,7 @@ footer a { color: var(--muted); }
         </div>
       </div>
       <div class="chat" aria-label="Exemple de conversation">
-        <div class="msg you">Arrose le potager un matin sur deux, fini au lever du soleil, et saute-le quand la pluie arrive.</div>
+        <div class="msg you">Arrose le potager et les aromatiques un matin sur deux, fini au lever du soleil, et saute l'arrosage quand la pluie arrive.</div>
         <div class="tool"><b>✓</b> GetPrograms · GetConfigReference · PreviewProgram</div>
         <div class="msg bot">Voici ce que j'enregistrerais. Le nouveau programme arrose le potager puis les aromatiques, et finit au lever du soleil tous les 2 jours, en tenant compte de la météo :
           <div class="plan">lever − 18 min  Potager      12 min
@@ -345,17 +346,17 @@ tous les 2 jours · météo : oui</div>
       <h2 style="margin-top:12px">Chaque programme montre ce que fera demain</h2>
       <p class="lead" style="margin-top:16px">Chaque programme dessine son déroulé, dit si la météo le permet aujourd'hui, et place les prochains jours sur une frise. Plus besoin de deviner ce qui s'ouvrira à 5 h du matin.</p>
       <div class="flow" aria-label="Exemple de déroulé de programme">
-        <div class="node"><div class="k">Départ</div><div class="v">Au lever du soleil</div><div class="s">fini à 06:58</div></div>
+        <div class="node"><div class="k">Départ</div><div class="v">Au lever du soleil</div><div class="s">fini à 06:48</div></div>
         <div class="node ok"><div class="k">Météo favorable ?</div><div class="v">Oui</div><div class="s">pas de pluie, vent 9 km/h</div></div>
-        <div class="node"><div class="k">Étape 1 · 2 passes</div><div class="v">Pelouse</div><div class="s">2 × 7 min · pause 15 min</div></div>
+        <div class="node"><div class="k">Étape 1 · 2 passes</div><div class="v">Pelouse</div><div class="s">2 × 7 min · infiltration 15 min</div></div>
         <div class="node"><div class="k">Étape 2</div><div class="v">Rosiers, haie</div><div class="s">ensemble · 9 min</div></div>
       </div>
       <div class="timeline">
         <div class="tl">
-          <span></span><div class="axis"><span>06:10</span><span>06:25</span><span>06:40</span><span>06:58</span></div>
-          <span>Pelouse</span><div class="lane"><div class="seg" style="left:0;width:15%"></div><div class="seg soak" style="left:15%;width:31%"></div><div class="seg" style="left:46%;width:15%"></div></div>
-          <span>Rosiers</span><div class="lane"><div class="seg" style="left:61%;width:19%"></div></div>
-          <span>Haie</span><div class="lane"><div class="seg" style="left:61%;width:19%"></div></div>
+          <span></span><div class="axis"><span>06:10</span><span>06:20</span><span>06:30</span><span>06:40</span><span>06:50</span></div>
+          <span>Pelouse</span><div class="lane"><div class="seg" style="left:0;width:17.5%"></div><div class="seg soak" style="left:17.5%;width:37.5%"></div><div class="seg" style="left:55%;width:17.5%"></div></div>
+          <span>Rosiers</span><div class="lane"><div class="seg" style="left:72.5%;width:22.5%"></div></div>
+          <span>Haie</span><div class="lane"><div class="seg" style="left:72.5%;width:22.5%"></div></div>
         </div>
       </div>
 

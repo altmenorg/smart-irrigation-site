@@ -187,7 +187,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .node.ok { border-color: color-mix(in srgb, var(--leaf) 55%, var(--line)); }
 .node.ok .v { color: var(--leaf); }
 .timeline { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; overflow-x: auto; }
-.tl { min-width: 560px; display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; font: 0.8rem var(--mono); align-items: center; }
+.tl { display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; font: 0.8rem var(--mono); align-items: center; }
+@media (max-width: 480px) { .tl { grid-template-columns: 64px 1fr; gap: 8px; font-size: 0.72rem; } }
 .tl .lane { position: relative; height: 22px; background: var(--bg); border-radius: 6px; }
 .tl .seg { position: absolute; top: 3px; bottom: 3px; border-radius: 4px; background: var(--water); }
 .tl .seg.soak { background: repeating-linear-gradient(90deg, var(--water-soft) 0 4px, transparent 4px 8px); border: 1px dashed var(--water); }
@@ -309,7 +310,7 @@ footer a { color: var(--muted); }
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a5 5 0 1 1 1-9.9A6 6 0 0 1 19 9a4 4 0 0 1-1 7.9"/><path d="M9 19l-1 2M13 19l-1 2M17 19l-1 2"/></svg></div><div><h3>Se aparta cuando llueve</h3><p>Lluvia medida o prevista, helada, viento o un sensor de suelo húmedo: el riego se retiene, y la página dice por qué.</p></div></div>
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></div><div><h3>Programas que se leen</h3><p>Pasos, horarios al amanecer o después de otro programa, riego fraccionado. Cada programa se dibuja antes de arrancar.</p></div></div>
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><div><h3>El tiempo de donde estás</h3><p>Open-Meteo desde el primer momento, sin clave. O tu propia estación meteorológica, un pluviómetro, una sonda de suelo, combinados como quieras.</p></div></div>
-        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h3>Válvulas que siempre cierran</h3><p>Comprueba que cada válvula se abrió y se cerró, usa el temporizador propio de la válvula si lo tiene, y aparta una zona que falla.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h3>Válvulas con cierre comprobado</h3><p>Comprueba que cada válvula se abrió y se cerró, usa el temporizador propio de la válvula si lo tiene, y aparta una zona que falla.</p></div></div>
         <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-7"/></svg></div><div><h3>Cuenta lo que realmente salió</h3><p>¿Regaste a mano, o tienes caudalímetro? Contabiliza el agua que salió de verdad, y te avisa si hay una fuga.</p></div></div>
       </div>
     </div>
@@ -326,7 +327,7 @@ footer a { color: var(--muted); }
         </div>
       </div>
       <div class="chat" aria-label="Conversación de ejemplo">
-        <div class="msg you">Riega el huerto una mañana sí y otra no, terminando al amanecer, y sáltatelo cuando venga lluvia.</div>
+        <div class="msg you">Riega el huerto y las aromáticas una mañana sí y otra no, terminando al amanecer, y sáltatelo cuando venga lluvia.</div>
         <div class="tool"><b>✓</b> GetPrograms · GetConfigReference · PreviewProgram</div>
         <div class="msg bot">Esto es lo que guardaría. El nuevo programa riega el huerto y luego las aromáticas, termina al amanecer cada 2 días y tiene en cuenta el tiempo:
           <div class="plan">amanecer − 18 min  Huerto       12 min
@@ -345,17 +346,17 @@ cada 2 días · tiempo: sí</div>
       <h2 style="margin-top:12px">Cada programa muestra lo que hará mañana</h2>
       <p class="lead" style="margin-top:16px">Cada programa dibuja su propio recorrido, dice si el tiempo lo permite hoy y coloca los próximos días en una línea de tiempo. Sin adivinar qué se abrirá a las 5 de la mañana.</p>
       <div class="flow" aria-label="Ejemplo de recorrido de un programa">
-        <div class="node"><div class="k">Inicio</div><div class="v">Al amanecer</div><div class="s">termina a las 06:58</div></div>
+        <div class="node"><div class="k">Inicio</div><div class="v">Al amanecer</div><div class="s">termina a las 06:48</div></div>
         <div class="node ok"><div class="k">¿Lo permite el tiempo?</div><div class="v">Sí</div><div class="s">sin lluvia, viento 9 km/h</div></div>
-        <div class="node"><div class="k">Paso 1 · 2 pasadas</div><div class="v">Césped</div><div class="s">2 × 7 min · pausa 15 min</div></div>
+        <div class="node"><div class="k">Paso 1 · 2 pasadas</div><div class="v">Césped</div><div class="s">2 × 7 min · infiltración 15 min</div></div>
         <div class="node"><div class="k">Paso 2</div><div class="v">Rosales, seto</div><div class="s">juntos · 9 min</div></div>
       </div>
       <div class="timeline">
         <div class="tl">
-          <span></span><div class="axis"><span>06:10</span><span>06:25</span><span>06:40</span><span>06:58</span></div>
-          <span>Césped</span><div class="lane"><div class="seg" style="left:0;width:15%"></div><div class="seg soak" style="left:15%;width:31%"></div><div class="seg" style="left:46%;width:15%"></div></div>
-          <span>Rosales</span><div class="lane"><div class="seg" style="left:61%;width:19%"></div></div>
-          <span>Seto</span><div class="lane"><div class="seg" style="left:61%;width:19%"></div></div>
+          <span></span><div class="axis"><span>06:10</span><span>06:20</span><span>06:30</span><span>06:40</span><span>06:50</span></div>
+          <span>Césped</span><div class="lane"><div class="seg" style="left:0;width:17.5%"></div><div class="seg soak" style="left:17.5%;width:37.5%"></div><div class="seg" style="left:55%;width:17.5%"></div></div>
+          <span>Rosales</span><div class="lane"><div class="seg" style="left:72.5%;width:22.5%"></div></div>
+          <span>Seto</span><div class="lane"><div class="seg" style="left:72.5%;width:22.5%"></div></div>
         </div>
       </div>
 
