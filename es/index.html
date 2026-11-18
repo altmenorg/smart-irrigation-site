@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Irrigation para Home Assistant: riego del jardín según el tiempo</title>
+<meta name="description" content="Smart Irrigation para Home Assistant riega cada zona según lo que su suelo perdió (FAO-56), se salta el riego si va a llover y se configura con tu IA. Gratis, en HACS.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://smart-irrigation.org/es/">
+<link rel="alternate" hreflang="en" href="https://smart-irrigation.org/">
+<link rel="alternate" hreflang="fr" href="https://smart-irrigation.org/fr/">
+<link rel="alternate" hreflang="de" href="https://smart-irrigation.org/de/">
+<link rel="alternate" hreflang="es" href="https://smart-irrigation.org/es/">
+<link rel="alternate" hreflang="x-default" href="https://smart-irrigation.org/">
+<meta name="theme-color" content="#1479bd">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Smart Irrigation">
+<meta property="og:title" content="Smart Irrigation para Home Assistant: riego del jardín según el tiempo">
+<meta property="og:description" content="Smart Irrigation para Home Assistant riega cada zona según lo que su suelo perdió (FAO-56), se salta el riego si va a llover y se configura con tu IA. Gratis, en HACS.">
+<meta property="og:url" content="https://smart-irrigation.org/es/">
+<meta property="og:image" content="https://smart-irrigation.org/og-image-es.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Smart Irrigation para Home Assistant: riega tu jardín según lo que realmente bebió">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smart Irrigation para Home Assistant: riego del jardín según el tiempo">
+<meta name="twitter:description" content="Smart Irrigation para Home Assistant riega cada zona según lo que su suelo perdió (FAO-56), se salta el riego si va a llover y se configura con tu IA. Gratis, en HACS.">
+<meta name="twitter:image" content="https://smart-irrigation.org/og-image-es.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Smart Irrigation", "alternateName": "Smart Irrigation para Home Assistant", "applicationCategory": "HomeApplication", "applicationSubCategory": "Home Assistant integration", "operatingSystem": "Home Assistant", "description": "Smart Irrigation para Home Assistant riega cada zona según lo que su suelo perdió (FAO-56), se salta el riego si va a llover y se configura con tu IA. Gratis, en HACS.", "url": "https://smart-irrigation.org/es/", "image": "https://smart-irrigation.org/og-image-es.png", "inLanguage": "es", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "downloadUrl": "https://github.com/altmenorg/HAsmartirrigation/releases", "codeRepository": "https://github.com/altmenorg/HAsmartirrigation", "softwareHelp": "https://altmenorg.github.io/HAsmartirrigation/"}</script>
+<link rel="icon" href="../favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a garden's water balance read like an instrument. Wide bands, one
+   soil-to-sky gradient in the hero, the rest quiet; figures in mono. */
+:root {
+  --bg: #f6faf4;          /* leaf-tinted paper */
+  --surface: #ffffff;
+  --ink: #13241c;         /* deep foliage */
+  --muted: #4d6157;
+  --line: #d6e0d8;
+  --water: #1479bd;       /* the drop of the logo */
+  --sun: #ffc93c;
+  --leafg: linear-gradient(135deg, #bae232, #589d3b);
+  --dropg: linear-gradient(160deg, #7cdbec, #2686c1 55%, #0260aa);
+  --water-soft: #e1f0f7;
+  --leaf: #4f9a35;
+  --soil: #7a5a33;
+  --soil-soft: #efe6da;
+  --dry: #b4532a;
+  --hero-top: #dcecf3;
+  --hero-bottom: #e8e1d3;
+  --display: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1712; --surface: #15211a; --ink: #e6efe8; --muted: #a2b5aa; --line: #2a3a31;
+    --water: #4fb3e6; --water-soft: #13303f; --leaf: #6cc58a; --soil: #c9a274; --soil-soft: #2a2218;
+    --dry: #f08b5b; --hero-top: #10293a; --hero-bottom: #231d14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1712; --surface: #15211a; --ink: #e6efe8; --muted: #a2b5aa; --line: #2a3a31;
+  --water: #4fb3e6; --water-soft: #13303f; --leaf: #6cc58a; --soil: #c9a274; --soil-soft: #2a2218;
+  --dry: #f08b5b; --hero-top: #10293a; --hero-bottom: #231d14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--water); }
+.eyebrow { font: 600 0.75rem/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--water); }
+.lead { color: var(--muted); max-width: 62ch; font-size: 1.08rem; }
+section { padding-block: clamp(56px, 8vw, 96px); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* Top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 1.1rem var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand img { flex: none; }
+.word .w1 { background: linear-gradient(180deg, #bae232, #589d3b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.word .w2 { background: linear-gradient(180deg, #7cdbec, #0260aa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.92rem; }
+.nav a { color: var(--muted); text-decoration: none; }
+.nav a:hover, .nav a:focus-visible { color: var(--ink); }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; font: 600 0.78rem var(--mono); }
+.lang a, .lang span { padding: 4px 9px; text-decoration: none; color: var(--muted); }
+.lang span { background: var(--leafg); color: #10300a; }
+@media (max-width: 720px) { .nav .hide-sm { display: none; } }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; background: linear-gradient(180deg, #bdeefb 0%, #e3f7fd 45%, #f3fbe6 100%); padding-block: clamp(56px, 8vw, 100px) clamp(150px, 16vw, 210px); }
+.hero .wrap { position: relative; z-index: 2; }
+.hero .sun { position: absolute; z-index: 0; top: -90px; right: -50px; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, #fff3c4 0 30%, var(--sun) 31% 50%, rgba(255, 201, 60, 0.25) 51% 64%, transparent 65%); animation: glow 6s ease-in-out infinite alternate; }
+@keyframes glow { from { transform: scale(1); } to { transform: scale(1.06); } }
+.hero .hills { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(120px, 15vw, 200px); }
+.hero .drops { position: absolute; z-index: 1; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(38, 134, 193, 0.55) 0 2.5px, transparent 3px), radial-gradient(circle, rgba(124, 219, 236, 0.7) 0 2px, transparent 2.5px);
+  background-size: 120px 140px, 90px 110px; background-position: 0 0, 40px 60px; animation: fall 9s linear infinite; opacity: .5;
+  -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 60%, transparent 85%); mask: linear-gradient(180deg, transparent, #000 20%, #000 60%, transparent 85%); }
+@keyframes fall { to { background-position: 0 280px, 40px 280px; } }
+@media (prefers-reduced-motion: reduce) { .hero .sun, .hero .drops { animation: none; } }
+:root[data-theme="dark"] .hero { background: linear-gradient(180deg, #0b2f45 0%, #10384c 50%, #17331d 100%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero { background: linear-gradient(180deg, #0b2f45 0%, #10384c 50%, #17331d 100%); } }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+.hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.9rem); font-weight: 800; letter-spacing: -0.02em; color: #0b3d63; }
+:root[data-theme="dark"] .hero h1 { color: #eaf7ff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero h1 { color: #eaf7ff; } }
+.hero h1 em { font-style: normal; background: var(--dropg); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero h1 .leafw { background: var(--leafg); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .lead { margin-top: 20px; }
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid transparent; }
+.btn.primary { background: var(--leafg); color: #10300a; box-shadow: 0 10px 28px -12px rgba(88, 157, 59, 0.9); }
+.btn { transition: transform .15s ease, box-shadow .15s ease; } .btn:hover { transform: translateY(-2px); }
+.btn.ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
+.btn:focus-visible { outline: 3px solid var(--water); outline-offset: 2px; }
+.trust { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 26px; font: 500 0.82rem var(--mono); color: var(--muted); }
+.trust span::before { content: "✓ "; color: var(--leaf); }
+@media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
+
+/* The instrument: one zone's water balance */
+.gauge { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; box-shadow: 0 30px 60px -28px rgba(2, 70, 120, 0.55); min-width: 0; transform: rotate(1deg); }
+.gauge header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.gauge .zone { font: 700 1.05rem var(--display); }
+.gauge .when { font: 0.78rem var(--mono); color: var(--muted); }
+.column { position: relative; height: 210px; margin-top: 18px; display: grid; grid-template-columns: 58px 1fr; gap: 14px; }
+.scale { display: flex; flex-direction: column; justify-content: space-between; font: 0.72rem var(--mono); color: var(--muted); text-align: right; }
+.tank { position: relative; border-radius: 10px; overflow: hidden; background: repeating-linear-gradient(0deg, var(--soil-soft) 0 13px, color-mix(in srgb, var(--soil-soft) 70%, var(--soil)) 13px 14px); border: 1px solid var(--line); }
+.tank .fc { position: absolute; left: 0; right: 0; top: 34%; border-top: 2px dashed var(--leaf); }
+.tank .fc span { position: absolute; right: 8px; top: -20px; font: 600 0.7rem var(--mono); color: var(--leaf); }
+.tank .water { position: absolute; left: 0; right: 0; bottom: 0; height: 49%; background: linear-gradient(180deg, #7cdbec, #2686c1 60%, #0260aa); animation: settle 2.4s ease-out both; }
+.tank .gap { position: absolute; left: 0; right: 0; top: 34%; height: 17%; background: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in srgb, var(--dry) 30%, transparent) 6px 8px); }
+.tank .gap span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font: 600 0.8rem var(--mono); color: var(--dry); }
+@keyframes settle { from { height: 56%; } to { height: 49%; } }
+@media (prefers-reduced-motion: reduce) { .tank .water { animation: none; } }
+.readout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.readout div { background: var(--bg); border-radius: 10px; padding: 10px; min-width: 0; }
+.readout dt { font: 0.7rem var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.readout dd { margin: 4px 0 0; font: 600 1.05rem var(--mono); font-variant-numeric: tabular-nums; }
+.verdict { margin-top: 14px; display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 10px; background: var(--water-soft); font-size: 0.92rem; }
+.verdict b { font-weight: 600; }
+
+/* Benefits */
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; margin-top: 40px; }
+@media (max-width: 860px) { .grid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .grid3 { grid-template-columns: 1fr; } }
+.benefit { display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
+.benefit .ico { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--dropg); color: #fff; box-shadow: 0 10px 22px -12px rgba(2, 96, 170, 0.9); }
+.benefit:nth-child(even) .ico { background: var(--leafg); box-shadow: 0 10px 22px -12px rgba(88, 157, 59, 0.9); }
+.benefit { grid-template-columns: 44px 1fr !important; }
+.benefit p { color: var(--muted); margin-top: 6px; font-size: 0.95rem; }
+
+/* AI band */
+.ai { background: radial-gradient(70% 90% at 100% 0%, rgba(124, 219, 236, 0.18), transparent 60%), radial-gradient(60% 80% at 0% 100%, rgba(186, 226, 50, 0.16), transparent 60%), var(--surface); border-block: 1px solid var(--line); }
+.split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+.split > * { min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chip { font: 500 0.8rem var(--mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.chat { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.msg { max-width: 88%; padding: 12px 14px; border-radius: 14px; font-size: 0.94rem; }
+.msg.you { align-self: flex-end; background: var(--dropg); color: #fff; border-bottom-right-radius: 4px; }
+.msg.bot { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.tool { font: 0.75rem var(--mono); color: var(--muted); align-self: flex-start; padding-left: 4px; }
+.tool b { color: var(--leaf); font-weight: 600; }
+.plan { margin-top: 8px; font: 0.82rem var(--mono); background: var(--bg); border-radius: 8px; padding: 8px 10px; overflow-x: auto; white-space: pre; }
+
+/* Flow preview */
+.flow { margin-top: 36px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+@media (max-width: 860px) { .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .flow { grid-template-columns: 1fr; } }
+.node { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; position: relative; }
+.node .k { font: 600 0.7rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.node .v { margin-top: 6px; font-weight: 600; }
+.node .s { font: 0.82rem var(--mono); color: var(--muted); margin-top: 2px; }
+.node.ok { border-color: color-mix(in srgb, var(--leaf) 55%, var(--line)); }
+.node.ok .v { color: var(--leaf); }
+.timeline { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; overflow-x: auto; }
+.tl { min-width: 560px; display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; font: 0.8rem var(--mono); align-items: center; }
+.tl .lane { position: relative; height: 22px; background: var(--bg); border-radius: 6px; }
+.tl .seg { position: absolute; top: 3px; bottom: 3px; border-radius: 4px; background: var(--water); }
+.tl .seg.soak { background: repeating-linear-gradient(90deg, var(--water-soft) 0 4px, transparent 4px 8px); border: 1px dashed var(--water); }
+.tl .axis { display: flex; justify-content: space-between; color: var(--muted); }
+
+/* Science */
+.science { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 56px); margin-top: 36px; }
+@media (max-width: 860px) { .science { grid-template-columns: 1fr; } }
+.science > * { min-width: 0; }
+.formula { font: 600 clamp(1.05rem, 2.4vw, 1.4rem) var(--mono); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--water); border-radius: 0 12px 12px 0; padding: 18px 20px; overflow-x: auto; }
+.formula small { display: block; font-weight: 400; font-size: 0.8rem; color: var(--muted); margin-top: 8px; }
+.terms { display: grid; gap: 14px; }
+.terms div { display: grid; grid-template-columns: 64px 1fr; gap: 12px; }
+.terms dt { font: 600 0.95rem var(--mono); color: var(--water); }
+.terms dd { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+/* Modes */
+.modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+@media (max-width: 760px) { .modes { grid-template-columns: 1fr; } }
+.mode { border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: var(--surface); }
+.mode .who { font: 0.78rem var(--mono); color: var(--muted); margin-top: 4px; }
+.mode p { margin-top: 10px; color: var(--muted); font-size: 0.95rem; }
+.mode.feature { border: 2px solid transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--leafg) border-box; }
+
+/* Install */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; counter-reset: s; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+.step { counter-increment: s; padding: 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.step::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--leafg); color: #10300a; font: 700 0.9rem var(--mono); margin-bottom: 12px; }
+.step p { color: var(--muted); font-size: 0.95rem; margin-top: 6px; }
+.iu { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 14px; background: linear-gradient(120deg, rgba(186, 226, 50, 0.22), rgba(124, 219, 236, 0.22)); }
+.iu p { color: var(--ink); max-width: 70ch; }
+
+footer { border-top: 1px solid var(--line); padding-block: 40px; color: var(--muted); font-size: 0.9rem; }
+footer .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; }
+@media (max-width: 760px) { footer .wrap { grid-template-columns: 1fr; } }
+footer h4 { margin: 0 0 8px; font: 600 0.75rem var(--mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); }
+footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+footer a { color: var(--muted); }
+.mock-note { font: 0.75rem var(--mono); color: var(--muted); text-align: center; padding-block: 10px 0; }
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Smart Irrigation">
+      <img src="../logo-mark.svg" width="34" height="34" alt="">
+      <span class="word"><span class="w1">Smart</span> <span class="w2">Irrigation</span></span>
+    </a>
+    <nav class="nav" aria-label="Menú principal">
+      <a href="#ai">Configurar con IA</a>
+      <a class="hide-sm" href="#how">Cómo funciona</a>
+      <a class="hide-sm" href="#install">Instalar</a>
+      <a href="https://altmenorg.github.io/HAsmartirrigation/">Docs</a>
+      <span class="lang" aria-label="Idioma"><a href="../" hreflang="en" lang="en">EN</a><a href="../fr/" hreflang="fr" lang="fr">FR</a><a href="../de/" hreflang="de" lang="de">DE</a><span aria-current="true">ES</span></span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="drops" aria-hidden="true"></div>
+    <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bae232"/><stop offset="1" stop-color="#7dbb35"/></linearGradient>
+        <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8cc63a"/><stop offset="1" stop-color="#589d3b"/></linearGradient>
+      </defs>
+      <path d="M0 120 C 220 60 420 70 640 110 S 1080 150 1440 80 V200 H0z" fill="url(#h1)" opacity="0.85"/>
+      <path d="M0 160 C 300 110 560 190 860 150 S 1260 120 1440 150 V200 H0z" fill="url(#h2)"/>
+      <path d="M0 190 C 360 170 1080 175 1440 188 V200 H0z" fill="var(--bg)"/>
+    </svg>
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Smart Irrigation para Home Assistant</p>
+        <h1 style="margin-top:14px">Riega tu <span class="leafw">jardín</span> según lo que <em>realmente bebió</em>.</h1>
+        <p class="lead">Smart Irrigation sigue el agua en el suelo de cada zona, día a día: lo que se llevaron el sol y el viento, lo que devolvió la lluvia. Riega solo los milímetros que faltan, y nada cuando el cielo ya hizo el trabajo.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://my.home-assistant.io/redirect/_change/?redirect=marketplace_repository%2F%3Fowner%3Daltmenorg%26repository%3DHAsmartirrigation%26category%3Dintegration">Añadir a Home Assistant</a>
+          <a class="btn ghost" href="#ai">Configúralo hablando</a>
+        </div>
+        <div class="trust">
+          <span>Por defecto en HACS</span><span>Código abierto, MIT</span><span>21 idiomas</span><span>Modelo FAO-56</span>
+        </div>
+      </div>
+
+      <aside class="gauge" aria-label="Ejemplo: el balance hídrico de una zona">
+        <header>
+          <span class="zone">Huerto</span>
+          <span class="when">mar. 06:12</span>
+        </header>
+        <div class="column">
+          <div class="scale"><span>+10 mm</span><span>0</span><span>−10</span><span>−20</span></div>
+          <div class="tank">
+            <div class="water"></div>
+            <div class="gap"><span>−4,2 mm</span></div>
+            <div class="fc"><span>lleno</span></div>
+          </div>
+        </div>
+        <dl class="readout">
+          <div><dt>ET₀ hoy</dt><dd>3,8 mm</dd></div>
+          <div><dt>Lluvia 24 h</dt><dd>0,0 mm</dd></div>
+          <div><dt>Previsión</dt><dd>6,2 mm</dd></div>
+        </dl>
+        <p class="verdict"><span aria-hidden="true">☔</span><span><b>Omitido esta mañana.</b> Los 6,2 mm de lluvia previstos cubren los 4,2 mm que faltan.</span></p>
+      </aside>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Lo que hace por ti</p>
+      <h2 style="margin-top:12px">Menos agua, plantas más sanas, nada que vigilar</h2>
+      <div class="grid3">
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg></div><div><h3>Riega lo que falta</h3><p>Cada zona tiene su propio balance en mm. El riego dura justo lo necesario para volver a llenarla, según el caudal de tus aspersores.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16a5 5 0 1 1 1-9.9A6 6 0 0 1 19 9a4 4 0 0 1-1 7.9"/><path d="M9 19l-1 2M13 19l-1 2M17 19l-1 2"/></svg></div><div><h3>Se aparta cuando llueve</h3><p>Lluvia medida o prevista, helada, viento o un sensor de suelo húmedo: el riego se retiene, y la página dice por qué.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></div><div><h3>Programas que se leen</h3><p>Pasos, horarios al amanecer o después de otro programa, riego fraccionado. Cada programa se dibuja antes de arrancar.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><div><h3>El tiempo de donde estás</h3><p>Open-Meteo desde el primer momento, sin clave. O tu propia estación meteorológica, un pluviómetro, una sonda de suelo, combinados como quieras.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h3>Válvulas que siempre cierran</h3><p>Comprueba que cada válvula se abrió y se cerró, usa el temporizador propio de la válvula si lo tiene, y aparta una zona que falla.</p></div></div>
+        <div class="benefit"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-7"/></svg></div><div><h3>Cuenta lo que realmente salió</h3><p>¿Regaste a mano, o tienes caudalímetro? Contabiliza el agua que salió de verdad, y te avisa si hay una fuga.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ai" id="ai">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Configurar con IA</p>
+        <h2 style="margin-top:12px">Háblale de tu jardín. Él hace la configuración.</h2>
+        <p class="lead" style="margin-top:16px">Activa la opción de asistente y el asistente de voz o chat de Home Assistant puede leer y cambiar Smart Irrigation: zonas, programas, horarios, hasta las opciones que solo tocan los usuarios avanzados. Comprueba un programa antes de guardarlo y te dice qué va a cambiar.</p>
+        <div class="chips">
+          <span class="chip">Assist con Claude</span><span class="chip">Assist con ChatGPT</span><span class="chip">Modelos locales</span><span class="chip">Clientes MCP</span>
+        </div>
+      </div>
+      <div class="chat" aria-label="Conversación de ejemplo">
+        <div class="msg you">Riega el huerto una mañana sí y otra no, terminando al amanecer, y sáltatelo cuando venga lluvia.</div>
+        <div class="tool"><b>✓</b> GetPrograms · GetConfigReference · PreviewProgram</div>
+        <div class="msg bot">Esto es lo que guardaría. El nuevo programa riega el huerto y luego las aromáticas, termina al amanecer cada 2 días y tiene en cuenta el tiempo:
+          <div class="plan">amanecer − 18 min  Huerto       12 min
+                   Aromáticas    6 min
+cada 2 días · tiempo: sí</div>
+          ¿Lo guardo?</div>
+        <div class="msg you">Sí, y solo de mayo a septiembre.</div>
+        <div class="tool"><b>✓</b> SaveProgram · months: 5–9</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <p class="eyebrow">Míralo antes de que corra</p>
+      <h2 style="margin-top:12px">Cada programa muestra lo que hará mañana</h2>
+      <p class="lead" style="margin-top:16px">Cada programa dibuja su propio recorrido, dice si el tiempo lo permite hoy y coloca los próximos días en una línea de tiempo. Sin adivinar qué se abrirá a las 5 de la mañana.</p>
+      <div class="flow" aria-label="Ejemplo de recorrido de un programa">
+        <div class="node"><div class="k">Inicio</div><div class="v">Al amanecer</div><div class="s">termina a las 06:58</div></div>
+        <div class="node ok"><div class="k">¿Lo permite el tiempo?</div><div class="v">Sí</div><div class="s">sin lluvia, viento 9 km/h</div></div>
+        <div class="node"><div class="k">Paso 1 · 2 pasadas</div><div class="v">Césped</div><div class="s">2 × 7 min · pausa 15 min</div></div>
+        <div class="node"><div class="k">Paso 2</div><div class="v">Rosales, seto</div><div class="s">juntos · 9 min</div></div>
+      </div>
+      <div class="timeline">
+        <div class="tl">
+          <span></span><div class="axis"><span>06:10</span><span>06:25</span><span>06:40</span><span>06:58</span></div>
+          <span>Césped</span><div class="lane"><div class="seg" style="left:0;width:15%"></div><div class="seg soak" style="left:15%;width:31%"></div><div class="seg" style="left:46%;width:15%"></div></div>
+          <span>Rosales</span><div class="lane"><div class="seg" style="left:61%;width:19%"></div></div>
+          <span>Seto</span><div class="lane"><div class="seg" style="left:61%;width:19%"></div></div>
+        </div>
+      </div>
+
+      <div class="science">
+        <div>
+          <p class="eyebrow">Cómo funciona</p>
+          <h2 style="margin-top:12px">Un balance hídrico por zona, como los agrónomos</h2>
+          <p class="lead" style="margin-top:16px">El modelo es el método de referencia de la FAO para las necesidades de agua de los cultivos, usado en la agricultura de todo el mundo. Smart Irrigation lo calcula cada día, u hora a hora, para cada zona.</p>
+          <p class="formula" style="margin-top:22px">balance = balance − ET₀ × Kc + lluvia + riego<small>Bajo cero, a la zona le falta agua. 1 mm que falta = 1 litro por m².</small></p>
+        </div>
+        <dl class="terms">
+          <div><dt>ET₀</dt><dd>Lo que un césped de referencia pierde hoy por el sol, el viento, el calor y el aire seco (FAO-56 Penman-Monteith).</dd></div>
+          <div><dt>Kc</dt><dd>La sed de tus plantas comparada con ese césped, mes a mes. Elige «huerto» o «seto» y él se encarga.</dd></div>
+          <div><dt>lluvia</dt><dd>Medida o del servicio meteorológico. Los chubascos demasiado débiles para llegar a las raíces no cuentan.</dd></div>
+          <div><dt>suelo</dt><dd>La arena drena rápido, la arcilla retiene. El suelo que elijas limita lo que la zona puede guardar.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="ai">
+    <div class="wrap">
+      <p class="eyebrow">Sencillo de serie</p>
+      <h2 style="margin-top:12px">Hecho para jardineros. Listo para usuarios avanzados.</h2>
+      <div class="modes">
+        <div class="mode feature"><h3>Estándar</h3><p class="who">la mayoría de jardines</p><p>Un asistente pregunta qué cultivas y con qué lo riegas. Las pantallas muestran lo que necesita un jardinero, y nada más.</p></div>
+        <div class="mode"><h3>Avanzado</h3><p class="who">los manitas</p><p>Los mandos del modelo: drenaje, umbrales, tiempo de llenado, coeficiente de cultivo por mes, riego observado y alertas de fuga.</p></div>
+        <div class="mode"><h3>YAML</h3><p class="who">usuarios avanzados y su IA</p><p>Cada programa y cada zona en YAML. Las opciones más raras viven ahí, y el editor visual las conserva.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <p class="eyebrow">Instalar</p>
+      <h2 style="margin-top:12px">Tres pasos, unos minutos</h2>
+      <div class="steps">
+        <div class="step"><h3>Búscalo en HACS</h3><p><a href="https://my.home-assistant.io/redirect/_change/?redirect=marketplace_repository%2F%3Fowner%3Daltmenorg%26repository%3DHAsmartirrigation%26category%3Dintegration">Ábrelo en HACS con un clic</a>, o busca «Smart Irrigation» allí y descárgalo. Sin repositorio que añadir.</p></div>
+        <div class="step"><h3>Añade la integración</h3><p>Reinicia Home Assistant y luego Ajustes › Dispositivos y servicios › Añadir integración.</p></div>
+        <div class="step"><h3>Sigue al asistente</h3><p>Abre Smart Irrigation en la barra lateral. Te pide tus zonas y válvulas, y el tiempo funciona desde el principio.</p></div>
+      </div>
+      <div class="iu">
+        <p><b>¿Vienes de Irrigation Unlimited?</b> Trae tus controladores, zonas y secuencias de una vez, y conserva tus horarios.</p>
+        <a class="btn ghost" href="https://altmenorg.github.io/HAsmartirrigation/usage-from-irrigation-unlimited.html">Guía de importación</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top"><img src="../logo-mark.svg" width="30" height="30" alt=""><span class="word"><span class="w1">Smart</span> <span class="w2">Irrigation</span></span></a>
+      <p style="margin-top:10px;max-width:46ch">Integración de código abierto para Home Assistant, licencia MIT. Creada por Jeroen ter Heerdt, mantenida por la comunidad.</p>
+    </div>
+    <div>
+      <h4>Aprender</h4>
+      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Documentación (en inglés)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Notas de versión</a></li><li><a href="#how">El modelo FAO-56</a></li></ul>
+    </div>
+    <div>
+      <h4>Comunidad</h4>
+      <ul><li><a href="https://github.com/altmenorg/HAsmartirrigation">GitHub</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/discussions">Discussions</a></li><li><a href="https://hosted.weblate.org/engage/smart-irrigation/">Traducir en Weblate</a></li></ul>
+    </div>
+  </div>
+  <p class="mock-note">Maqueta · cifras y conversación de ejemplo · capturas reales del panel en camino</p>
+</footer>
+
+</body>
+</html>
