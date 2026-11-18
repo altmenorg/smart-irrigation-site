@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/installation-weatherservice.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/installation-weatherservice.html">
       
       
         <link rel="prev" href="installation-download.html">
@@ -1985,15 +1985,17 @@
 
 
 <h1 id="configuring-the-weather-service">Configuring the weather service<a class="headerlink" href="#configuring-the-weather-service" title="Permanent link">&para;</a></h1>
-<p>The weather service is configured <strong>from the Smart Irrigation panel</strong>, on the fly — it is no longer part of the install wizard. You can enable it, change it, or turn it off at any time without reinstalling or reloading the integration.</p>
+<p>The weather service is configured <strong>from the Smart Irrigation panel</strong>, on the fly; it is no longer part of the install wizard. You can enable it, change it, or turn it off at any time without reinstalling or reloading the integration.</p>
 <p>To set it up:</p>
 <ol>
 <li>Open the <strong>Smart Irrigation</strong> panel from the Home Assistant sidebar.</li>
 <li>Go to the <strong>Weather service</strong> settings.</li>
-<li>Toggle <strong>Use a weather service</strong> on, then pick the service you want:</li>
-<li><strong>Open-Meteo</strong> (the default) is keyless and works worldwide — no API key required.</li>
+<li>Toggle <strong>Use a weather service</strong> on, then pick the service you want:<ul>
+<li><strong>Open-Meteo</strong> (the default) is keyless and works worldwide, with no API key.</li>
 <li><strong>A weather entity in Home Assistant</strong> reads one of your weather entities (DWD, Met.no, KNMI, ...): pick the entity instead of a key. It reports no rain that fell, so each sensor group needs a rain sensor (see <a href="weather-services.html#a-weather-entity-in-home-assistant">weather services</a>).</li>
 <li><strong>Open Weather Map</strong> and <strong>Pirate Weather</strong> require an API key (see below).</li>
+</ul>
+</li>
 <li>Enter the API key if the chosen service needs one, or pick the weather entity, then save. When the key or the entity is accepted you will see a success message; otherwise double check it. After switching to a weather entity, the page also names the sensor groups that still take their rain from the weather service: give each of them a rain sensor.</li>
 </ol>
 <p>If you turn the weather service <strong>off</strong>, forecasting is unavailable and you must provide all weather data from another source, such as your own weather station sensors, configured in your <a href="configuration-sensor-groups.html">sensor groups</a>.</p>

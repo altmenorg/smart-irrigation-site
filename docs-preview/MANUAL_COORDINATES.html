@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/MANUAL_COORDINATES.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/MANUAL_COORDINATES.html">
       
       
         <link rel="prev" href="weather-services.html">
@@ -2396,12 +2396,16 @@
 <h3 id="coordinate-selection-logic">Coordinate Selection Logic<a class="headerlink" href="#coordinate-selection-logic" title="Permanent link">&para;</a></h3>
 <p>The system uses the following priority order for coordinates:</p>
 <ol>
-<li><strong>Manual coordinates</strong> (if enabled and valid)</li>
+<li><strong>Manual coordinates</strong> (if enabled and valid)<ul>
 <li>Must have both latitude and longitude set</li>
 <li>Elevation defaults to 0 if not specified</li>
-<li><strong>Home Assistant coordinates</strong> (fallback)</li>
+</ul>
+</li>
+<li><strong>Home Assistant coordinates</strong> (fallback)<ul>
 <li>Uses HA's configured latitude, longitude, elevation</li>
 <li>Logs warnings if using default values</li>
+</ul>
+</li>
 </ol>
 <h3 id="weather-service-integration">Weather Service Integration<a class="headerlink" href="#weather-service-integration" title="Permanent link">&para;</a></h3>
 <p>All supported weather services automatically use the effective coordinates:</p>
@@ -2411,11 +2415,13 @@
 <li><strong>Pirate Weather</strong>: uses the coordinates for location-specific forecasts</li>
 </ul>
 <h3 id="coordinate-validation">Coordinate Validation<a class="headerlink" href="#coordinate-validation" title="Permanent link">&para;</a></h3>
-<p>Input validation ensures:
-- Latitude: -90° to 90° (North/South poles to equator)
-- Longitude: -180° to 180° (International Date Line coverage)
-- Elevation: -1000m to 9000m (below sea level to high mountains)
-- Precision: Up to 6 decimal places for sub-meter accuracy</p>
+<p>Input validation ensures:</p>
+<ul>
+<li>Latitude: -90° to 90° (North/South poles to equator)</li>
+<li>Longitude: -180° to 180° (International Date Line coverage)</li>
+<li>Elevation: -1000m to 9000m (below sea level to high mountains)</li>
+<li>Precision: Up to 6 decimal places for sub-meter accuracy</li>
+</ul>
 <h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-remote-property">Example 1: Remote Property<a class="headerlink" href="#example-1-remote-property" title="Permanent link">&para;</a></h3>
 <p>Your Home Assistant is at your main residence, but you want to irrigate a garden at a remote property:</p>
@@ -2442,16 +2448,22 @@
 <p>The coordinate configuration feature is localized in the 20 languages of the panel.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
-<p><strong>Coordinates not taking effect:</strong>
-- They are used from the next weather update: no restart is needed
-- Check that <strong>Use manual coordinates</strong> is on, on the Location coordinates card</p>
-<p><strong>Weather data seems wrong:</strong>
-- Verify coordinates are correct (use a mapping service to confirm)
-- Check that elevation is reasonable for your location
-- Ensure weather service API key is valid</p>
-<p><strong>UI shows default coordinates:</strong>
-- Manual coordinates may not be enabled
-- Check the toggle on the Location coordinates card (Weather &gt; Weather service)</p>
+<p><strong>Coordinates not taking effect:</strong></p>
+<ul>
+<li>They are used from the next weather update: no restart is needed</li>
+<li>Check that <strong>Use manual coordinates</strong> is on, on the Location coordinates card</li>
+</ul>
+<p><strong>Weather data seems wrong:</strong></p>
+<ul>
+<li>Verify coordinates are correct (use a mapping service to confirm)</li>
+<li>Check that elevation is reasonable for your location</li>
+<li>Ensure weather service API key is valid</li>
+</ul>
+<p><strong>UI shows default coordinates:</strong></p>
+<ul>
+<li>Manual coordinates may not be enabled</li>
+<li>Check the toggle on the Location coordinates card (Weather &gt; Weather service)</li>
+</ul>
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h3>
 <p>The system logs coordinate selection decisions:
 <div class="highlight"><pre><span></span><code>INFO: Using manual coordinates: lat=40.712800, lon=-74.006000, elevation=100m

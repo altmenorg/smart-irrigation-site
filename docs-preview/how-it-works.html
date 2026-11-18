@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/how-it-works.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/how-it-works.html">
       
       
         <link rel="prev" href="configuration-closed-loop.html">
@@ -2117,7 +2117,7 @@
 <li>At some point in the day (configurable) the <code>nett precipitation</code> is added/substracted from the water balance (the <code>bucket</code> attribute), which starts at zero. The water balance is calculated using this formula: `old_bucket + nett precipitation.</li>
 <li>If the water balance &gt; 0, the <code>drainage rate</code> is taken into the account (if set) and subtracted from the water balance value. The actual drainage rate is determined dynamically by the fraction the water balance is of the maximum water balance value, following hydraulic conductivity method of <a href="https://open.library.okstate.edu/rainorshine/chapter/1-8-models-for-soil-hydraulic-conductivity/">Brooks and Corey, Eq. 4-6</a>. When it rained during the window, the window is replayed <strong>hour by hour</strong>: each hour gets its evapotranspiration, the rain that fell in it, then that hour's drainage. The evapotranspiration of each hour is the hourly equation's own figure when the hourly calculation is on, and otherwise follows the sun (in proportion to how high it stands, nothing at night). A rain that just fell is only drained from the hour it fell, not as if it had been in the soil since the previous calculation. When the rain is seen is taken from the readings of the rain sensor (a rain gauge's total, or a rain rate); when nothing says it, the rain is spread evenly over the window.</li>
 <li>If the water balance is below zero, irrigation is required.</li>
-<li>Irrigation should run for <code>sensor.smart_irrigation_[zone_name]</code> seconds, which is 0 when <code>bucket &gt;= 0</code> or when the deficit is below the zone's <strong>irrigation threshold</strong> — deep and infrequent beats a daily trickle.</li>
+<li>Irrigation should run for <code>sensor.smart_irrigation_[zone_name]</code> seconds, which is 0 when <code>bucket &gt;= 0</code> or when the deficit is below the zone's <strong>irrigation threshold</strong>: deep and infrequent beats a daily trickle.</li>
 <li>Afterwards the water balance has to be credited with the water that went in. Three ways, and you pick one: let Smart Irrigation <a href="configuration-closed-loop.html">open the valve itself</a>, which credits the run it performed; let it <a href="configuration-closed-loop.html">watch the valve</a> and credit any run of it; or call <a href="usage-services.html"><code>credit_watering</code></a> from your own automation with how long the zone ran. Never two of them, or the water is counted twice. A <a href="usage-automations.html">blueprint</a> does the third for you, per brand of controller.</li>
 </ol>
 <p>The whole of what is published and when it changes is on one page: <a href="usage-output-contract.html">the output contract</a>.</p>
@@ -2133,7 +2133,7 @@ matters, and it is worth saying why, because it used to be the other way round:
 the factor was applied at the very end, to the duration. That scaled the whole
 balance rather than the crop's water use, so a factor below 1 credited only that
 fraction of the rain that fell, and the water balance kept draining at the full
-reference rate — reaching any threshold about <code>1/Kc</code> times too fast. No factor
+reference rate, reaching any threshold about <code>1/Kc</code> times too fast. No factor
 applied at the end can undo a decision about <em>when</em> to water.</p>
 <p>The panel asks what grows in the zone, in words, and writes the FAO-56 factor
 for the answer. Your own number wins if you set one.</p>
@@ -2152,7 +2152,7 @@ Settings &gt; General, and <a href="configuration-general.html">what each form n
 there</a>.</p>
 <p>Either way the sun is the term the result is most sensitive to. A radiation
 sensor is best, a weather service that publishes radiation is next, and the
-day's temperature range is the last resort — the estimate FAO-56 gives for
+day's temperature range is the last resort: the estimate FAO-56 gives for
 exactly that case.</p>
 <h2 id="weekly-behavior-example">Weekly behavior example<a class="headerlink" href="#weekly-behavior-example" title="Permanent link">&para;</a></h2>
 <p>To understand how <code>precipitation</code>, <code>nett precipitation</code>, the water balance and irrigation interact, see let's look at an example behavior in a week.

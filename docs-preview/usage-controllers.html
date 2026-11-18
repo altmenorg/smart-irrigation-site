@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/usage-controllers.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/usage-controllers.html">
       
       
         <link rel="prev" href="usage-output-contract.html">
@@ -2257,10 +2257,12 @@
 <p>The blueprints are copied into your own <code>blueprints/</code> folder when the integration starts, so they are already in Home Assistant. If you do not see them, or want the latest version, use the import links on the <a href="usage-automations.html#blueprints-we-provide">automations page</a>.</p>
 <ol>
 <li>Go to <em>Settings &gt; Automations &amp; scenes &gt; Blueprints</em> and pick <strong>Smart Irrigation with Rain Bird</strong> (or Hydrawise, Rachio, OpenSprinkler, B-hyve).</li>
-<li>Click <em>Create automation</em> and fill in the three fields:</li>
+<li>Click <em>Create automation</em> and fill in the three fields:<ul>
 <li><strong>Smart Irrigation zone</strong>: the zone's duration sensor, <code>sensor.smart_irrigation_&lt;zone name&gt;</code>. The list only offers Smart Irrigation duration sensors.</li>
 <li><strong>Controller zone</strong>: the entity of the controller zone that waters it. Which entity that is depends on the brand, see the <a href="#per-controller-notes">notes below</a>. The list is filtered to that integration.</li>
 <li><strong>Credit the run to the water balance</strong>: leave it on, unless <a href="configuration-closed-loop.html">observed watering</a> already watches this controller zone. In that case turn it off, or the run is credited twice.</li>
+</ul>
+</li>
 <li>Save, give the automation the zone's name, and repeat for every zone.</li>
 </ol>
 <p>One automation per zone is deliberate: each zone has its own duration and its own water balance.</p>

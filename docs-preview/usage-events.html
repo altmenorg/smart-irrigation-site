@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/usage-events.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/usage-events.html">
       
       
         <link rel="prev" href="usage-services.html">
@@ -2026,7 +2026,7 @@
 </tr>
 <tr>
 <td><code>smart_irrigation_irrigation_skipped</code></td>
-<td>Fired when a start trigger is reached and the day is a skip day, so nothing is watered. Data: the trigger's identity, plus <code>reason</code> and <code>checks</code>, the same detail the Home page shows. The reason is the skip condition that held the day back: <code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code> or <code>soil_moisture</code>. A trigger reached while Smart Irrigation is <a href="configuration-general.html#stop-everything">stopped</a> fires it with the reason <code>irrigation_off</code>, and while it <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">calculates only</a> with the reason <code>calculate_only</code> (and no <code>checks</code>).</td>
+<td>Fired when a start (a program's schedule, or a start trigger) is held back by the skip conditions, so nothing is watered at that start. Data: the identity of what started (for a program, <code>program_id</code> and <code>schedule_id</code>), plus <code>reason</code> and <code>checks</code>, the same detail the Home page shows. The reason is the skip condition that held that start back: <code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code> or <code>soil_moisture</code>. A trigger reached while Smart Irrigation is <a href="configuration-general.html#stop-everything">stopped</a> fires it with the reason <code>irrigation_off</code>, and while it <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">calculates only</a> with the reason <code>calculate_only</code> (and no <code>checks</code>).</td>
 </tr>
 </tbody>
 </table>
@@ -2058,6 +2058,7 @@
 <p>A skipped day used to be the absence of an event, and nothing can listen for
 something that does not happen. That is why the skip now fires its own event:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">automation</span><span class="p">:</span>
+
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Tell</span><span class="nv"> </span><span class="s">me</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">irrigation</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">skipped"</span>
 <span class="w">    </span><span class="nt">trigger</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">event</span>
@@ -2077,7 +2078,7 @@ the next start would be skipped and why, and what the last real decision was.</p
 <li><strong>None.</strong> Nothing starts the watering, whatever the weather. The durations are still calculated. It is the way to keep Smart Irrigation from starting a run.</li>
 </ul>
 <p>With <strong>account for duration</strong> on, a trigger works back from its moment so watering <em>finishes</em> then; with it off, watering <em>starts</em> then. That applies to a fixed time as well: set 06:30 with it on and an hour-long run starts at 05:30.</p>
-<p>The skip conditions still apply: on a skip day no start event is fired, and the skipped event above is fired instead.</p>
+<p>The skip conditions still apply: when they hold a start back no start event is fired, and the skipped event above is fired instead.</p>
 <h2 id="event-data">Event data<a class="headerlink" href="#event-data" title="Permanent link">&para;</a></h2>
 <p>The event carries the identity of the trigger that fired, so a single automation can react differently per trigger:</p>
 <table>
@@ -2112,6 +2113,7 @@ the next start would be skipped and why, and what the last real decision was.</p
 </table>
 <p>Example: filter on <code>trigger_name</code> to react to a specific trigger.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">trigger</span><span class="p">:</span>
+
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">event</span>
 <span class="w">    </span><span class="nt">event_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">smart_irrigation_start_irrigation_all_zones</span>
 <span class="w">    </span><span class="nt">event_data</span><span class="p">:</span>

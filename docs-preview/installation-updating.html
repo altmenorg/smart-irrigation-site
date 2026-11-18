@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/installation-updating.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/installation-updating.html">
       
       
         <link rel="prev" href="installation-options.html">
@@ -1897,30 +1897,24 @@
 
 <h1 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">&para;</a></h1>
 <ol>
-<li>To install the latest version, follow these instructions:<ul>
-<li><strong>If installed using HACS</strong>: In the HACS panel or in the Home Assistant updates there should be a notification when a new version is available. Follow the instructions within HACS to update the installation files. You can also force checking for an update by updating information for the repository in the HACS.</li>
-<li><strong>If installed manually</strong>: Download the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">latest release</a> as a zip file and extract it into the <code>custom_components</code> folder in your Home Assistant installation, overwriting the previous installation.</li>
-</ul>
-</li>
-<li>To install a specific version, follow these instructions:<ul>
-<li><strong>If installed using HACS</strong>: depending on the HACS version you are using you can either use find a version dropdown in the Redownload option or you have to use the <code>update.install</code> service as follows:
-    <div class="highlight"><pre><span></span><code><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update.install</span>
+<li>To install the latest version, follow these instructions:
+    * <strong>If installed using HACS</strong>: In the HACS panel or in the Home Assistant updates there should be a notification when a new version is available. Follow the instructions within HACS to update the installation files. You can also force checking for an update by updating information for the repository in the HACS.
+    * <strong>If installed manually</strong>: Download the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">latest release</a> as a zip file and extract it into the <code>custom_components</code> folder in your Home Assistant installation, overwriting the previous installation.</li>
+<li>To install a specific version, follow these instructions:
+    * <strong>If installed using HACS</strong>: depending on the HACS version you are using you can either use find a version dropdown in the Redownload option or you have to use the <code>update.install</code> service as follows:
+        <div class="highlight"><pre><span></span><code><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update.install</span>
 <span class="nt">target</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update.smart_irrigation_update</span>
 <span class="nt">data</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2026.10.2</span>
-</code></pre></div></li>
-<li><strong>If installed manually</strong>: Download the zip file for the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">specific release</a> you want and extract it into the <code>custom_components</code> folder in your Home Assistant installation, overwriting the previous installation.</li>
-</ul>
-</li>
+</code></pre></div>
+    * <strong>If installed manually</strong>: Download the zip file for the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">specific release</a> you want and extract it into the <code>custom_components</code> folder in your Home Assistant installation, overwriting the previous installation.</li>
 <li>Restart HA to load the changes.</li>
-<li>(Optional) Verify the version number:<ul>
-<li><strong>Verify version of the backend</strong>: In HA, go to Configuration -&gt; Integrations. In the Smart Irrigation card, click the device to see the Device info. The 'firmware version' represents the installed version number.</li>
-<li><strong>Verify version of the frontend</strong>:
+<li>(Optional) Verify the version number:
+    * <strong>Verify version of the backend</strong>: In HA, go to Configuration -&gt; Integrations. In the Smart Irrigation card, click the device to see the Device info. The 'firmware version' represents the installed version number.
+    * <strong>Verify version of the frontend</strong>:
 In the Smart Irrigation configuration panel, the version number is displayed in the top right. If the version does not match with the backend version, your browser has an outdated version stored in the cache.
 To clear the cache, you should do a <a href="https://refreshyourcache.com/en/cache/">force refresh of your browser</a>.</li>
-</ul>
-</li>
 </ol>
 
 

@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/configuration.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/configuration.html">
       
       
         <link rel="prev" href="installation-uninstalling.html">
@@ -985,10 +985,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#four-tabs" class="md-nav__link">
+  <a href="#the-tabs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Four tabs
+        The tabs
       
     </span>
   </a>
@@ -1938,10 +1938,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#four-tabs" class="md-nav__link">
+  <a href="#the-tabs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Four tabs
+        The tabs
       
     </span>
   </a>
@@ -1987,25 +1987,27 @@
 <h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h1>
 <p>You use the Smart Irrigation panel to configure the integration. Make sure you <a href="installation.html">install</a> it first.</p>
 <p><img alt="" src="assets/images/configuration-1.png" /></p>
-<h2 id="four-tabs">Four tabs<a class="headerlink" href="#four-tabs" title="Permanent link">&para;</a></h2>
+<h2 id="the-tabs">The tabs<a class="headerlink" href="#the-tabs" title="Permanent link">&para;</a></h2>
 <p>The panel used to have ten tabs, which is nine more than most people open twice
-a year. It has four, each a group of pages: a group opens its first page and
+a year. It has four, five with <strong>Calculate and water</strong>, each a group of pages: a group opens its first page and
 shows the others on a second row. Nothing was removed and every address still
 works.</p>
 <ol>
-<li><strong>Home</strong> — what is happening. <a href="usage-info.html">Info</a>: what will happen at the
+<li><strong>Home</strong>: what is happening. <a href="usage-info.html">Info</a>: what will happen at the
    next start and why, whether it would be held back, where each zone stands
    right now, and the days ahead. Then <strong>History</strong>: what actually ran, by day,
    with durations and volumes.</li>
-<li><strong>Zones</strong> — <a href="configuration-zones.html">the zones</a> of your irrigation system:
+<li><strong>Zones</strong>: <a href="configuration-zones.html">the zones</a> of your irrigation system:
    what each waters, how it is calculated, and what it is short of.</li>
-<li><strong>Weather</strong> — where the numbers come from. <a href="installation-weatherservice.html">Weather
+<li><strong>Watering</strong>, with <strong>Calculate and water</strong> only:
+   <a href="usage-full-controller.html">the planning, the programs, and the pumps and main valves</a>.</li>
+<li><strong>Weather</strong>: where the numbers come from. <a href="installation-weatherservice.html">Weather
    service</a> with the location and how often it
    is read, <a href="configuration-sensor-groups.html">sensor groups</a>: which sensor or
    service provides each value the calculation reads, and the checks that
    <a href="configuration-weather.html#skipping-a-run">skip a run</a> on the weather.</li>
-<li><strong>Settings</strong> — everything you set once.
-   <a href="configuration-general.html">General</a>: the master switch, then the
+<li><strong>Settings</strong>: everything you set once.
+   <a href="configuration-general.html">General</a>: what Smart Irrigation does (calculate and water, calculate only, or stop everything), then the
    calculation, the control and the system. Then <strong>Backup / restore</strong>, and
    <strong>Help</strong>.</li>
 </ol>
@@ -2023,8 +2025,8 @@ works.</p>
 <p>The panel comes in two depths, switched under <strong>Settings &gt; General</strong>.</p>
 <p>The <strong>standard</strong> panel keeps what a zone is: its name, what it waters with,
 where its weather comes from, what it is short of. The <strong>advanced</strong> panel adds
-the settings that tune the model — the drainage rate, the thresholds, the crop
-factor, how far ahead a zone looks, cycle and soak — which have sound defaults
+the settings that tune the model (the drainage rate, the thresholds, the crop
+factor, how far ahead a zone looks, cycle and soak), which have sound defaults
 and are not improved by being met accidentally.</p>
 <p><strong>An installation that already had zones when this arrived is on the advanced
 panel</strong>, because those settings were chosen on purpose and folding them away

@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/installation.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/installation.html">
       
       
         <link rel="prev" href="getting-started-from-scratch.html">
@@ -1900,24 +1900,25 @@
 <p>Starting with nothing at all, not even Home Assistant? <a href="getting-started-from-scratch.html">From nothing to a watered garden</a> walks the whole path in half an hour, hardware included, and comes back here for this part.</p>
 </blockquote>
 <p>Smart Irrigation needs Home Assistant 2026.3 or later.</p>
-<p>Installing the Smart Irrigation integration consists of a few steps:</p>
+<p>Three steps:</p>
 <ol>
-<li><a href="installation-download.html">Downloading the integration</a>.</li>
-<li>Adding it in Home Assistant. Setup is a single step that asks nothing: the weather service, the sensor groups and the zones are set up afterwards in the panel, by its setup assistant.</li>
-</ol>
+<li><strong><a href="installation-download.html">Download the integration</a></strong> from HACS (one click) or by hand, and restart Home Assistant.</li>
+<li>
+<p><strong>Add it</strong> in Settings › Devices &amp; services › Add integration › Smart Irrigation. Setup asks nothing: a new <strong>Smart Irrigation</strong> panel appears in the sidebar.</p>
 <p><img alt="" src="assets/images/installation-1.png" /></p>
-<p>After the integration has been installed, you will find a new panel named 'Smart Irrigation' in your side bar. <a href="configuration.html">Use it to configure your set up</a>.</p>
-<p>Then choose where your weather data comes from:</p>
-<ol>
-<li><a href="installation-weatherservice.html">Configuring the weather service</a> (done from the panel, on the fly).</li>
+</li>
+<li>
+<p><strong>Open the panel</strong> and follow its setup assistant: it creates your first zone and picks the <a href="installation-weatherservice.html">weather service</a> (Open-Meteo by default, no key needed). From there, <a href="configuration.html">configure the rest</a>.</p>
+</li>
 </ol>
 <p>Also in this section:</p>
-<ol>
-<li><a href="installation-options.html">Options: the Configure button</a></li>
-<li><a href="installation-updating.html">Updating to the latest or specific version</a></li>
-<li><a href="installation-migration.html">Migration from V1 (v0.0.X) to V2 (202X.X.X)</a></li>
-<li><a href="installation-uninstalling.html">Uninstalling the integration</a></li>
-</ol>
+<ul>
+<li><a href="weather-services.html">Which weather service</a> to pick, and <a href="MANUAL_COORDINATES.html">manual coordinates</a> when the weather should be read somewhere else than your Home Assistant location.</li>
+<li><a href="installation-updating.html">Updating</a> to the latest or a specific version.</li>
+<li><a href="installation-options.html">The Configure button</a> on the integration's page, which only points to the panel.</li>
+<li><a href="installation-migration.html">Migrating from V1</a> (v0.0.X), for very old installations.</li>
+<li><a href="installation-uninstalling.html">Uninstalling</a> the integration.</li>
+</ul>
 
 
 

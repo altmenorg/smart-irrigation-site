@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/installation-migration.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/installation-migration.html">
       
       
         <link rel="prev" href="installation-updating.html">
@@ -1975,11 +1975,11 @@ Please follow the procedure below for each installed instance of V1, before upgr
 <li>After you have downloaded and confirmed all diagnostics files (one for each instance of Smart Irrigation), remove all instances of Smart Irrigation.</li>
 <li>Restart Home Assistant</li>
 <li>Use HACS to install Smart Irrigation V202X.X. Make sure you use the correct API key and API version if you want to continue using Open Weather Map (recommended). Also, refer to your diagnostics file to remind yourself if and which sensors you used to supply part of the required weather data.</li>
-<li>Use the panel in the left sidebar to set up your zones, leveraging your diagnostics file to make the correct settings. A couple of things have changed:</li>
-<li>you can disregard reference ET values, they are not required.</li>
-<li>each zone has a property called 'throughput'. To calculate throughput do <code>number of sprinklers x flow</code> from your diagnostics file for that zone.</li>
-<li>each zone has a property called 'size'. This is the same as the <code>area</code> from your diagnostics file for that zone.</li>
-<li>sensor groups are where you decide what sources to use (Open Weather Map, Sensors, Static values (new in V2) or a mix). Use the true/false values and sensors from your diagnostics file to figure out what set up you had.</li>
+<li>Use the panel in the left sidebar to set up your zones, leveraging your diagnostics file to make the correct settings. A couple of things have changed:
+- you can disregard reference ET values, they are not required.
+- each zone has a property called 'throughput'. To calculate throughput do <code>number of sprinklers x flow</code> from your diagnostics file for that zone.
+- each zone has a property called 'size'. This is the same as the <code>area</code> from your diagnostics file for that zone.
+- sensor groups are where you decide what sources to use (Open Weather Map, Sensors, Static values (new in V2) or a mix). Use the true/false values and sensors from your diagnostics file to figure out what set up you had.</li>
 </ol>
 <p>If you need help, please reach out by <a href="https://github.com/altmenorg/HAsmartirrigation/issues">opening an issue</a>.</p>
 

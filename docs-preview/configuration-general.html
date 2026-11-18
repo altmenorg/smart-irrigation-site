@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/configuration-general.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/configuration-general.html">
       
       
         <link rel="prev" href="configuration-setup.html">
@@ -2397,7 +2397,7 @@
 
 
 <h1 id="general-configuration">General configuration<a class="headerlink" href="#general-configuration" title="Permanent link">&para;</a></h1>
-<p><strong>Settings &gt; General</strong> holds the global settings. Under the master switch, they come in three sections:</p>
+<p><strong>Settings &gt; General</strong> holds the global settings. Under <strong>What Smart Irrigation does</strong>, they come in three sections:</p>
 <ul>
 <li><strong>Calculation</strong>: when the durations are worked out and how, the seasonal adjustments and the calculation log.</li>
 <li><strong>Control</strong>: the <a href="usage-full-controller.html">full controller</a>, <a href="configuration-closed-loop.html">observed watering</a> and, when the full controller is off, the start trigger.</li>
@@ -2466,11 +2466,13 @@ volumes, and once a calculation has run there is normally no way to see why. Ena
 <strong>Calculation log</strong> (a card of the advanced mode; once it is on, the card shows in every mode) to append one record per zone calculation to
 <code>config/smart_irrigation/calc_log.jsonl</code> (one JSON object per line, in metric units), so days
 can be compared afterwards instead of reconstructed by hand.</p>
-<p>Each record holds the complete chain:
-* <strong>Identification</strong>: local and UTC timestamp, zone, sensor group, calculation module, integration version.
-* <strong>Inputs</strong>: the interval used (start, end, hours) and, per field, the aggregated value, the aggregation method applied (average / sum / minimum / maximum / riemann sum / delta / ...), how many records went into it, their minimum and maximum, the source (sensor, weather service, static) and whether the value was carried over from the last entry.
-* <strong>Module intermediates</strong>: for PyETO the latitude, elevation, coastal flag, day of year, <code>et_rad</code>, <code>cs_rad</code>, <code>sol_rad</code> (and whether it was provided or estimated from temperature), <code>net_in_sol_rad</code>, <code>avp</code>, <code>net_out_lw_rad</code>, <code>net_rad</code> and <code>eto</code>, per day, plus the deltas list and its mean. The Passthrough and Static modules record their (fewer) inputs the same way.
-* <strong>Outputs</strong>: ET deficiency, interval multiplier, precipitation, delta, water balance before and after, maximum water balance, drainage rate and drainage, precipitation rate, resulting duration and the volume in m³.</p>
+<p>Each record holds the complete chain:</p>
+<ul>
+<li><strong>Identification</strong>: local and UTC timestamp, zone, sensor group, calculation module, integration version.</li>
+<li><strong>Inputs</strong>: the interval used (start, end, hours) and, per field, the aggregated value, the aggregation method applied (average / sum / minimum / maximum / riemann sum / delta / ...), how many records went into it, their minimum and maximum, the source (sensor, weather service, static) and whether the value was carried over from the last entry.</li>
+<li><strong>Module intermediates</strong>: for PyETO the latitude, elevation, coastal flag, day of year, <code>et_rad</code>, <code>cs_rad</code>, <code>sol_rad</code> (and whether it was provided or estimated from temperature), <code>net_in_sol_rad</code>, <code>avp</code>, <code>net_out_lw_rad</code>, <code>net_rad</code> and <code>eto</code>, per day, plus the deltas list and its mean. The Passthrough and Static modules record their (fewer) inputs the same way.</li>
+<li><strong>Outputs</strong>: ET deficiency, interval multiplier, precipitation, delta, water balance before and after, maximum water balance, drainage rate and drainage, precipitation rate, resulting duration and the volume in m³.</li>
+</ul>
 <p>Dry runs (the <code>dry_run</code> option of the <a href="usage-services.html">calculate services</a>) are logged too -
 they are exactly when you ask "why this number?" - but every record carries a <code>dry_run</code> flag,
 so a dry run is never mistaken for a real calculation.</p>
@@ -2504,11 +2506,13 @@ The <strong>Clear all weather data</strong> action is still there for a delibera
 <h3 id="language">Language<a class="headerlink" href="#language" title="Permanent link">&para;</a></h3>
 <p>The panel and the configuration flow are available in 20 languages, all complete. The French is written with "tu".</p>
 <h3 id="unit-system-responsiveness">Unit System Responsiveness<a class="headerlink" href="#unit-system-responsiveness" title="Permanent link">&para;</a></h3>
-<p>Smart Irrigation automatically detects and responds to changes in your Home Assistant unit system setting (metric/imperial). When you change the unit system in Home Assistant:
-* All sensor entities immediately update to display values in the new units
-* The web interface refreshes to show measurements in the correct units<br />
-* Stored configurations like precipitation thresholds maintain their values but display in appropriate units
-* No restart or integration reload is required</p>
+<p>Smart Irrigation automatically detects and responds to changes in your Home Assistant unit system setting (metric/imperial). When you change the unit system in Home Assistant:</p>
+<ul>
+<li>All sensor entities immediately update to display values in the new units</li>
+<li>The web interface refreshes to show measurements in the correct units  </li>
+<li>Stored configurations like precipitation thresholds maintain their values but display in appropriate units</li>
+<li>No restart or integration reload is required</li>
+</ul>
 <p>This ensures seamless transitions between unit systems without losing your configuration data.</p>
 
 

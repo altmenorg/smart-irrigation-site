@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/smart-irrigation-site/docs-preview/usage-enhanced-scheduling-integration.html">
+        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/usage-enhanced-scheduling-integration.html">
       
       
         <link rel="prev" href="usage-controllers.html">
@@ -2910,6 +2910,7 @@
 <h3 id="example-integration-automation">Example Integration Automation<a class="headerlink" href="#example-integration-automation" title="Permanent link">&para;</a></h3>
 <p>Irrigation Unlimited exposes <code>binary_sensor</code> entities (not switches). Use the <code>irrigation_unlimited.adjust_time</code> service to pass the calculated duration to IU, then let IU handle execution:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">automation</span><span class="p">:</span>
+
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Smart</span><span class="nv"> </span><span class="s">Irrigation</span><span class="nv"> </span><span class="s">→</span><span class="nv"> </span><span class="s">IU:</span><span class="nv"> </span><span class="s">push</span><span class="nv"> </span><span class="s">duration</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">zone</span><span class="nv"> </span><span class="s">1"</span>
 <span class="w">    </span><span class="nt">trigger</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">time</span>
@@ -2977,10 +2978,12 @@
 <li>Legacy automations remain functional</li>
 </ol>
 <h3 id="integration-with-existing-setups">Integration with Existing Setups<a class="headerlink" href="#integration-with-existing-setups" title="Permanent link">&para;</a></h3>
-<p>The enhanced features complement existing Smart Irrigation functionality:
-- Existing triggers continue to work
-- Current automations remain functional
-- New features can be gradually adopted</p>
+<p>The enhanced features complement existing Smart Irrigation functionality:</p>
+<ul>
+<li>Existing triggers continue to work</li>
+<li>Current automations remain functional</li>
+<li>New features can be gradually adopted</li>
+</ul>
 <h2 id="examples-and-templates">Examples and Templates<a class="headerlink" href="#examples-and-templates" title="Permanent link">&para;</a></h2>
 <h3 id="basic-recurring-schedule">Basic Recurring Schedule<a class="headerlink" href="#basic-recurring-schedule" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Daily morning calculation</span>
