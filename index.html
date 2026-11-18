@@ -6,27 +6,31 @@
 <meta name="description" content="Smart Irrigation for Home Assistant: water each zone for what its soil actually lost, skip when the sky does it, and set it all up by talking to your AI assistant.">
 <meta name="robots" content="noindex">
 <title>Smart Irrigation for Home Assistant</title>
+<link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
 /* Layout: a garden's water balance read like an instrument. Wide bands, one
    soil-to-sky gradient in the hero, the rest quiet; figures in mono. */
 :root {
-  --bg: #f4f7f3;          /* leaf-tinted paper */
+  --bg: #f6faf4;          /* leaf-tinted paper */
   --surface: #ffffff;
   --ink: #13241c;         /* deep foliage */
   --muted: #4d6157;
   --line: #d6e0d8;
-  --water: #0b78b0;       /* irrigation blue, the one accent */
+  --water: #1479bd;       /* the drop of the logo */
+  --sun: #ffc93c;
+  --leafg: linear-gradient(135deg, #bae232, #589d3b);
+  --dropg: linear-gradient(160deg, #7cdbec, #2686c1 55%, #0260aa);
   --water-soft: #e1f0f7;
-  --leaf: #2f7d47;
+  --leaf: #4f9a35;
   --soil: #7a5a33;
   --soil-soft: #efe6da;
   --dry: #b4532a;
   --hero-top: #dcecf3;
   --hero-bottom: #e8e1d3;
-  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --display: "Montserrat", "Segoe UI", system-ui, sans-serif;
   --body: "Inter", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
@@ -59,8 +63,10 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
-.brand { display: flex; align-items: center; gap: 10px; font: 700 1.05rem var(--display); color: var(--ink); text-decoration: none; }
-.brand svg { flex: none; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 1.1rem var(--display); color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.brand img { flex: none; }
+.word .w1 { background: linear-gradient(180deg, #bae232, #589d3b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.word .w2 { background: linear-gradient(180deg, #7cdbec, #0260aa); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.92rem; }
 .nav a { color: var(--muted); text-decoration: none; }
 .nav a:hover, .nav a:focus-visible { color: var(--ink); }
@@ -68,16 +74,31 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 720px) { .nav .hide-sm { display: none; } }
 
 /* Hero */
-.hero { background: linear-gradient(180deg, var(--hero-top), var(--bg) 62%, var(--hero-bottom)); padding-block: clamp(48px, 7vw, 88px) clamp(40px, 6vw, 72px); }
+.hero { position: relative; overflow: hidden; background: linear-gradient(180deg, #bdeefb 0%, #e3f7fd 45%, #f3fbe6 100%); padding-block: clamp(56px, 8vw, 100px) clamp(150px, 16vw, 210px); }
+.hero .wrap { position: relative; z-index: 2; }
+.hero .sun { position: absolute; z-index: 0; top: -70px; left: 46%; width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, #fff3c4 0 30%, var(--sun) 31% 50%, rgba(255, 201, 60, 0.25) 51% 64%, transparent 65%); animation: glow 6s ease-in-out infinite alternate; }
+@keyframes glow { from { transform: scale(1); } to { transform: scale(1.06); } }
+.hero .hills { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(120px, 15vw, 200px); }
+.hero .drops { position: absolute; z-index: 1; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(38, 134, 193, 0.55) 0 2.5px, transparent 3px), radial-gradient(circle, rgba(124, 219, 236, 0.7) 0 2px, transparent 2.5px);
+  background-size: 120px 140px, 90px 110px; background-position: 0 0, 40px 60px; animation: fall 9s linear infinite; opacity: .5;
+  -webkit-mask: linear-gradient(180deg, transparent, #000 20%, #000 60%, transparent 85%); mask: linear-gradient(180deg, transparent, #000 20%, #000 60%, transparent 85%); }
+@keyframes fall { to { background-position: 0 280px, 40px 280px; } }
+@media (prefers-reduced-motion: reduce) { .hero .sun, .hero .drops { animation: none; } }
+:root[data-theme="dark"] .hero { background: linear-gradient(180deg, #0b2f45 0%, #10384c 50%, #17331d 100%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero { background: linear-gradient(180deg, #0b2f45 0%, #10384c 50%, #17331d 100%); } }
 .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
-.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.1rem); font-weight: 800; letter-spacing: -0.025em; }
-.hero h1 em { font-style: normal; color: var(--water); }
+.hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.9rem); font-weight: 800; letter-spacing: -0.02em; color: #0b3d63; }
+:root[data-theme="dark"] .hero h1 { color: #eaf7ff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero h1 { color: #eaf7ff; } }
+.hero h1 em { font-style: normal; background: var(--dropg); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero h1 .leafw { background: var(--leafg); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero .lead { margin-top: 20px; }
 .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid transparent; }
-.btn.primary { background: var(--water); color: #fff; }
-:root[data-theme="dark"] .btn.primary { color: #06202e; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #06202e; } }
+.btn.primary { background: var(--leafg); color: #10300a; box-shadow: 0 10px 28px -12px rgba(88, 157, 59, 0.9); }
+.btn { transition: transform .15s ease, box-shadow .15s ease; } .btn:hover { transform: translateY(-2px); }
 .btn.ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
 .btn:focus-visible { outline: 3px solid var(--water); outline-offset: 2px; }
 .trust { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 26px; font: 500 0.82rem var(--mono); color: var(--muted); }
@@ -85,7 +106,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
 
 /* The instrument: one zone's water balance */
-.gauge { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; box-shadow: 0 20px 50px -30px rgba(10, 60, 90, 0.45); min-width: 0; }
+.gauge { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; box-shadow: 0 30px 60px -28px rgba(2, 70, 120, 0.55); min-width: 0; transform: rotate(1deg); }
 .gauge header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .gauge .zone { font: 700 1.05rem var(--display); }
 .gauge .when { font: 0.78rem var(--mono); color: var(--muted); }
@@ -94,7 +115,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tank { position: relative; border-radius: 10px; overflow: hidden; background: repeating-linear-gradient(0deg, var(--soil-soft) 0 13px, color-mix(in srgb, var(--soil-soft) 70%, var(--soil)) 13px 14px); border: 1px solid var(--line); }
 .tank .fc { position: absolute; left: 0; right: 0; top: 34%; border-top: 2px dashed var(--leaf); }
 .tank .fc span { position: absolute; right: 8px; top: -20px; font: 600 0.7rem var(--mono); color: var(--leaf); }
-.tank .water { position: absolute; left: 0; right: 0; bottom: 0; height: 49%; background: linear-gradient(180deg, color-mix(in srgb, var(--water) 55%, transparent), var(--water)); animation: settle 2.4s ease-out both; }
+.tank .water { position: absolute; left: 0; right: 0; bottom: 0; height: 49%; background: linear-gradient(180deg, #7cdbec, #2686c1 60%, #0260aa); animation: settle 2.4s ease-out both; }
 .tank .gap { position: absolute; left: 0; right: 0; top: 34%; height: 17%; background: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in srgb, var(--dry) 30%, transparent) 6px 8px); }
 .tank .gap span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font: 600 0.8rem var(--mono); color: var(--dry); }
 @keyframes settle { from { height: 56%; } to { height: 49%; } }
@@ -111,11 +132,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 860px) { .grid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .grid3 { grid-template-columns: 1fr; } }
 .benefit { display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
-.benefit .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--water-soft); color: var(--water); }
+.benefit .ico { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--dropg); color: #fff; box-shadow: 0 10px 22px -12px rgba(2, 96, 170, 0.9); }
+.benefit:nth-child(even) .ico { background: var(--leafg); box-shadow: 0 10px 22px -12px rgba(88, 157, 59, 0.9); }
+.benefit { grid-template-columns: 44px 1fr !important; }
 .benefit p { color: var(--muted); margin-top: 6px; font-size: 0.95rem; }
 
 /* AI band */
-.ai { background: var(--surface); border-block: 1px solid var(--line); }
+.ai { background: radial-gradient(70% 90% at 100% 0%, rgba(124, 219, 236, 0.18), transparent 60%), radial-gradient(60% 80% at 0% 100%, rgba(186, 226, 50, 0.16), transparent 60%), var(--surface); border-block: 1px solid var(--line); }
 .split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
 @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
 .split > * { min-width: 0; }
@@ -123,9 +146,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .chip { font: 500 0.8rem var(--mono); padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .chat { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
 .msg { max-width: 88%; padding: 12px 14px; border-radius: 14px; font-size: 0.94rem; }
-.msg.you { align-self: flex-end; background: var(--water); color: #fff; border-bottom-right-radius: 4px; }
-:root[data-theme="dark"] .msg.you { color: #06202e; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .msg.you { color: #06202e; } }
+.msg.you { align-self: flex-end; background: var(--dropg); color: #fff; border-bottom-right-radius: 4px; }
 .msg.bot { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
 .tool { font: 0.75rem var(--mono); color: var(--muted); align-self: flex-start; padding-left: 4px; }
 .tool b { color: var(--leaf); font-weight: 600; }
@@ -165,15 +186,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .mode { border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: var(--surface); }
 .mode .who { font: 0.78rem var(--mono); color: var(--muted); margin-top: 4px; }
 .mode p { margin-top: 10px; color: var(--muted); font-size: 0.95rem; }
-.mode.feature { border-color: var(--water); }
+.mode.feature { border: 2px solid transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--leafg) border-box; }
 
 /* Install */
 .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; counter-reset: s; }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
 .step { counter-increment: s; padding: 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
-.step::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--water); color: #fff; font: 700 0.9rem var(--mono); margin-bottom: 12px; }
+.step::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--leafg); color: #10300a; font: 700 0.9rem var(--mono); margin-bottom: 12px; }
 .step p { color: var(--muted); font-size: 0.95rem; margin-top: 6px; }
-.iu { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 14px; background: var(--soil-soft); }
+.iu { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 14px; background: linear-gradient(120deg, rgba(186, 226, 50, 0.22), rgba(124, 219, 236, 0.22)); }
 .iu p { color: var(--ink); max-width: 70ch; }
 
 footer { border-top: 1px solid var(--line); padding-block: 40px; color: var(--muted); font-size: 0.9rem; }
@@ -192,8 +213,8 @@ footer a { color: var(--muted); }
 <header class="bar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Smart Irrigation">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 3c4.5 6 8 10 8 14a8 8 0 0 1-16 0c0-4 3.5-8 8-14z" fill="var(--water)"/><path d="M9 18h10" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/><path d="M11 21.5h6" stroke="var(--bg)" stroke-width="2" stroke-linecap="round"/></svg>
-      Smart Irrigation
+      <img src="logo-mark.svg" width="34" height="34" alt="">
+      <span class="word"><span class="w1">Smart</span> <span class="w2">Irrigation</span></span>
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#ai">Set up with AI</a>
@@ -207,10 +228,21 @@ footer a { color: var(--muted); }
 
 <main id="top">
   <section class="hero">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="drops" aria-hidden="true"></div>
+    <svg class="hills" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bae232"/><stop offset="1" stop-color="#7dbb35"/></linearGradient>
+        <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8cc63a"/><stop offset="1" stop-color="#589d3b"/></linearGradient>
+      </defs>
+      <path d="M0 120 C 220 60 420 70 640 110 S 1080 150 1440 80 V200 H0z" fill="url(#h1)" opacity="0.85"/>
+      <path d="M0 160 C 300 110 560 190 860 150 S 1260 120 1440 150 V200 H0z" fill="url(#h2)"/>
+      <path d="M0 190 C 360 170 1080 175 1440 188 V200 H0z" fill="var(--bg)"/>
+    </svg>
     <div class="wrap">
       <div>
         <p class="eyebrow">For Home Assistant</p>
-        <h1 style="margin-top:14px">Water your garden for what it <em>actually drank</em>.</h1>
+        <h1 style="margin-top:14px">Water your <span class="leafw">garden</span> for what it <em>actually drank</em>.</h1>
         <p class="lead">Smart Irrigation follows the water in each zone's soil, day by day: what the sun and wind took, what the rain gave back. It waters only the millimetres that are missing, and nothing when the sky has done the job.</p>
         <div class="ctas">
           <a class="btn primary" href="#install">Add to Home Assistant</a>
@@ -352,7 +384,7 @@ every 2 days · weather: yes</div>
 <footer>
   <div class="wrap">
     <div>
-      <a class="brand" href="#top">Smart Irrigation</a>
+      <a class="brand" href="#top"><img src="logo-mark.svg" width="30" height="30" alt=""><span class="word"><span class="w1">Smart</span> <span class="w2">Irrigation</span></span></a>
       <p style="margin-top:10px;max-width:46ch">Open source integration for Home Assistant, MIT licence. Started by Jeroen ter Heerdt, maintained by the community.</p>
     </div>
     <div>
