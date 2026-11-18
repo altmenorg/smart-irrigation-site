@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/configuration-zones.html">
+        <link rel="canonical" href="https://smart-irrigation.org/docs-preview/configuration-zones.html">
       
       
         <link rel="prev" href="configuration-weather.html">
       
       
-        <link rel="next" href="configuration-modules.html">
+        <link rel="next" href="configuration-sensor-groups.html">
       
       
         
@@ -787,6 +787,90 @@
   
   
     <li class="md-nav__item">
+      <a href="installation-uninstalling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uninstalling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Older versions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Older versions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="installation-migration.html" class="md-nav__link">
         
   
@@ -808,29 +892,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="installation-uninstalling.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Uninstalling
-  
-
-    
-  </span>
-  
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -853,8 +917,6 @@
   
     
     
-      
-        
       
         
       
@@ -1173,34 +1235,6 @@
   
   
     <li class="md-nav__item">
-      <a href="configuration-modules.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="configuration-sensor-groups.html" class="md-nav__link">
         
   
@@ -1270,6 +1304,8 @@
       
         
       
+        
+      
     
     
     
@@ -1330,6 +1366,34 @@
     
   
     How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculation modules
   
 
     
@@ -2174,12 +2238,12 @@
 </code></pre></div>
 <p><a id="zone-yaml-only-options"></a></p>
 <div class="admonition yaml-only">
-<p class="admonition-title">YAML only: two zone options</p>
-<p>These have no field in the form, even when they are set. Editing the zone in the form keeps them, and a zone that uses one says so in a <strong>Set in YAML (not editable here)</strong> box, with <strong>Edit in YAML</strong> at hand:</p>
-<ul>
-<li><code>safety_off_state_key: state_l1</code>, the <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">safety off state key</a> (empty is <code>state</code>);</li>
-<li><code>open_resends: 0</code>, how often <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the open is sent again</a> while the valve has not confirmed (0 to 10; empty is the default).</li>
-</ul>
+<p class="admonition-title">YAML only: the safety off state key</p>
+<p><code>safety_off_state_key: state_l1</code>, the <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">safety off state key</a> (empty is <code>state</code>), has no field in the form, in any mode. Editing the zone in the form keeps it, and a zone that uses it says so in a <strong>Set in YAML (not editable here)</strong> box, with <strong>Edit in YAML</strong> at hand.</p>
+</div>
+<div class="admonition advanced">
+<p class="admonition-title">Advanced mode: the resends of the open</p>
+<p><code>open_resends: 0</code>, how often <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the open is sent again</a> while the valve has not confirmed (0 to 10; empty is the default), is a field of the advanced mode, next to <strong>Wait for the valve to confirm</strong>. In the standard mode, a zone that uses it lists it in a <strong>Shown in the advanced mode or in YAML</strong> box.</p>
 </div>
 
 
@@ -2236,13 +2300,13 @@
         
         
           
-          <a href="configuration-modules.html" class="md-footer__link md-footer__link--next" aria-label="Next: Modules">
+          <a href="configuration-sensor-groups.html" class="md-footer__link md-footer__link--next" aria-label="Next: Sensor groups">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Modules
+                Sensor groups
               </div>
             </div>
             <div class="md-footer__button md-icon">

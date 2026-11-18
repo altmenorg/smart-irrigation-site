@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/usage-from-irrigation-unlimited.html">
+        <link rel="canonical" href="https://smart-irrigation.org/docs-preview/usage-from-irrigation-unlimited.html">
       
       
         <link rel="prev" href="usage-full-controller.html">
@@ -787,34 +787,6 @@
   
   
     <li class="md-nav__item">
-      <a href="installation-migration.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Migrating from V1 to V2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="installation-uninstalling.html" class="md-nav__link">
         
   
@@ -836,6 +808,98 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Older versions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Older versions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-migration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrating from V1 to V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -851,8 +915,6 @@
   
     
     
-      
-        
       
         
       
@@ -1060,34 +1122,6 @@
   
   
     <li class="md-nav__item">
-      <a href="configuration-modules.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="configuration-sensor-groups.html" class="md-nav__link">
         
   
@@ -1157,6 +1191,8 @@
       
         
       
+        
+      
     
     
     
@@ -1217,6 +1253,34 @@
     
   
     How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculation modules
   
 
     
@@ -2166,7 +2230,7 @@
 </tr>
 <tr>
 <td><code>adjust_time</code> (<code>actual</code>, <code>percentage</code>, <code>increase</code>, <code>decrease</code>)</td>
-<td>The step's duration: <em>calculated</em> (the default), <em>calculated times a percentage</em>, or <em>fixed</em>, with a minimum, a maximum (<code>min_seconds</code>, <code>max_seconds</code>) and an offset in seconds (<code>adjust_seconds: -120</code>, <strong>YAML only</strong>, see <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a>). For a temporary change of a whole program, <code>smart_irrigation.adjust_program</code> (a <code>percent</code> and/or <code>seconds</code>, for some <code>hours</code> or until reset). You no longer need an automation to hand it the duration, because the calculated one is the default.</td>
+<td>The step's duration: <em>calculated</em> (the default), <em>calculated times a percentage</em>, or <em>fixed</em>, with a minimum, a maximum (<code>min_seconds</code>, <code>max_seconds</code>) and an offset in seconds (<code>adjust_seconds: -120</code>, <strong>advanced mode</strong> or YAML, see <a href="usage-full-controller.html#yaml-only-options">advanced and YAML-only options</a>). For a temporary change of a whole program, <code>smart_irrigation.adjust_program</code> (a <code>percent</code> and/or <code>seconds</code>, for some <code>hours</code> or until reset). You no longer need an automation to hand it the duration, because the calculated one is the default.</td>
 </tr>
 <tr>
 <td><code>reset_bucket</code> or <code>set_bucket</code> after the run</td>
@@ -2194,7 +2258,7 @@
 </tr>
 <tr>
 <td>Schedule (time, sun, cron)</td>
-<td>A program's <strong>schedules</strong>: time of day or sun (with an offset, and a fallback time for polar days, <code>fallback_time: previous</code>, <strong>YAML only</strong>, see <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a>), with the days as filters. Cron is not supported as such; the import turns a cron line with a bounded set of times into time schedules.</td>
+<td>A program's <strong>schedules</strong>: time of day or sun (with an offset, and a fallback time for polar days, <code>fallback_time: previous</code>, <strong>YAML only</strong>, see <a href="usage-full-controller.html#yaml-only-options">advanced and YAML-only options</a>), with the days as filters. Cron is not supported as such; the import turns a cron line with a bounded set of times into time schedules.</td>
 </tr>
 <tr>
 <td><code>anchor: start</code> and <code>anchor: finish</code></td>
@@ -2202,7 +2266,7 @@
 </tr>
 <tr>
 <td>Weekdays, day of the month, even/odd, <code>every_n_days</code>, months, <code>from</code>/<code>to</code></td>
-<td>The same filters, on each schedule: days of the week, every N days, and a period of the year that may span New Year, in the form; the shift of every N days (<code>every_offset: 1</code>), even or odd days (<code>parity: even</code>), named days of the month (<code>days_of_month: [1, 15, last]</code>) and months (<code>months: [5, 6, 7, 8, 9]</code>) are <strong>YAML only</strong>, see <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a></td>
+<td>The same filters, on each schedule: days of the week, every N days, and a period of the year that may span New Year, in the form; the shift of every N days (<code>every_offset: 1</code>), even or odd days (<code>parity: even</code>), named days of the month (<code>days_of_month: [1, 15, last]</code>) and months (<code>months: [5, 6, 7, 8, 9]</code>) in the <strong>advanced mode</strong> or YAML, see <a href="usage-full-controller.html#yaml-only-options">advanced and YAML-only options</a></td>
 </tr>
 <tr>
 <td><code>entity_states</code></td>
@@ -2210,7 +2274,7 @@
 </tr>
 <tr>
 <td><code>check_back</code> (<code>delay</code>, <code>retries</code>)</td>
-<td>The zone's <strong>Wait for the valve to confirm</strong> (advanced mode) and how often the open is sent again (<code>open_resends</code>, <strong>YAML only</strong>: the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). The wait applies to the open and the close. A valve that closes by itself while it should be open is caught by the check every 60 seconds and is not reopened (see <code>sync_error</code> below)</td>
+<td>The zone's <strong>Wait for the valve to confirm</strong> (advanced mode) and how often the open is sent again (<code>open_resends</code>, advanced mode too, or the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). The wait applies to the open and the close. A valve that closes by itself while it should be open is caught by the check every 60 seconds and is not reopened (see <code>sync_error</code> below)</td>
 </tr>
 <tr>
 <td><code>irrigation_unlimited_start</code> and <code>finish</code> events</td>
@@ -2235,7 +2299,7 @@
 <li><strong>Programs never overlap.</strong> IU lets overlapping runs go on together; here a second program waits for the first, and a step with several zones (or a negative wait between steps) is how you ask for zones at the same time. A pump on a home network seldom has the pressure for more.</li>
 <li><strong>The weather is part of the schedule.</strong> A schedule skips, shortens or holds back what the skip conditions say. Turn it off per schedule if you want a plain timer.</li>
 <li><strong>The default duration is the one Smart Irrigation calculated</strong>, not a number you type.</li>
-<li><strong>No YAML file to maintain.</strong> It is all in the panel; a few power-user options are written in a program's or a zone's <strong>Edit in YAML</strong> (see <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a>). A restart goes on with the steps still to do instead of dropping a run that was under way.</li>
+<li><strong>No YAML file to maintain.</strong> It is all in the panel; a few power-user options are fields of the advanced mode, and two technical ones are written in a program's or a zone's <strong>Edit in YAML</strong> (see <a href="usage-full-controller.html#yaml-only-options">advanced and YAML-only options</a>). A restart goes on with the steps still to do instead of dropping a run that was under way.</li>
 </ul>
 <h2 id="importing-your-configuration">Importing your configuration<a class="headerlink" href="#importing-your-configuration" title="Permanent link">&para;</a></h2>
 <p>Under <strong>Settings › General</strong>, the card <strong>Import from Irrigation Unlimited</strong> opens a wizard that reads your IU configuration and turns it into zones, programs, their schedules and supplies. It takes the configuration from where IU has it: your YAML (<code>configuration.yaml</code> and its includes, as Home Assistant loaded it), IU's own settings when it was set up in the interface, or YAML you paste. Pasted YAML is read as text: <code>!include</code>, <code>!secret</code> and <code>!env_var</code> are not followed, and the report says so.</p>

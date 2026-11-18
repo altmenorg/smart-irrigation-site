@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/usage-assistants.html">
+        <link rel="canonical" href="https://smart-irrigation.org/docs-preview/usage-assistants.html">
       
       
         <link rel="prev" href="usage-from-irrigation-unlimited.html">
@@ -787,34 +787,6 @@
   
   
     <li class="md-nav__item">
-      <a href="installation-migration.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Migrating from V1 to V2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="installation-uninstalling.html" class="md-nav__link">
         
   
@@ -836,6 +808,98 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Older versions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Older versions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-migration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrating from V1 to V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -851,8 +915,6 @@
   
     
     
-      
-        
       
         
       
@@ -1060,34 +1122,6 @@
   
   
     <li class="md-nav__item">
-      <a href="configuration-modules.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="configuration-sensor-groups.html" class="md-nav__link">
         
   
@@ -1157,6 +1191,8 @@
       
         
       
+        
+      
     
     
     
@@ -1217,6 +1253,34 @@
     
   
     How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculation modules
   
 
     
@@ -2106,7 +2170,7 @@
 </tr>
 <tr>
 <td><code>GetConfigReference</code></td>
-<td>Every field the assistant can write, for a program, its steps, schedules and notifications, and for a zone: type, allowed values or range, unit, default and meaning. The options set <a href="usage-full-controller.html#yaml-only-options">only in YAML</a> are flagged <code>yaml_only</code>.</td>
+<td>Every field the assistant can write, for a program, its steps, schedules and notifications, and for a zone: type, allowed values or range, unit, default and meaning. The options the panel shows in its <a href="usage-full-controller.html#yaml-only-options">advanced mode</a> only are flagged <code>advanced</code>, the two set only in YAML <code>yaml_only</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2140,7 +2204,7 @@
 <p>Every change goes through the path the panel saves with, so the same checks apply: a zone cannot be linked to one of Smart Irrigation's own valves, an unknown setting is refused, a program is cleaned the same way. The assistant is told to say what it is about to change, and most clients ask you before a tool that writes; deleting is marked as such. Each change is written in Home Assistant's log (<code>An assistant saved zone 3</code>, at the info level).</p>
 <h2 id="writing-a-program-together">Writing a program together<a class="headerlink" href="#writing-a-program-together" title="Permanent link">&para;</a></h2>
 <p>Ask for the program you want ("water the vegetable garden and the greenhouse together every other evening, then the hedges"). The assistant writes it in the <a href="usage-full-controller.html#a-program-in-yaml">YAML shape of the program editor</a>, checks it with <code>PreviewProgram</code> and gives it to you. Paste it under <strong>Watering › Programs</strong>, with <strong>Edit in YAML</strong> on a <strong>New program</strong> or on an existing one: the timeline shows what it would do before you apply it.</p>
-<p>The assistant does not have to guess the fields: <code>GetConfigReference</code> lists every one a program, a step, a schedule and a zone can be written with, the <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a> included (a step's <code>adjust_seconds</code>, a schedule's <code>months</code> or <code>fallback_time</code>...), with their range and default. So it can set an option the panel's form has no field for, and that no program of yours uses yet.</p>
+<p>The assistant does not have to guess the fields: <code>GetConfigReference</code> lists every one a program, a step, a schedule and a zone can be written with, the <a href="usage-full-controller.html#yaml-only-options">advanced and YAML-only options</a> included (a step's <code>adjust_seconds</code>, a schedule's <code>months</code> or <code>fallback_time</code>...), with their range and default. So it can set an option the standard form does not show, or has no field for, and that no program of yours uses yet.</p>
 <h2 id="privacy">Privacy<a class="headerlink" href="#privacy" title="Permanent link">&para;</a></h2>
 <p>The assistant receives what these tools return: zone names, entity ids and the names and models of your devices, the weather-based figures and the schedules. With a cloud assistant, that leaves your home. Do not tick Smart Irrigation in the MCP server or the conversation agent if you do not want that.</p>
 

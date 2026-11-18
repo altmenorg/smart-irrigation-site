@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/configuration-closed-loop.html">
+        <link rel="canonical" href="https://smart-irrigation.org/docs-preview/configuration-closed-loop.html">
       
       
         <link rel="prev" href="configuration-sensor-groups.html">
@@ -787,6 +787,90 @@
   
   
     <li class="md-nav__item">
+      <a href="installation-uninstalling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uninstalling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Older versions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Older versions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="installation-migration.html" class="md-nav__link">
         
   
@@ -808,29 +892,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="installation-uninstalling.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Uninstalling
-  
-
-    
-  </span>
-  
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -853,8 +917,6 @@
   
     
     
-      
-        
       
         
       
@@ -1045,34 +1107,6 @@
     
   
     Zones
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="configuration-modules.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
   
 
     
@@ -1331,6 +1365,8 @@
       
         
       
+        
+      
     
     
     
@@ -1391,6 +1427,34 @@
     
   
     How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculation modules
   
 
     
@@ -2216,7 +2280,7 @@
 <ul>
 <li><strong>The order of the zones</strong>: each program's steps decide it, a step with several zones watering them together. The <strong>Irrigate all zones</strong> button has its own order, one after the other or all at once (see <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones now</a>).</li>
 <li><strong>Open confirmation</strong>: before crediting, Smart Irrigation waits for the valve to report an on-state. If it never opens, the run is not credited (so the deficit stays and rolls over to the next day) and a <code>smart_irrigation_zone_problem</code> event is fired. A write-only valve with no readable state is given the benefit of the doubt.</li>
-<li><strong>Confirmation per zone</strong> (advanced mode): <strong>Wait for the valve to confirm</strong> (seconds), and how many times to send the open again (<code>open_resends</code>, <strong>YAML only</strong>, for instance <code>open_resends: 0</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). Empty keeps the defaults: 30 seconds and two resends (at 10 and 20 seconds), and 5 seconds for the valve to report a close. Set, the wait applies to the open and to the close, and the resends are spread evenly over it, so 60 seconds and 2 resends sends the open again at 20 and 40 seconds. <code>0</code> never sends it again. A cloud valve, Gardena's for instance, confirms through the vendor's servers and counts every command against a quota: give it a longer wait and <code>0</code>. A close that is not confirmed is always tried a second time, whatever the resends, because a valve left open costs more than one command. This is Irrigation Unlimited's <code>check_back</code> (<code>delay</code>, <code>retries</code>), per zone.</li>
+<li><strong>Confirmation per zone</strong> (advanced mode): <strong>Wait for the valve to confirm</strong> (seconds), and how many times to send the open again (<strong>Send the open again</strong>, <code>open_resends</code>, also advanced mode, or for instance <code>open_resends: 0</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). Empty keeps the defaults: 30 seconds and two resends (at 10 and 20 seconds), and 5 seconds for the valve to report a close. Set, the wait applies to the open and to the close, and the resends are spread evenly over it, so 60 seconds and 2 resends sends the open again at 20 and 40 seconds. <code>0</code> never sends it again. A cloud valve, Gardena's for instance, confirms through the vendor's servers and counts every command against a quota: give it a longer wait and <code>0</code>. A close that is not confirmed is always tried a second time, whatever the resends, because a valve left open costs more than one command. This is Irrigation Unlimited's <code>check_back</code> (<code>delay</code>, <code>retries</code>), per zone.</li>
 <li><strong>Setting a failing zone aside</strong> (advanced mode, off by default, on the <strong>Observed watering</strong> card): with <strong>Set a zone aside after this many failed runs</strong> at 3, say, a zone whose valve did not open, gave no water or could not have its own timer set three runs in a row is no longer watered by any program or cycle, rather than failing every morning with the pump starting for nothing. You are told at once: the programs' <a href="usage-full-controller.html#being-told-when-a-program-has-watered">notifications</a>, a repair in <strong>Settings › Repairs</strong> with a button to put the zone back, the zone's problem sensor (reason <code>zone_set_aside</code>) and a line on the zone in the panel, with <strong>Put back</strong>. It comes back by itself when its valve is seen opening, for instance tried by hand once repaired, and a successful run counts its failures from zero again.</li>
 <li><strong>Reboot resilience</strong>: a run that is in progress when Home Assistant restarts is resumed (or closed if it already exceeded its duration) and then credited.</li>
 <li><strong>One run per zone per cycle</strong>: a zone whose valve is already open is left out, and a zone watered while it waited its turn in a sequential run is not watered again when the queue reaches it. With observed watering on, that includes a valve opened outside Smart Irrigation, by hand or by another automation: running it too would close the valve under that run and count the overlap twice.</li>

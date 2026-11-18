@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/usage-full-controller.html">
+        <link rel="canonical" href="https://smart-irrigation.org/docs-preview/usage-full-controller.html">
       
       
         <link rel="prev" href="usage-enhanced-scheduling-integration.html">
@@ -787,34 +787,6 @@
   
   
     <li class="md-nav__item">
-      <a href="installation-migration.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Migrating from V1 to V2
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="installation-uninstalling.html" class="md-nav__link">
         
   
@@ -836,6 +808,98 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Older versions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Older versions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation-migration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrating from V1 to V2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -851,8 +915,6 @@
   
     
     
-      
-        
       
         
       
@@ -1060,34 +1122,6 @@
   
   
     <li class="md-nav__item">
-      <a href="configuration-modules.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="configuration-sensor-groups.html" class="md-nav__link">
         
   
@@ -1157,6 +1191,8 @@
       
         
       
+        
+      
     
     
     
@@ -1217,6 +1253,34 @@
     
   
     How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculation modules
   
 
     
@@ -2430,8 +2494,8 @@
 <p>For each step:</p>
 <ul>
 <li><strong>Duration</strong>: <em>calculated by Smart Irrigation</em> (the default), <em>calculated times a percentage</em> (110 % in a heat wave, 50 % for a plant that needs less), or <em>fixed</em> (seconds of water). The lead time that fills the pipe is kept in every mode. A zone that needs no water gets none, unless the step is fixed.</li>
-<li><strong>Only water when the deficit is at least</strong> (<code>min_deficit_mm</code>, 0 to 100, 0 means none; <strong>YAML only</strong>, for instance <code>min_deficit_mm: 7</code> on the step, see <a href="#yaml-only-options">YAML-only options</a>): a zone is only watered by the step when its water deficit (how far its water balance is below zero, in mm) is at least this. A zone under it sits the step out; this is only written in the log (reason <code>below_deficit</code>), not exposed anywhere else. It applies to calculated and percent steps; a fixed step is always watered. Set, it replaces the zone's own irrigation threshold for this step: a zone whose threshold of 20 mm has not been reached yet, at a deficit of 15 mm, is still watered by a step asking for 7 mm, for the run its water balance implies.</li>
-<li><strong>Minimum water, Maximum water and Time added (+) or removed (-)</strong> (<code>min_seconds</code>, <code>max_seconds</code>, <code>adjust_seconds</code>): the water of a step is raised to the minimum or capped at the maximum (0 means none, at most 86400 seconds each), and the time added or removed is a signed number of seconds (-6 h to +6 h). The time added or removed (<code>adjust_seconds</code>) is <strong>YAML only</strong>, for instance <code>adjust_seconds: -120</code> on the step (see <a href="#yaml-only-options">YAML-only options</a>). A minimum never turns a zone that needs no water into watering: a calculated duration of zero stays zero. The lead time is added on top of these bounds. The order is below.</li>
+<li><strong>Only water when the deficit is at least</strong> (<code>min_deficit_mm</code>, 0 to 100, 0 means none; <strong>advanced mode</strong>, under the step's <strong>More options</strong>, or <code>min_deficit_mm: 7</code> on the step in YAML, see <a href="#yaml-only-options">advanced and YAML-only options</a>): a zone is only watered by the step when its water deficit (how far its water balance is below zero, in mm) is at least this. A zone under it sits the step out; this is only written in the log (reason <code>below_deficit</code>), not exposed anywhere else. It applies to calculated and percent steps; a fixed step is always watered. Set, it replaces the zone's own irrigation threshold for this step: a zone whose threshold of 20 mm has not been reached yet, at a deficit of 15 mm, is still watered by a step asking for 7 mm, for the run its water balance implies.</li>
+<li><strong>Minimum water, Maximum water and Time added (+) or removed (-)</strong> (<code>min_seconds</code>, <code>max_seconds</code>, <code>adjust_seconds</code>): the water of a step is raised to the minimum or capped at the maximum (0 means none, at most 86400 seconds each), and the time added or removed is a signed number of seconds (-6 h to +6 h). The time added or removed (<code>adjust_seconds</code>) is in the <strong>advanced mode</strong> only, or written in YAML, for instance <code>adjust_seconds: -120</code> on the step (see <a href="#yaml-only-options">advanced and YAML-only options</a>). A minimum never turns a zone that needs no water into watering: a calculated duration of zero stays zero. The lead time is added on top of these bounds. The order is below.</li>
 <li><strong>Fixed seconds</strong> (<code>seconds</code>, for a fixed step): at most 86400.</li>
 <li><strong>Percentage</strong> (for a percent step): 0 to 1000.</li>
 <li><strong>Water in several passes</strong>: the step's water is split into this many passes, 1 to 6, each zone soaking between two of them for the soak time, one setting for every program, shown next to the step's passes (cycle and soak).</li>
@@ -2440,7 +2504,7 @@
 </ul>
 <p>For the program:</p>
 <ul>
-<li><strong>Rounds</strong> (<code>tours</code>, <strong>YAML only</strong>, for instance <code>tours: 2</code> at the top of the program, see <a href="#yaml-only-options">YAML-only options</a>): the whole list is watered this many times (1 to 6), each round with its share of the water. Unlike passes, which repeat a step before going on, a round waters every step once and starts again, so each zone soaks while the others water and no soak time is needed.</li>
+<li><strong>Rounds</strong> (<code>tours</code>, <strong>advanced mode</strong>, or <code>tours: 2</code> at the top of the program in YAML, see <a href="#yaml-only-options">advanced and YAML-only options</a>): the whole list is watered this many times (1 to 6), each round with its share of the water. Unlike passes, which repeat a step before going on, a round waters every step once and starts again, so each zone soaks while the others water and no soak time is needed.</li>
 </ul>
 <p>Any program can be deleted, the one with the id <code>main</code> included, except the <strong>last</strong> one: the panel shows no Delete button then, and a save that would leave no program is refused. To stop it watering, switch its schedules off.</p>
 <p><strong>How the duration of a step is worked out</strong>, in this order: the step's percentage (percent steps), then the percentage of an <a href="usage-services.html"><code>adjust_program</code></a> adjustment in force, then the step's time added or removed plus the seconds of that adjustment, then the minimum, then the maximum (so when the minimum is larger than the maximum, the maximum wins). Nothing under zero is watered. These bounds apply to the total water of the step, before it is split across the rounds; the lead time comes on top of each pass.</p>
@@ -2451,7 +2515,7 @@
 <p><strong>Edit in YAML</strong> (the <code>{ }</code> icon of a program) shows the program as text, in place of the form, and the same icon brings the form back. A program written in YAML is an ordinary program once applied, and the form edits it as any other. To paste a program written elsewhere, add a <strong>New program</strong> and open it in YAML.</p>
 <p>Nothing is saved until <strong>Apply</strong>. As you type, the program is cleaned the way a save cleans it and drawn on the timeline, and a zone that does not exist, or that the run leaves out (no valve, or disabled), is named. Only a valid program can be applied.</p>
 <p>The text is short on purpose, so it can be read, copied between installations or written by an assistant. What is left out takes its default, the same as the form: a calculated duration, one pass, no wait, a schedule that starts at its moment every day with the weather taken into account.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">A simple program</label><label for="__tabbed_1_2">Done by sunrise, then a chained program</label><label for="__tabbed_1_3">With options only YAML sets</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">A simple program</label><label for="__tabbed_1_2">Done by sunrise, then a chained program</label><label for="__tabbed_1_3">With advanced options</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Evening</span>
@@ -2508,15 +2572,15 @@
 </div>
 <p>A step names its zones by name (case aside) or by number; a name two zones share is not guessed, use the number. The <code>id</code> lines keep a program, a step or a schedule the same one across an edit (a schedule remembers its last run under its id): keep them when you edit, leave them out of a new program.</p>
 <p><a id="yaml-only-options"></a></p>
-<div class="admonition yaml-only">
-<p class="admonition-title">YAML-only options</p>
-<p>As in Home Assistant's own visual editors, some options have no field in the form, even when they are set: they are written here, in YAML (or by the services or an assistant). Editing the program in the form keeps them as they are, and an unfolded program that uses one says so at its top, in a <strong>Set in YAML (not editable here)</strong> box listing them, with <strong>Edit in YAML</strong> at hand to change them. They are:</p>
+<div class="admonition advanced">
+<p class="admonition-title">Advanced and YAML-only options</p>
+<p>As in Home Assistant's own visual editors, the form comes in three tiers:</p>
 <ul>
-<li>for the program: <code>tours: 2</code>, the <a href="#programs">rounds</a>;</li>
-<li>for a step: <code>adjust_seconds: -120</code>, the <a href="#programs">time added or removed</a>, and <code>min_deficit_mm: 7</code>, <a href="#programs">only water when the deficit is at least</a>;</li>
-<li>for a schedule: <code>every_offset: 1</code>, the shift of every N days, <code>parity: even</code> (or <code>odd</code>), <code>days_of_month: [1, 15, last]</code> and <code>months: [5, 6, 7, 8, 9]</code>, <a href="#schedules">the days</a>; <code>fallback_time: previous</code> (or <code>"06:00"</code>), for <a href="#schedules">polar day and night</a>; <code>skip_conditions: [rain_sensor, freeze]</code>, <a href="#schedules">only some of the checks</a> (the <strong>Take the weather into account</strong> switch itself stays in the form).</li>
-<li>for a zone, in its own <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>: <code>safety_off_state_key: state_l1</code>, the <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">safety off state key</a>, and <code>open_resends: 0</code>, how often <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the open is sent again</a>.</li>
+<li><strong>The standard form</strong> shows what nearly everybody needs.</li>
+<li><strong>The advanced mode</strong> (<strong>Settings › General › Advanced settings</strong>) shows every other option as a field: for the program, <code>tours: 2</code>, the <a href="#programs">rounds</a>; for a step, under its <strong>More options</strong>, <code>adjust_seconds: -120</code>, the <a href="#programs">time added or removed</a>, and <code>min_deficit_mm: 7</code>, <a href="#programs">only water when the deficit is at least</a>; for a schedule, under its <strong>More options</strong>, <code>every_offset: 1</code>, the shift of every N days, <code>parity: even</code> (or <code>odd</code>), <code>days_of_month: [1, 15, last]</code> and <code>months: [5, 6, 7, 8, 9]</code>, <a href="#schedules">the days</a>, and under its <strong>Take the weather into account</strong> switch, <code>skip_conditions: [rain_sensor, freeze]</code>, <a href="#schedules">only some of the checks</a>; for a zone, next to <strong>Wait for the valve to confirm</strong>, <code>open_resends: 0</code>, how often <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the open is sent again</a>.</li>
+<li><strong>YAML only</strong>, in every mode, two technical options: a schedule's <code>fallback_time: previous</code> (or <code>"06:00"</code>), for <a href="#schedules">polar day and night</a>, and a zone's <code>safety_off_state_key: state_l1</code>, the <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">safety off state key</a>, in the zone's own <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>.</li>
 </ul>
+<p>Every option can be written in YAML too (or by the services or an assistant). Editing in the form keeps what it does not show, and an unfolded program or zone that uses such an option says so at its top, with <strong>Edit in YAML</strong> at hand to change it. In the standard mode, a <strong>Shown in the advanced mode or in YAML</strong> box lists every one of them that is set. In the advanced mode, only the two YAML-only ones are left to list, in a <strong>Set in YAML (not editable here)</strong> box (the title of any box that lists only those two).</p>
 </div>
 <p><strong>Every key</strong>, with its values and default. The same reference is given to <a href="usage-assistants.html">assistants</a>, which can write and check a program for you.</p>
 <!-- yaml-reference:start (generated by scripts/gen_yaml_reference.py) -->
@@ -2554,7 +2618,7 @@
 <td><code>tours</code></td>
 <td>1 to 6</td>
 <td><code>1</code></td>
-<td><strong>YAML only.</strong> How many times the whole list of steps is gone through in one run.</td>
+<td><strong>Advanced mode.</strong> How many times the whole list of steps is gone through in one run.</td>
 </tr>
 <tr>
 <td><code>notify</code></td>
@@ -2639,13 +2703,13 @@
 <td><code>adjust_seconds</code></td>
 <td>-21600 to 21600 s</td>
 <td><code>0</code></td>
-<td><strong>YAML only.</strong> Seconds added to (or, negative, taken from) the water, after the percent and before the bounds.</td>
+<td><strong>Advanced mode.</strong> Seconds added to (or, negative, taken from) the water, after the percent and before the bounds.</td>
 </tr>
 <tr>
 <td><code>min_deficit_mm</code></td>
 <td>0 to 100 mm</td>
 <td><code>0</code></td>
-<td><strong>YAML only.</strong> A zone whose water deficit is below this sits the step out (0: the zone's own threshold). Not for mode fixed.</td>
+<td><strong>Advanced mode.</strong> A zone whose water deficit is below this sits the step out (0: the zone's own threshold). Not for mode fixed.</td>
 </tr>
 </tbody>
 </table>
@@ -2730,25 +2794,25 @@
 <td><code>every_offset</code></td>
 <td>0 to 59 days</td>
 <td><code>0</code></td>
-<td><strong>YAML only.</strong> Shifts the every-N-days cycle by that many days, to take turns (groups A, B, C).</td>
+<td><strong>Advanced mode.</strong> Shifts the every-N-days cycle by that many days, to take turns (groups A, B, C).</td>
 </tr>
 <tr>
 <td><code>parity</code></td>
 <td><code>any</code>, <code>even</code>, <code>odd</code></td>
 <td><code>any</code></td>
-<td><strong>YAML only.</strong> Even or odd days of the month only.</td>
+<td><strong>Advanced mode.</strong> Even or odd days of the month only.</td>
 </tr>
 <tr>
 <td><code>days_of_month</code></td>
 <td>1 to 31</td>
 <td><code>[]</code></td>
-<td><strong>YAML only.</strong> Named days of the month, 1 to 31 or last (empty: any).</td>
+<td><strong>Advanced mode.</strong> Named days of the month, 1 to 31 or last (empty: any).</td>
 </tr>
 <tr>
 <td><code>months</code></td>
 <td>1 to 12</td>
 <td><code>[]</code></td>
-<td><strong>YAML only.</strong> Months it runs in, 1 January to 12 December (empty: all).</td>
+<td><strong>Advanced mode.</strong> Months it runs in, 1 January to 12 December (empty: all).</td>
 </tr>
 <tr>
 <td><code>from_date</code></td>
@@ -2778,7 +2842,7 @@
 <td><code>skip_conditions</code></td>
 <td><code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code>, <code>soil_moisture</code></td>
 <td></td>
-<td><strong>YAML only.</strong> With weather on: only these skip conditions apply (absent: all; postponed always applies).</td>
+<td><strong>Advanced mode.</strong> With weather on: only these skip conditions apply (absent: all; postponed always applies).</td>
 </tr>
 </tbody>
 </table>
@@ -2835,11 +2899,11 @@
 <li><strong>The moment</strong> is a time of day, sunrise, sunset, or the moment the sun reaches a <strong>bearing</strong> (azimuth, in degrees clockwise from north: 90 east, 180 south, 270 west, for a bed the shade of a wall leaves at that moment), with minutes before (-) or after (+). It is either when the program <strong>starts</strong> or when it <strong>must be done</strong>. With the second, the start is worked back from the length of what the program has to water (its steps, waits, passes and soaks). A start that has gone by while its moment is still ahead begins at once rather than losing the day, but only after a restart or a reload of Home Assistant, or when its timer was missed. Editing a program, or a calculation that makes the run longer, never starts a run on the spot: an edit at 05:50 of a "done by 06:00" schedule that now needs 20 minutes waits for tomorrow. The same goes for a schedule that <strong>starts</strong> at its moment: if Home Assistant was down then, the run is caught up after the restart when it is at most <strong>2 hours</strong> late and has not run for that occurrence; later than that, it is passed over to the next occurrence.</li>
 <li><strong>Cut the run at the end time</strong> (<code>hard_deadline</code>, only for a schedule that must be done by its moment): by default that moment is a target, and a run that starts late, or has a longer plan than expected, or is paused, simply ends later. Turn it on and the moment is a limit: at that time the zones still open are closed the normal way (each is credited for the water it delivered), the steps not started are dropped, and the <code>program_finished</code> event carries <code>cut: true</code> and <code>reason: "deadline"</code> (the log says so too). A run that gets its turn after the deadline has passed opens nothing. With a deadline, the zones of each step are also ordered driest first (lowest water balance, the largest water deficit); steps keep their order and the zones of a step still open together, so the ordering only decides which zone opens first. If the controller restarts mid-run, the deadline is kept with the run.</li>
 <li><strong>After a program</strong> (<code>type: after</code>): the schedule has no moment of its own and starts its program once another one has finished. See <a href="#after-a-program">Chaining programs</a>.</li>
-<li><strong>Polar day and night</strong>: a sunrise or sunset schedule has no moment on a day when the sun does not rise or set, and that day is skipped. <strong>If there is no sunrise or sunset</strong> (<code>fallback_time</code>) chooses what that day does: skip it (the default), use the time of the last sunrise or sunset seen (offset included, looking back at most 60 days; <code>previous</code>), or start at a fixed time (<code>HH:MM</code>). It is <strong>YAML only</strong> (or set by the services), for instance <code>fallback_time: previous</code> or <code>fallback_time: "06:00"</code> on the schedule (see <a href="#yaml-only-options">YAML-only options</a>).</li>
+<li><strong>Polar day and night</strong>: a sunrise or sunset schedule has no moment on a day when the sun does not rise or set, and that day is skipped. <strong>If there is no sunrise or sunset</strong> (<code>fallback_time</code>) chooses what that day does: skip it (the default), use the time of the last sunrise or sunset seen (offset included, looking back at most 60 days; <code>previous</code>), or start at a fixed time (<code>HH:MM</code>). It is <strong>YAML only</strong>, in every mode (or set by the services), for instance <code>fallback_time: previous</code> or <code>fallback_time: "06:00"</code> on the schedule (see <a href="#yaml-only-options">advanced and YAML-only options</a>).</li>
 <li><strong>Before or after the sun</strong> is limited to 12 hours either way (-720 to +720 minutes).</li>
-<li><strong>The days</strong> are filters, and all of them have to hold: they apply to the day of the <strong>moment</strong>. A run that must be done by Monday 01:00 and takes two hours starts on Sunday at 23:00, and "Monday" is the day that counts. The weather, on the other hand, is judged when the run starts, so that run asks Sunday's conditions. The filters are: days of the week; <em>every N days</em> (N up to 60) with a shift from 0 to N - 1 (three programs with N = 3 and shifts 0, 1 and 2 take turns and never share a day); even or odd days of the month; named days of the month (<code>1, 15, last</code>, where a month too short for a day skips it, <code>31</code> in April, and <code>last</code> is every month's own last day); months; and a period of the year, a month and a day picked for each end, which may run over New Year (from November to March; <code>MM-DD</code> in the service, <code>11-01</code> to <code>03-01</code>). The panel's <strong>More options</strong> of a schedule has the days of the week, every N days and the period. The others are <strong>YAML only</strong> (or set by the services; see <a href="#yaml-only-options">YAML-only options</a>): the shift of every N days (<code>every_offset: 1</code>), even or odd days (<code>parity: even</code> or <code>parity: odd</code>), the days of the month (<code>days_of_month: [1, 15, last]</code>) and the months (<code>months: [5, 6, 7, 8, 9]</code>, January is 1).</li>
+<li><strong>The days</strong> are filters, and all of them have to hold: they apply to the day of the <strong>moment</strong>. A run that must be done by Monday 01:00 and takes two hours starts on Sunday at 23:00, and "Monday" is the day that counts. The weather, on the other hand, is judged when the run starts, so that run asks Sunday's conditions. The filters are: days of the week; <em>every N days</em> (N up to 60) with a shift from 0 to N - 1 (three programs with N = 3 and shifts 0, 1 and 2 take turns and never share a day); even or odd days of the month; named days of the month (<code>1, 15, last</code>, where a month too short for a day skips it, <code>31</code> in April, and <code>last</code> is every month's own last day); months; and a period of the year, a month and a day picked for each end, which may run over New Year (from November to March; <code>MM-DD</code> in the service, <code>11-01</code> to <code>03-01</code>). The panel's <strong>More options</strong> of a schedule has the days of the week, every N days and the period, and in the <strong>advanced mode</strong> the others too (otherwise written in YAML or set by the services; see <a href="#yaml-only-options">advanced and YAML-only options</a>): the shift of every N days (<code>every_offset: 1</code>), even or odd days (<code>parity: even</code> or <code>parity: odd</code>), the days of the month (<code>days_of_month: [1, 15, last]</code>) and the months (<code>months: [5, 6, 7, 8, 9]</code>, January is 1).</li>
 <li><strong>Take the weather into account</strong> (<code>weather</code>), a switch, on by default. On, the checks of <strong>Weather › <a href="configuration-weather.html#skip-watering">Skip watering</a></strong> apply (rain, frost, wind, the days between irrigation, a wet soil, postponed days). What is measured (the rain sensor, the frost, the wind, a postponement) is judged at each start, against what it reads then: a frost at 06:00 holds back a lawn program at 06:00, not a bed program at 18:00 on a mild evening. The rain forecast and the days between irrigation are about the day: they are decided at the first start of the day and kept for the day's later starts, so the morning run, which resets the days since the last irrigation, does not hold back the evening run. On a day when rain is forecast, only the zones the rain cannot reach run. Off is for a greenhouse drip line that does not care (<code>weather: false</code>). In the drawing of a program, the <strong>Weather allows it?</strong> box gives the answer for its next run: <strong>Yes</strong>, or <strong>No</strong> with the check that holds it back (the rain forecast with its millimetres, the wind...). It is left out when no schedule of the program takes the weather into account.</li>
-<li><strong>Only some of the checks</strong> (<code>skip_conditions</code>, <strong>YAML only</strong>, or set by an <a href="usage-assistants.html">assistant</a>, for instance <code>skip_conditions: [rain_sensor, freeze]</code> on the schedule; see <a href="#yaml-only-options">YAML-only options</a>): a list choosing which of the skip conditions this schedule applies, among <code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code> and <code>soil_moisture</code>. Left out, all of them apply, as before. Your own postponement always applies when the weather is taken into account. The schedule judges its chosen conditions as every schedule does: what is measured at the moment it starts, the rain forecast and the days between irrigation from the day's decision (made at the day's first start, whatever conditions that start chose); the holds that follow (days between per zone, a moist soil, rain since the calculation) are the same ones, except that a zone is only held by its days between when that condition is chosen, and by a moist soil only when <code>soil_moisture</code> is chosen. Those holds change the zones' durations for the whole day, so they cannot be undone: if a schedule that applies the moist soil hold ran first, a later schedule of the same day that left <code>soil_moisture</code> out finds those zones already at zero. The other way round works: a schedule that left it out first does not stop a later one from applying it. Switching the schedule's weather off in the panel keeps the list but it no longer applies; switched on again, it applies again.</li>
+<li><strong>Only some of the checks</strong> (<code>skip_conditions</code>, <strong>advanced mode</strong>: a tick per check under the schedule's <strong>Take the weather into account</strong> switch, a check turned off under Skip watering greyed out; or in YAML, or set by an <a href="usage-assistants.html">assistant</a>, for instance <code>skip_conditions: [rain_sensor, freeze]</code> on the schedule; see <a href="#yaml-only-options">advanced and YAML-only options</a>): a list choosing which of the skip conditions this schedule applies, among <code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code> and <code>soil_moisture</code>. Left out, all of them apply, as before. Your own postponement always applies when the weather is taken into account. The schedule judges its chosen conditions as every schedule does: what is measured at the moment it starts, the rain forecast and the days between irrigation from the day's decision (made at the day's first start, whatever conditions that start chose); the holds that follow (days between per zone, a moist soil, rain since the calculation) are the same ones, except that a zone is only held by its days between when that condition is chosen, and by a moist soil only when <code>soil_moisture</code> is chosen. Those holds change the zones' durations for the whole day, so they cannot be undone: if a schedule that applies the moist soil hold ran first, a later schedule of the same day that left <code>soil_moisture</code> out finds those zones already at zero. The other way round works: a schedule that left it out first does not stop a later one from applying it. Switching the schedule's weather off in the panel keeps the list but it no longer applies; switched on again, it applies again.</li>
 </ul>
 <p>Good to know: the weather holds work on the zones' calculated durations, which all programs share. On a day a weather-aware start has held a zone back, a program that ignores the weather but waters that zone for its <em>calculated</em> duration finds nothing to water. For a zone that must be watered whatever the weather says, give its step a <em>fixed</em> duration.</p>
 <p>A schedule that comes due while its program is already running or waiting starts nothing and counts no watering day; the days between irrigations are only reset for the zones that really start. A program deleted or suspended while it runs stops before its next step. Deleting a program or a schedule also clears what was remembered of its last run, so a new schedule never inherits it.</p>
@@ -2954,7 +3018,7 @@
 <h2 id="when-home-assistant-restarts">When Home Assistant restarts<a class="headerlink" href="#when-home-assistant-restarts" title="Permanent link">&para;</a></h2>
 <p>A program run and a cycle that is under way are recorded as they go. After a restart the run that was open is finished from its own record first, then the steps still to do follow, one at a time. Programs that were watering side by side each have their own record and each go on with their own steps. A run more than six hours old is not resumed: it belongs to another day. With overlapping steps, the record is that of the later step: the earlier one that was still open is finished from its own record, and the later one restarts with the zones it had not started. What is <strong>not</strong> resumed: the remaining passes of the zone that was open (only the pass in progress is).</p>
 <p>A <strong>pause</strong> survives a restart while its end is still ahead: the watering is held again until then (or until you resume), and the valves that were open are not reopened by the pause itself; the program goes on from the resume as it does after any pause. A valve run interrupted by the restart is held the same way: nothing is opened (the pump included) while the pause lasts, and the rest of its pass is watered after the resume, with the water delivered before the restart credited once. A manual run you stopped while it waited is also removed from the stored queue at once, and queued runs wait for every run resumed after the restart (a valve run or a cycle, not only a program) before they start. <strong>The water a pause owes is kept too:</strong> when a pause closes the valves of a step, what each zone still owes (and the passes after it) is recorded, so a reload (an options save) or a restart during the pause does not lose it. After it, and once the pause is over, those zones water what they owed first (credited once, the part delivered before the pause having been credited already), then the program goes on with the next steps. A pause that ended while Home Assistant was down is not held again, and the owed water is watered at once; owed water more than 30 hours old is dropped. <strong>Manual runs waiting for their turn</strong> (a <code>run_program</code> asked for during another program) are kept too: after a restart they are put back in line, behind a program that is being resumed, unless they are more than six hours old or their program is gone, disabled or suspended.</p>
-<p>A valve that is slow to say it is open, a battery valve on Zigbee for instance, is given 30 seconds and is asked to open again at 10 and 20 seconds. Only one that stays closed after that is a failure, reported as <code>valve_did_not_open</code>. A zone can set its own wait (advanced mode) and number of resends (<code>open_resends</code>, YAML only), for a cloud valve that confirms slowly or should not be asked twice: see <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the confirmation per zone</a>.</p>
+<p>A valve that is slow to say it is open, a battery valve on Zigbee for instance, is given 30 seconds and is asked to open again at 10 and 20 seconds. Only one that stays closed after that is a failure, reported as <code>valve_did_not_open</code>. A zone can set its own wait and number of resends (<code>open_resends</code>), both in the advanced mode, for a cloud valve that confirms slowly or should not be asked twice: see <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the confirmation per zone</a>.</p>
 <p>A <strong>Sonoff SWV on ZHA</strong> is opened with one command that also starts its own timer, so it closes itself even if Home Assistant dies right after opening it. See <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">hardware auto-off</a> for the details and the other valves.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <ul>

@@ -10,10 +10,10 @@
       
       
       
-        <link rel="canonical" href="https://altmenorg.github.io/HAsmartirrigation/configuration.html">
+        <link rel="canonical" href="https://smart-irrigation.org/docs-preview/configuration.html">
       
       
-        <link rel="prev" href="installation-uninstalling.html">
+        <link rel="prev" href="installation-migration.html">
       
       
         <link rel="next" href="configuration-setup.html">
@@ -787,6 +787,90 @@
   
   
     <li class="md-nav__item">
+      <a href="installation-uninstalling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uninstalling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Older versions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Older versions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="installation-migration.html" class="md-nav__link">
         
   
@@ -808,29 +892,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="installation-uninstalling.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Uninstalling
-  
-
-    
-  </span>
-  
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -853,8 +917,6 @@
   
     
     
-      
-        
       
         
       
@@ -1145,34 +1207,6 @@
   
   
     <li class="md-nav__item">
-      <a href="configuration-modules.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="configuration-sensor-groups.html" class="md-nav__link">
         
   
@@ -1242,6 +1276,8 @@
       
         
       
+        
+      
     
     
     
@@ -1302,6 +1338,34 @@
     
   
     How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration-modules.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculation modules
   
 
     
@@ -2042,12 +2106,12 @@
 </div>
 <p>An installation that already had zones when the two depths arrived is on the advanced panel, because those settings were chosen on purpose. A fresh installation starts on the standard one. Either way the choice is yours, and nothing is lost in either direction: the settings keep their values.</p>
 <h2 id="set-in-yaml">Set in YAML<a class="headerlink" href="#set-in-yaml" title="Permanent link">&para;</a></h2>
-<p>A few options for power users have no field in the panel at all. Programs and zones have <strong>Edit in YAML</strong>, which shows them as text, and these options are written there. These pages mark them like this:</p>
+<p>Programs and zones have <strong>Edit in YAML</strong>, which shows every option as text. A program's power-user options (rounds, time added, days of the month, months, some of the weather checks...) and a zone's resends of the open are fields of the advanced mode only: in the standard mode, a program or a zone that uses one lists it in a <strong>Shown in the advanced mode or in YAML</strong> box, with <strong>Edit in YAML</strong> at hand. Two technical options have no field in any mode and are written in YAML only. These pages mark them like this:</p>
 <div class="admonition yaml-only">
 <p class="admonition-title">YAML only</p>
-<p>An option with no field in the form. Editing in the form keeps it, and a program or a zone that uses one lists it in a <strong>Set in YAML (not editable here)</strong> box, with <strong>Edit in YAML</strong> at hand.</p>
+<p>An option with no field in the form, in any mode. Editing in the form keeps it, and a program or a zone that uses one lists it in a <strong>Set in YAML (not editable here)</strong> box, with <strong>Edit in YAML</strong> at hand.</p>
 </div>
-<p>The list is under <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a>, and every key of a program is in its <a href="usage-full-controller.html#a-program-in-yaml">reference</a>.</p>
+<p>The tiers are under <a href="usage-full-controller.html#yaml-only-options">advanced and YAML-only options</a>, and every key of a program is in its <a href="usage-full-controller.html#a-program-in-yaml">reference</a>.</p>
 <p>See also: <a href="configuration-closed-loop.html">Closed-loop watering</a>, which credits the water balance from real watering and covers what happens at the valve.</p>
 
 
@@ -2087,7 +2151,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="installation-uninstalling.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Uninstalling">
+          <a href="installation-migration.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Migrating from V1 to V2">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2097,7 +2161,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Uninstalling
+                Migrating from V1 to V2
               </div>
             </div>
           </a>
