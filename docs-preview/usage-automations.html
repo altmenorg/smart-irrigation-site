@@ -2216,7 +2216,6 @@
 <h3 id="example-3-one-valve-on-work-days">Example 3: one valve, on work days<a class="headerlink" href="#example-3-one-valve-on-work-days" title="Permanent link">&para;</a></h3>
 <p>This automation runs at 05:00, only on the days <code>binary_sensor.workday_sensor</code> allows. As above, it waters <code>switch.irrigation_tap1</code> for the zone's duration and then resets the water balance. It needs the <a href="https://www.home-assistant.io/integrations/workday/">workday binary sensor</a>, set up separately. You can use a condition on the weekday instead:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">condition</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">time</span>
 <span class="w">    </span><span class="nt">weekday</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mon</span>

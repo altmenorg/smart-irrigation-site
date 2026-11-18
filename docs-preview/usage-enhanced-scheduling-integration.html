@@ -2050,7 +2050,6 @@
 <p>IU exposes <code>binary_sensor</code> entities, not switches. Do not drive the valve yourself in parallel, or the two will fight. An automation of your own looks like this:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Smart</span><span class="nv"> </span><span class="s">Irrigation</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">IU:</span><span class="nv"> </span><span class="s">duration</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">zone</span><span class="nv"> </span><span class="s">1"</span>
 <span class="nt">triggers</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">time</span>
 <span class="w">    </span><span class="nt">at</span><span class="p">:</span><span class="w"> </span><span class="s">"23:00:00"</span>
 <span class="nt">conditions</span><span class="p">:</span>

@@ -2456,7 +2456,6 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Evening</span>
 <span class="nt">steps</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Vegetable garden</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Greenhouse</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># watered together</span>
 <span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percent</span>
 <span class="w">    </span><span class="nt">percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
@@ -2471,7 +2470,6 @@
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Lawn</span>
 <span class="nt">steps</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Front lawn</span><span class="p p-Indicator">]</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Back lawn</span><span class="p p-Indicator">]</span>
 <span class="nt">schedules</span><span class="p">:</span>
@@ -2482,7 +2480,6 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Greenhouse drip</span>
 <span class="nt">steps</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Greenhouse</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fixed</span>
 <span class="w">    </span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
@@ -2497,7 +2494,6 @@
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Summer beds</span>
 <span class="nt">tours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">                                    </span><span class="c1"># the whole list, twice</span>
 <span class="nt">steps</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Roses</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Shrubs</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">adjust_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span><span class="w">                     </span><span class="c1"># two more minutes each</span>
 <span class="w">    </span><span class="nt">min_deficit_mm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w">                       </span><span class="c1"># only when 5 mm short or more</span>
@@ -2861,7 +2857,6 @@
 <p>In the schedule, set <strong>When</strong> to <strong>After a program</strong>, pick the program in <strong>Program</strong>, and in <strong>Minutes after it ends</strong> how long to wait once it has finished (0, right away, up to 720; never before). <strong>That moment is when the program</strong> stays on <strong>starts</strong>: the end of a run still to come cannot be aimed at, so <code>hard_deadline</code> does not apply either. In YAML:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Beds</span>
 <span class="nt">steps</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Beds</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Hedge</span><span class="p p-Indicator">]</span>
 <span class="nt">schedules</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">after</span>

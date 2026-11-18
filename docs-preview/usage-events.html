@@ -2061,7 +2061,6 @@
 <p>A skipped day used to be the absence of an event, and nothing can listen for something that does not happen. That is why a skip fires its own event:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tell me when watering was skipped</span>
 <span class="nt">triggers</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">event</span>
 <span class="w">    </span><span class="nt">event_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">smart_irrigation_irrigation_skipped</span>
 <span class="nt">actions</span><span class="p">:</span>
@@ -2106,7 +2105,6 @@
 </table>
 <p>Example: filter on <code>trigger_name</code> to react to one trigger.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">triggers</span><span class="p">:</span>
-
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">trigger</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">event</span>
 <span class="w">    </span><span class="nt">event_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">smart_irrigation_start_irrigation_all_zones</span>
 <span class="w">    </span><span class="nt">event_data</span><span class="p">:</span>
