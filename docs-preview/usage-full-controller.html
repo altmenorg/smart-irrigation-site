@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Full controller - Smart Irrigation</title>
+        <title>Watering with programs - Smart Irrigation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#full-controller" class="md-skip">
+        <a href="#watering-with-programs" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Full controller
+              Watering with programs
             
           </span>
         </div>
@@ -1618,7 +1618,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1655,7 +1655,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1673,7 +1673,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1751,6 +1751,56 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="A program in YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2034,7 +2084,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2134,6 +2184,56 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="A program in YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Program
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2272,27 +2372,33 @@
   
 
 
-<h1 id="full-controller">Full controller<a class="headerlink" href="#full-controller" title="Permanent link">&para;</a></h1>
-<p>By default Smart Irrigation decides <strong>how long</strong> each zone waters and leaves the running of the valves to you: an automation, a controller, <a href="usage-enhanced-scheduling-integration.html">Irrigation Unlimited</a>. The <strong>full controller</strong> is an option for those who would rather have it do both. It runs the whole watering itself: when, in what order, with which pump, for how long, and what to do when you want it to stop.</p>
-<p>It is <strong>off by default</strong>, and turning it on changes nothing until you add to it. Nothing on this page appears in the panel until it is on.</p>
+<h1 id="watering-with-programs">Watering with programs<a class="headerlink" href="#watering-with-programs" title="Permanent link">&para;</a></h1>
+<p>Smart Irrigation can water in two ways, and you pick one in <strong>Settings › General</strong>, under <strong>What Smart Irrigation does</strong> (the setup assistant asks too):</p>
+<ul>
+<li><strong>Calculate and water</strong>: Smart Irrigation runs the whole watering itself. <strong>Programs</strong> of steps say which zones water and in what order, their <strong>schedules</strong> say when ("done by sunrise", every other day, only in summer, after another program), and <strong>pumps and main valves</strong> come on with the zones they feed. This page is about that mode.</li>
+<li><strong>Calculate only</strong>, the choice of a new installation: Smart Irrigation works out how long each zone needs and something of yours opens the valves, an <a href="usage-automations.html">automation</a>, a <a href="usage-controllers.html">controller</a> or <a href="usage-enhanced-scheduling-integration.html">another integration</a>.</li>
+</ul>
 <p align="center">
   <img src="assets/images/panel-programs.png" alt="The Watering tab: the programs, their steps and their schedules" width="860">
 </p>
 
 <h2 id="turning-it-on">Turning it on<a class="headerlink" href="#turning-it-on" title="Permanent link">&para;</a></h2>
-<p>The full controller is what <strong>Calculate and water</strong> means: choose it in <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">Settings, General</a>, in the first card's list, <strong>What Smart Irrigation does</strong>. There is no other switch to turn on.</p>
+<p>Choose <strong>Calculate and water</strong> in <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">Settings › General</a>, in the first card's list, <strong>What Smart Irrigation does</strong>. There is no other switch to turn on.</p>
 <p>Choosing it:</p>
 <ul>
 <li>lets Smart Irrigation open and close the valves itself, and turns on <a href="configuration-closed-loop.html">observed watering</a>, so a watering by hand counts too;</li>
 <li>waters with <strong>programs</strong>, each one the zones of its steps, started by its own <strong>schedules</strong>. When there is no program yet, it creates one with the zones that have a valve and a schedule that starts it as your start trigger did (done by sunrise by default), so nothing changes in when you water. A zone added later is watered once a program has it in a step: the <a href="configuration-setup.html#with-calculate-and-water">setup assistant</a> puts a new zone in one for you;</li>
-<li>adds a <strong>Watering</strong> tab to the panel, with three pages: <strong>Planning</strong>, <strong>Programs</strong> and <strong>Pumps</strong>. The cards below are in it.</li>
+<li>adds a <strong>Watering</strong> tab to the panel, with three pages: <strong>Planning</strong>, <strong>Programs</strong>, and <strong>Pumps and valves</strong>. The cards below are in it.</li>
 </ul>
 <p>Choosing <strong>Calculate only</strong> goes back to calculating for an automation of your own: Smart Irrigation fires its start event at the start trigger and opens no valve. Your programs and supplies stay stored for the day you choose Calculate and water again.</p>
+<details class="note">
+<summary>Coming from 2026.11.0 or earlier</summary>
 <p>Up to 2026.11.0 this took two switches, <strong>Full controller</strong> and <strong>Let Smart Irrigation control the valve</strong>, and the main program of that time could also be started by the start trigger or switched off on its own. An installation is moved over once, keeping its watering as it was: direct valve control alone becomes Calculate and water, the active start trigger becomes a schedule of the program that was the main program, now an ordinary program called <strong>Watering</strong> (see below; the other triggers you had defined become schedules switched off, so none is lost: switch one on to use it), and if it was switched off its schedules stay switched off.</p>
 <p><a id="no-main-program"></a><strong>No main program any more (2026.11.1).</strong> Up to 2026.11.0 a special <strong>main program</strong> watered every zone with a valve, in the order of the general settings, and the other programs had steps. Now every program is the same kind. Your main program was turned once into an ordinary program, so it waters exactly as before: it keeps its id <code>main</code> (its sensor, its last runs and its notifications stay) and its schedules, and its name unless it was still the default <strong>Main program</strong>, which becomes <strong>Watering</strong> in the language of Home Assistant (a name you changed is kept); and gets explicit steps, the zones it watered in the same order. With <strong>one after the other</strong>, one step per zone, each followed by the pause between zones as its wait (none after the last); with <strong>all at once</strong>, one step with all the zones. Each step takes the calculated duration, in the passes the old setting asked for. A zone added afterwards is not watered until a program has it in a step. The <strong>Program on</strong> setting and its switch entity are gone too: a program starts on its own through the schedules that are on, so a program that was off had its schedules switched off. <strong>Run now</strong> always works. The <code>set_program_enabled</code> action is <strong>deprecated</strong> and will be removed in 2027.11: it still works, switching all of a program's schedules on or off, and raises a repair notice; use <code>set_schedule_enabled</code> instead.</p>
+</details>
 <p>One thing is different from the moment it is on: <strong>a valve found open at startup that no run of ours owns is closed.</strong> After a crash or a restart, a valve left open by a run nobody resumes would water until someone noticed. A reading that says nothing (<code>unavailable</code>, <code>unknown</code>) is never taken for an open valve. That startup alignment also closes a zone's extra valves, and it looks at the supplies: a pump or main valve that is on while nothing holds it is switched off, and one whose state cannot be read yet is looked at again 30 and 120 seconds later, since its entity often comes up after Home Assistant has started.</p>
 <h2 id="pumps-and-main-valves-supplies">Pumps and main valves (supplies)<a class="headerlink" href="#pumps-and-main-valves-supplies" title="Permanent link">&para;</a></h2>
-<p>A <strong>supply</strong> is one or several entities, a pump or a main valve in front of the zone valves, that run while a zone they feed is being watered. Add them in the card <strong>Pumps and main valves</strong>, then pick one in each zone's settings.</p>
+<p>A <strong>supply</strong> is one or several entities, a pump or a main valve in front of the zone valves, that run while a zone they feed is being watered. Add them on the <strong>Pumps and main valves</strong> card, under <strong>Watering › Pumps and valves</strong>, then pick one in each zone's <strong>Pump or main valve</strong>.</p>
 <p>Each supply has two delays, in seconds, and both are <strong>signed</strong>, from -3600 to +3600:</p>
 <table>
 <thead>
@@ -2315,10 +2421,10 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Power cut before starting</strong> (<code>kick_seconds</code>, 0 to 60, 0 by default; advanced mode, and shown in every mode once it is not 0): for a pump whose pressure controller only starts again after its power has been cut, the supply is switched off that many seconds and then on, each time it is switched on. A supply already on for another zone is not cut again.</p>
+<p><strong>Power cut before starting</strong> (<code>kick_seconds</code>, 0 to 60, 0 by default; advanced mode, shown in every mode once it is not 0): for a pump whose pressure controller only starts again after its power has been cut, the supply is switched off that many seconds and then on, each time it is switched on. A supply already on for another zone is not cut again.</p>
 <p>A supply is on while <strong>anything holds it</strong>, and goes off when the last hold is given back, after its delay. It is never switched off on a guess of when the cycle will end. Two zones in a row share one run of the pump, and with a delay after the pump stays on between them.</p>
 <p><strong>A supply that will not come on keeps the zone shut.</strong> Each switch call is tried twice, 3 seconds apart, and the entity must then read a state within 5 seconds. If the supply still has not come on, the zone's valve is not opened (no pump, no water), the run of that zone ends with a <code>smart_irrigation_zone_problem</code> of reason <code>supply_did_not_turn_on</code>, and <code>smart_irrigation_supply_problem</code> is fired too. A supply that will not go <strong>off</strong> never blocks anything: the off is tried again after 15, 45 and 120 seconds, <code>smart_irrigation_supply_problem</code> (reason <code>supply_did_not_turn_off</code>) is fired for the first failure (the retries are silent), and a supply still on after that stays recorded as on, so the next run or the next startup puts it off. The payload of <code>supply_problem</code> is <code>supply_id</code>, <code>supply</code>, <code>entity_id</code> and <code>reason</code> (<code>supply_did_not_turn_on</code> or <code>supply_did_not_turn_off</code>).</p>
-<p>A zone can also have <strong>other valves</strong> that open and close with its own (a zone whose water comes through two valves), and <code>light</code> and <code>cover</code> entities are accepted as valves.</p>
+<p>A zone can also have <strong>other valves of the zone</strong> that open and close with its own (a zone whose water comes through two valves), and <code>light</code> and <code>cover</code> entities are accepted as valves.</p>
 <h2 id="programs">Programs<a class="headerlink" href="#programs" title="Permanent link">&para;</a></h2>
 <p>A <strong>program</strong> is an ordered list of <strong>steps</strong>. A step is one zone, or several zones watered at the same time. By default a step takes <strong>the duration Smart Irrigation calculated</strong> for each zone, which is what sets this apart from a timer.</p>
 <p>For each step:</p>
@@ -2342,29 +2448,377 @@
 <h3 id="seeing-a-program-before-it-runs">Seeing a program before it runs<a class="headerlink" href="#seeing-a-program-before-it-runs" title="Permanent link">&para;</a></h3>
 <p>An unfolded program shows <strong>what a run would do</strong>: one line per zone on a time axis, its passes as bars, the time its pipe fills in a lighter shade and the soak between two passes hatched. Two zones of one step run side by side, a negative wait shows the next step starting before the last one ends, and the total is at the end of the axis. The durations are the ones Smart Irrigation would water now; they follow the weather, so a run may differ when it starts. The Planning page draws each run it lists, on the clock.</p>
 <h3 id="a-program-in-yaml">A program in YAML<a class="headerlink" href="#a-program-in-yaml" title="Permanent link">&para;</a></h3>
-<p><strong>Edit in YAML</strong> shows the program as text, in place of the form, and back: a program written in YAML is an ordinary program once applied, and the form edits it as any other. To paste a program written elsewhere, add a <strong>New program</strong> and open it in YAML. Nothing is saved until <strong>Apply</strong>: as you type, the program is cleaned the way a save cleans it and drawn on the timeline, and a zone that does not exist, or one the run leaves out (no valve, or disabled), is named. Only a valid program can be applied.</p>
-<p>The text is short on purpose, so it can be read, copied between installations or written by an assistant:</p>
+<p><strong>Edit in YAML</strong> (the <code>{ }</code> icon of a program) shows the program as text, in place of the form, and the same icon brings the form back. A program written in YAML is an ordinary program once applied, and the form edits it as any other. To paste a program written elsewhere, add a <strong>New program</strong> and open it in YAML.</p>
+<p>Nothing is saved until <strong>Apply</strong>. As you type, the program is cleaned the way a save cleans it and drawn on the timeline, and a zone that does not exist, or that the run leaves out (no valve, or disabled), is named. Only a valid program can be applied.</p>
+<p>The text is short on purpose, so it can be read, copied between installations or written by an assistant. What is left out takes its default, the same as the form: a calculated duration, one pass, no wait, a schedule that starts at its moment every day with the weather taken into account.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">A simple program</label><label for="__tabbed_1_2">Done by sunrise, then a chained program</label><label for="__tabbed_1_3">With options only YAML sets</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Evening</span>
 <span class="nt">steps</span><span class="p">:</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Vegetable garden</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Greenhouse</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># watered together</span>
 <span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percent</span>
 <span class="w">    </span><span class="nt">percent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="w">    </span><span class="nt">passes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">passes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">                               </span><span class="c1"># cycle and soak</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Hedges</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-60</span><span class="w">                              </span><span class="c1"># the next step starts a minute early</span>
 <span class="nt">schedules</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="s">"21:00"</span>
 <span class="w">    </span><span class="nt">weekdays</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">]</span><span class="w">                     </span><span class="c1"># 0 is Monday</span>
 </code></pre></div>
-<p>A step names its zones by name (case aside) or by number; a name two zones share is not guessed, use the number. What is left out takes its default, the same as the form: a calculated duration, one pass, no wait, a schedule that starts at its moment every day with the weather taken into account. The keys are the ones described above: for a step <code>zones</code>, <code>mode</code> (<code>calculated</code>, <code>percent</code> or <code>fixed</code>), <code>percent</code>, <code>seconds</code>, <code>passes</code>, <code>delay</code>, <code>max_litres</code>, <code>min_seconds</code>, <code>max_seconds</code>, <code>adjust_seconds</code>, <code>min_deficit_mm</code> and <code>enabled</code>; for the program <code>name</code>, <code>tours</code>, <code>steps</code>, <code>schedules</code> and <code>notify</code> (see below); for a schedule <code>type</code> (<code>time</code>, <code>sun</code> or <code>after</code>), <code>time</code>, <code>event</code> (<code>sunrise</code>, <code>sunset</code> or <code>azimuth</code>, with <code>azimuth</code> in degrees), <code>after_program</code> (with <code>type: after</code>: the program it starts after, by name or id; see <a href="#after-a-program">Chaining programs</a>), <code>offset_minutes</code> (0 or more with <code>type: after</code>), <code>anchor</code> (<code>start</code> or <code>end</code>), <code>weekdays</code>, <code>every_n_days</code>, <code>every_offset</code>, <code>parity</code>, <code>days_of_month</code>, <code>months</code>, <code>from_date</code>, <code>until_date</code>, <code>weather</code>, <code>skip_conditions</code>, <code>hard_deadline</code> and <code>fallback_time</code>. The <code>id</code> lines keep a program, a step or a schedule the same one across an edit (a schedule remembers its last run under its id): keep them when you edit, leave them out of a new program. An assistant can write and check a program for you: see <a href="usage-assistants.html">Assistants (AI)</a>.</p>
-<p><a id="yaml-only-options"></a><strong>YAML-only options.</strong> As in Home Assistant's own visual editors, some options have no field in the form, even when they are set: they are written here, in YAML (or by the services or an assistant). Editing the program in the form keeps them as they are, and an unfolded program that uses one says so at its top, in a <strong>Set in YAML (not editable here)</strong> box listing them, with <strong>Edit in YAML</strong> at hand to change them. They are:</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Lawn</span>
+<span class="nt">steps</span><span class="p">:</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Front lawn</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Back lawn</span><span class="p p-Indicator">]</span>
+<span class="nt">schedules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sun</span>
+<span class="w">    </span><span class="nt">event</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sunrise</span>
+<span class="w">    </span><span class="nt">anchor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">end</span><span class="w">                             </span><span class="c1"># done by sunrise</span>
+<span class="w">    </span><span class="nt">every_n_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Greenhouse drip</span>
+<span class="nt">steps</span><span class="p">:</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Greenhouse</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fixed</span>
+<span class="w">    </span><span class="nt">seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
+<span class="nt">schedules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">after</span>
+<span class="w">    </span><span class="nt">after_program</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Lawn</span><span class="w">                     </span><span class="c1"># 15 minutes after Lawn</span>
+<span class="w">    </span><span class="nt">offset_minutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">    </span><span class="nt">weather</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                          </span><span class="c1"># waters whatever the weather</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Summer beds</span>
+<span class="nt">tours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w">                                    </span><span class="c1"># the whole list, twice</span>
+<span class="nt">steps</span><span class="p">:</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Roses</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Shrubs</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">adjust_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">120</span><span class="w">                     </span><span class="c1"># two more minutes each</span>
+<span class="w">    </span><span class="nt">min_deficit_mm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w">                       </span><span class="c1"># only when 5 mm short or more</span>
+<span class="nt">schedules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="s">"06:00"</span>
+<span class="w">    </span><span class="nt">months</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">6</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">9</span><span class="p p-Indicator">]</span><span class="w">                 </span><span class="c1"># May to September</span>
+<span class="w">    </span><span class="nt">parity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">even</span><span class="w">                            </span><span class="c1"># even days of the month</span>
+<span class="w">    </span><span class="nt">skip_conditions</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">freeze</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">wind</span><span class="p p-Indicator">]</span><span class="w">         </span><span class="c1"># only these weather checks</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>A step names its zones by name (case aside) or by number; a name two zones share is not guessed, use the number. The <code>id</code> lines keep a program, a step or a schedule the same one across an edit (a schedule remembers its last run under its id): keep them when you edit, leave them out of a new program.</p>
+<p><a id="yaml-only-options"></a></p>
+<div class="admonition yaml-only">
+<p class="admonition-title">YAML-only options</p>
+<p>As in Home Assistant's own visual editors, some options have no field in the form, even when they are set: they are written here, in YAML (or by the services or an assistant). Editing the program in the form keeps them as they are, and an unfolded program that uses one says so at its top, in a <strong>Set in YAML (not editable here)</strong> box listing them, with <strong>Edit in YAML</strong> at hand to change them. They are:</p>
 <ul>
 <li>for the program: <code>tours: 2</code>, the <a href="#programs">rounds</a>;</li>
 <li>for a step: <code>adjust_seconds: -120</code>, the <a href="#programs">time added or removed</a>, and <code>min_deficit_mm: 7</code>, <a href="#programs">only water when the deficit is at least</a>;</li>
 <li>for a schedule: <code>every_offset: 1</code>, the shift of every N days, <code>parity: even</code> (or <code>odd</code>), <code>days_of_month: [1, 15, last]</code> and <code>months: [5, 6, 7, 8, 9]</code>, <a href="#schedules">the days</a>; <code>fallback_time: previous</code> (or <code>"06:00"</code>), for <a href="#schedules">polar day and night</a>; <code>skip_conditions: [rain_sensor, freeze]</code>, <a href="#schedules">only some of the checks</a> (the <strong>Take the weather into account</strong> switch itself stays in the form).</li>
 <li>for a zone, in its own <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>: <code>safety_off_state_key: state_l1</code>, the <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">safety off state key</a>, and <code>open_resends: 0</code>, how often <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the open is sent again</a>.</li>
 </ul>
+</div>
+<p><strong>Every key</strong>, with its values and default. The same reference is given to <a href="usage-assistants.html">assistants</a>, which can write and check a program for you.</p>
+<!-- yaml-reference:start (generated by scripts/gen_yaml_reference.py) -->
+
+<h4 id="program">Program<a class="headerlink" href="#program" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Values</th>
+<th>Default</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td></td>
+<td>The name shown to the user.</td>
+</tr>
+<tr>
+<td><code>steps</code></td>
+<td>list of step</td>
+<td></td>
+<td>The steps, watered in this order (see <code>step</code>).</td>
+</tr>
+<tr>
+<td><code>schedules</code></td>
+<td>list of schedule</td>
+<td><code>[]</code></td>
+<td>When it starts (see <code>schedule</code>). All off or none: it starts only when run by hand.</td>
+</tr>
+<tr>
+<td><code>tours</code></td>
+<td>1 to 6</td>
+<td><code>1</code></td>
+<td><strong>YAML only.</strong> How many times the whole list of steps is gone through in one run.</td>
+</tr>
+<tr>
+<td><code>notify</code></td>
+<td>notify</td>
+<td></td>
+<td>Who is told about its runs, and when (see <code>notify</code>). Absent: nobody.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="step">Step<a class="headerlink" href="#step" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Values</th>
+<th>Default</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zones</code></td>
+<td>list of zone id or name</td>
+<td></td>
+<td>The zones of the step, watered together. Names are matched to ids.</td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td><code>calculated</code>, <code>percent</code>, <code>fixed</code></td>
+<td><code>calculated</code></td>
+<td>How long it waters: the duration Smart Irrigation calculated, a percent of it, or a fixed number of seconds.</td>
+</tr>
+<tr>
+<td><code>percent</code></td>
+<td>0 to 1000 %</td>
+<td><code>100</code></td>
+<td>With mode percent: the share of the calculated water.</td>
+</tr>
+<tr>
+<td><code>seconds</code></td>
+<td>0 to 86400 s</td>
+<td><code>0</code></td>
+<td>With mode fixed: the seconds of water.</td>
+</tr>
+<tr>
+<td><code>passes</code></td>
+<td>1 to 6</td>
+<td><code>1</code></td>
+<td>Cycle and soak: the water split in this many passes, with the soak of the settings between them.</td>
+</tr>
+<tr>
+<td><code>delay</code></td>
+<td>-3600 to 21600 s</td>
+<td></td>
+<td>Wait after this step before the next one; negative: the next one starts that long before this one ends (overlap).</td>
+</tr>
+<tr>
+<td><code>max_litres</code></td>
+<td>0 to 100000 L</td>
+<td><code>0</code></td>
+<td>A zone stops once this many litres went through its flow meter (0: no limit).</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>false: the step is left out of the runs.</td>
+</tr>
+<tr>
+<td><code>min_seconds</code></td>
+<td>0 to 86400 s</td>
+<td><code>0</code></td>
+<td>Least water of a zone in the step (0: no bound).</td>
+</tr>
+<tr>
+<td><code>max_seconds</code></td>
+<td>0 to 86400 s</td>
+<td><code>0</code></td>
+<td>Most water of a zone in the step (0: no bound).</td>
+</tr>
+<tr>
+<td><code>adjust_seconds</code></td>
+<td>-21600 to 21600 s</td>
+<td><code>0</code></td>
+<td><strong>YAML only.</strong> Seconds added to (or, negative, taken from) the water, after the percent and before the bounds.</td>
+</tr>
+<tr>
+<td><code>min_deficit_mm</code></td>
+<td>0 to 100 mm</td>
+<td><code>0</code></td>
+<td><strong>YAML only.</strong> A zone whose water deficit is below this sits the step out (0: the zone's own threshold). Not for mode fixed.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="schedule">Schedule<a class="headerlink" href="#schedule" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Values</th>
+<th>Default</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>false: this schedule starts nothing.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>time</code>, <code>sun</code>, <code>after</code></td>
+<td><code>time</code></td>
+<td>time: at a clock time; sun: at a sun event with an offset; after: when another program has really watered and finished, or at its planned moment when it did not water (held back, suspended, nothing to water); not when it was stopped by hand or failed.</td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td>string HH:MM</td>
+<td><code>06:00</code></td>
+<td>The clock time. <em>(time only)</em></td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><code>sunrise</code>, <code>sunset</code>, <code>azimuth</code></td>
+<td><code>sunrise</code></td>
+<td>The sun event; azimuth: when the sun reaches <code>azimuth</code>. <em>(sun only)</em></td>
+</tr>
+<tr>
+<td><code>azimuth</code></td>
+<td>0 to 360 deg</td>
+<td><code>180</code></td>
+<td>With event azimuth: the sun's bearing, in degrees from north. <em>(sun only)</em></td>
+</tr>
+<tr>
+<td><code>offset_minutes</code></td>
+<td>-720 to 720 min</td>
+<td><code>0</code></td>
+<td>sun: minutes after the event (negative: before). after: minutes after the other program finished, or after its planned moment when it did not water (0 or more). <em>(sun, after only)</em></td>
+</tr>
+<tr>
+<td><code>anchor</code></td>
+<td><code>start</code>, <code>end</code></td>
+<td><code>start</code></td>
+<td>start: the moment is when it starts; end: when it must be done (placed back from the calculated run). <em>(time, sun only)</em></td>
+</tr>
+<tr>
+<td><code>hard_deadline</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>With anchor end: the end is a limit, the run is cut there. <em>(time, sun only)</em></td>
+</tr>
+<tr>
+<td><code>after_program</code></td>
+<td>string</td>
+<td></td>
+<td>The id (or name) of the program it starts after. No loops. <em>(after only)</em></td>
+</tr>
+<tr>
+<td><code>weekdays</code></td>
+<td>0 to 6</td>
+<td><code>[]</code></td>
+<td>Days of the week it runs on, 0 Monday to 6 Sunday (empty: every day).</td>
+</tr>
+<tr>
+<td><code>every_n_days</code></td>
+<td>1 to 60</td>
+<td><code>1</code></td>
+<td>Every N days (1: every day).</td>
+</tr>
+<tr>
+<td><code>every_offset</code></td>
+<td>0 to 59 days</td>
+<td><code>0</code></td>
+<td><strong>YAML only.</strong> Shifts the every-N-days cycle by that many days, to take turns (groups A, B, C).</td>
+</tr>
+<tr>
+<td><code>parity</code></td>
+<td><code>any</code>, <code>even</code>, <code>odd</code></td>
+<td><code>any</code></td>
+<td><strong>YAML only.</strong> Even or odd days of the month only.</td>
+</tr>
+<tr>
+<td><code>days_of_month</code></td>
+<td>1 to 31</td>
+<td><code>[]</code></td>
+<td><strong>YAML only.</strong> Named days of the month, 1 to 31 or last (empty: any).</td>
+</tr>
+<tr>
+<td><code>months</code></td>
+<td>1 to 12</td>
+<td><code>[]</code></td>
+<td><strong>YAML only.</strong> Months it runs in, 1 January to 12 December (empty: all).</td>
+</tr>
+<tr>
+<td><code>from_date</code></td>
+<td>string MM-DD or null</td>
+<td></td>
+<td>Start of the period of the year it runs in (may wrap over New Year).</td>
+</tr>
+<tr>
+<td><code>until_date</code></td>
+<td>string MM-DD or null</td>
+<td></td>
+<td>End of that period, included.</td>
+</tr>
+<tr>
+<td><code>fallback_time</code></td>
+<td>string HH:MM or 'previous'</td>
+<td></td>
+<td><strong>YAML only.</strong> Polar day or night, no sun event: start at this time, or at the last one seen (previous). Absent: the day is skipped. <em>(sun only)</em></td>
+</tr>
+<tr>
+<td><code>weather</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Whether the skip conditions (rain, frost, wind, moist soil...) can hold the run back. Frost, wind, the rain sensor and a postponement are read at each start; the rain forecast and the days between waterings are decided once a day, at its first start.</td>
+</tr>
+<tr>
+<td><code>skip_conditions</code></td>
+<td><code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code>, <code>soil_moisture</code></td>
+<td></td>
+<td><strong>YAML only.</strong> With weather on: only these skip conditions apply (absent: all; postponed always applies).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="notify">Notify<a class="headerlink" href="#notify" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Values</th>
+<th>Default</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>targets</code></td>
+<td>list of string</td>
+<td></td>
+<td>notify.<entity or action> (a phone app...) or persistent_notification. None: nothing is stored, nobody is told.</td>
+</tr>
+<tr>
+<td><code>when</code></td>
+<td><code>finish</code>, <code>problems</code></td>
+<td><code>finish</code></td>
+<td>finish: after every run; problems: only when something went wrong.</td>
+</tr>
+<tr>
+<td><code>start</code></td>
+<td>boolean</td>
+<td><code>false</code></td>
+<td>Also tell when a run starts.</td>
+</tr>
+</tbody>
+</table>
+<!-- yaml-reference:end -->
+
 <h3 id="being-told-when-a-program-has-watered">Being told when a program has watered<a class="headerlink" href="#being-told-when-a-program-has-watered" title="Permanent link">&para;</a></h3>
 <p>Each program has a <strong>Notifications</strong> section: tick whom to tell, and a summary is sent when the program has watered, one line per zone (minutes and, with a flow meter, litres) and one per problem (a valve that did not open, a run where no water flowed...). The targets are:</p>
 <ul>
@@ -2388,7 +2842,7 @@
 <li><strong>Polar day and night</strong>: a sunrise or sunset schedule has no moment on a day when the sun does not rise or set, and that day is skipped. <strong>If there is no sunrise or sunset</strong> (<code>fallback_time</code>) chooses what that day does: skip it (the default), use the time of the last sunrise or sunset seen (offset included, looking back at most 60 days; <code>previous</code>), or start at a fixed time (<code>HH:MM</code>). It is <strong>YAML only</strong> (or set by the services), for instance <code>fallback_time: previous</code> or <code>fallback_time: "06:00"</code> on the schedule (see <a href="#yaml-only-options">YAML-only options</a>).</li>
 <li><strong>Before or after the sun</strong> is limited to 12 hours either way (-720 to +720 minutes).</li>
 <li><strong>The days</strong> are filters, and all of them have to hold: they apply to the day of the <strong>moment</strong>. A run that must be done by Monday 01:00 and takes two hours starts on Sunday at 23:00, and "Monday" is the day that counts. The weather, on the other hand, is judged when the run starts, so that run asks Sunday's conditions. The filters are: days of the week; <em>every N days</em> (N up to 60) with a shift from 0 to N - 1 (three programs with N = 3 and shifts 0, 1 and 2 take turns and never share a day); even or odd days of the month; named days of the month (<code>1, 15, last</code>, where a month too short for a day skips it, <code>31</code> in April, and <code>last</code> is every month's own last day); months; and a period of the year, a month and a day picked for each end, which may run over New Year (from November to March; <code>MM-DD</code> in the service, <code>11-01</code> to <code>03-01</code>). The panel's <strong>More options</strong> of a schedule has the days of the week, every N days and the period. The others are <strong>YAML only</strong> (or set by the services; see <a href="#yaml-only-options">YAML-only options</a>): the shift of every N days (<code>every_offset: 1</code>), even or odd days (<code>parity: even</code> or <code>parity: odd</code>), the days of the month (<code>days_of_month: [1, 15, last]</code>) and the months (<code>months: [5, 6, 7, 8, 9]</code>, January is 1).</li>
-<li><strong>Take the weather into account</strong> (<code>weather</code>), a switch, on by default. On, the checks of <strong>Weather &gt; <a href="configuration-weather.html#skip-watering">Skip watering</a></strong> apply (rain, frost, wind, the days between irrigation, a wet soil, postponed days). What is measured (the rain sensor, the frost, the wind, a postponement) is judged at each start, against what it reads then: a frost at 06:00 holds back a lawn program at 06:00, not a bed program at 18:00 on a mild evening. The rain forecast and the days between irrigation are about the day: they are decided at the first start of the day and kept for the day's later starts, so the morning run, which resets the days since the last irrigation, does not hold back the evening run. On a day when rain is forecast, only the zones the rain cannot reach run. Off is for a greenhouse drip line that does not care (<code>weather: false</code>). In the drawing of a program, the <strong>Weather allows it?</strong> box gives the answer for its next run: <strong>Yes</strong>, or <strong>No</strong> with the check that holds it back (the rain forecast with its millimetres, the wind...). It is left out when no schedule of the program takes the weather into account.</li>
+<li><strong>Take the weather into account</strong> (<code>weather</code>), a switch, on by default. On, the checks of <strong>Weather › <a href="configuration-weather.html#skip-watering">Skip watering</a></strong> apply (rain, frost, wind, the days between irrigation, a wet soil, postponed days). What is measured (the rain sensor, the frost, the wind, a postponement) is judged at each start, against what it reads then: a frost at 06:00 holds back a lawn program at 06:00, not a bed program at 18:00 on a mild evening. The rain forecast and the days between irrigation are about the day: they are decided at the first start of the day and kept for the day's later starts, so the morning run, which resets the days since the last irrigation, does not hold back the evening run. On a day when rain is forecast, only the zones the rain cannot reach run. Off is for a greenhouse drip line that does not care (<code>weather: false</code>). In the drawing of a program, the <strong>Weather allows it?</strong> box gives the answer for its next run: <strong>Yes</strong>, or <strong>No</strong> with the check that holds it back (the rain forecast with its millimetres, the wind...). It is left out when no schedule of the program takes the weather into account.</li>
 <li><strong>Only some of the checks</strong> (<code>skip_conditions</code>, <strong>YAML only</strong>, or set by an <a href="usage-assistants.html">assistant</a>, for instance <code>skip_conditions: [rain_sensor, freeze]</code> on the schedule; see <a href="#yaml-only-options">YAML-only options</a>): a list choosing which of the skip conditions this schedule applies, among <code>postponed</code>, <code>rain_sensor</code>, <code>freeze</code>, <code>wind</code>, <code>precipitation</code>, <code>days_between</code> and <code>soil_moisture</code>. Left out, all of them apply, as before. Your own postponement always applies when the weather is taken into account. The schedule judges its chosen conditions as every schedule does: what is measured at the moment it starts, the rain forecast and the days between irrigation from the day's decision (made at the day's first start, whatever conditions that start chose); the holds that follow (days between per zone, a moist soil, rain since the calculation) are the same ones, except that a zone is only held by its days between when that condition is chosen, and by a moist soil only when <code>soil_moisture</code> is chosen. Those holds change the zones' durations for the whole day, so they cannot be undone: if a schedule that applies the moist soil hold ran first, a later schedule of the same day that left <code>soil_moisture</code> out finds those zones already at zero. The other way round works: a schedule that left it out first does not stop a later one from applying it. Switching the schedule's weather off in the panel keeps the list but it no longer applies; switched on again, it applies again.</li>
 </ul>
 <p>Good to know: the weather holds work on the zones' calculated durations, which all programs share. On a day a weather-aware start has held a zone back, a program that ignores the weather but waters that zone for its <em>calculated</em> duration finds nothing to water. For a zone that must be watered whatever the weather says, give its step a <em>fixed</em> duration.</p>
@@ -2426,7 +2880,7 @@
 <li>The planning, the week view and the flow place it right after the planned end of the other program, plus the offset, on the days its filters allow. After a run of that program that is not expected to water (the forecast holds it back, it is suspended, or it has nothing to water), it is placed at that run's planned moment plus the offset instead. Nothing is planned when that program is not planned in the window.</li>
 </ul>
 <h3 id="irrigate-all-zones-now">Irrigate all zones now<a class="headerlink" href="#irrigate-all-zones-now" title="Permanent link">&para;</a></h3>
-<p>The <strong>Irrigate all zones</strong> button of the hub device runs every zone that has a valve once, as a one-off: it is not a program and has no schedule. Its order (one after the other or all at once), its passes and its pause between zones are in <strong>Watering &gt; Programs</strong>, folded at the bottom of the card under <strong>Settings of the Irrigate all zones button</strong>, in the advanced mode (the block shows in every mode once one of them is changed: all at once, more than one pass or a pause). They change nothing to the programs, which water their own steps. The run takes its turn on every supply, fires <code>smart_irrigation_irrigation_started</code> and <code>smart_irrigation_irrigation_finished</code>, and credits each zone for what it delivered.</p>
+<p>The <strong>Irrigate all zones</strong> button of the hub device runs every zone that has a valve once, as a one-off: it is not a program and has no schedule. Its order (one after the other or all at once), its passes and its pause between zones are under <strong>Watering › Programs</strong>, folded at the bottom of the card under <strong>Settings of the Irrigate all zones button</strong>, in advanced mode (the block shows in every mode once one of them is changed: all at once, more than one pass or a pause). They change nothing to the programs, which water their own steps. The run takes its turn on every supply, fires <code>smart_irrigation_irrigation_started</code> and <code>smart_irrigation_irrigation_finished</code>, and credits each zone for what it delivered.</p>
 <h2 id="driving-the-watering">Driving the watering<a class="headerlink" href="#driving-the-watering" title="Permanent link">&para;</a></h2>
 <p>The Programs card: each program's header row has its actions as icons, beside its name and its state (running, paused or waiting for its turn, with the step and the time left): <strong>Run now</strong>, <strong>Stop this program</strong> while it is under way, <strong>Edit in YAML</strong>, and the <strong>Options for this run</strong> (a total duration, and whether to replace what is running) for the next press of Run now. Pause, Next step and Stop for everything that is watering are on the <a href="usage-info.html">Home page</a>, while something waters. And these <a href="usage-services.html">services</a>:</p>
 <table>
@@ -2451,7 +2905,7 @@
 </tr>
 <tr>
 <td><code>smart_irrigation.set_step_enabled</code>, <code>set_schedule_enabled</code></td>
-<td>Switch one of a program's steps (<code>step_id</code>) or one of its schedules (<code>schedule_id</code>) on or off (<code>enabled</code>), as the panel does (<code>set_program_enabled</code> is <a href="#no-main-program">deprecated</a>): the schedules are armed again and the panel refreshes. With the full controller off nothing changes; an unknown program, step or schedule id is refused with an error.</td>
+<td>Switch one of a program's steps (<code>step_id</code>) or one of its schedules (<code>schedule_id</code>) on or off (<code>enabled</code>), as the panel does (<code>set_program_enabled</code> is <a href="#no-main-program">deprecated</a>): the schedules are armed again and the panel refreshes. With Calculate only nothing changes; an unknown program, step or schedule id is refused with an error.</td>
 </tr>
 <tr>
 <td><code>smart_irrigation.pause_watering</code></td>
@@ -2475,7 +2929,7 @@
 </tr>
 <tr>
 <td><code>smart_irrigation.adjust_program</code></td>
-<td>Makes a program water longer or shorter for a while (Irrigation Unlimited's <code>adjust_time</code>): a <code>percent</code> (0 to 1000) of every step's water, and/or <code>seconds</code> added to it, for <code>hours</code> (1 to 8760) or until reset. It replaces the previous adjustment instead of adding to it, applies to the runs that start after it is set (not to the one under way), survives a restart, and <code>reset: true</code> clears it. Refused when the full controller is off, and for an unknown program id. The program's sensor shows it in the <code>adjustment</code> attribute.</td>
+<td>Makes a program water longer or shorter for a while (Irrigation Unlimited's <code>adjust_time</code>): a <code>percent</code> (0 to 1000) of every step's water, and/or <code>seconds</code> added to it, for <code>hours</code> (1 to 8760) or until reset. It replaces the previous adjustment instead of adding to it, applies to the runs that start after it is set (not to the one under way), survives a restart, and <code>reset: true</code> clears it. Refused with Calculate only, and for an unknown program id. The program's sensor shows it in the <code>adjustment</code> attribute.</td>
 </tr>
 <tr>
 <td><code>smart_irrigation.use_measured_throughput</code></td>
@@ -2505,14 +2959,14 @@
 <h2 id="when-home-assistant-restarts">When Home Assistant restarts<a class="headerlink" href="#when-home-assistant-restarts" title="Permanent link">&para;</a></h2>
 <p>A program run and a cycle that is under way are recorded as they go. After a restart the run that was open is finished from its own record first, then the steps still to do follow, one at a time. Programs that were watering side by side each have their own record and each go on with their own steps. A run more than six hours old is not resumed: it belongs to another day. With overlapping steps, the record is that of the later step: the earlier one that was still open is finished from its own record, and the later one restarts with the zones it had not started. What is <strong>not</strong> resumed: the remaining passes of the zone that was open (only the pass in progress is).</p>
 <p>A <strong>pause</strong> survives a restart while its end is still ahead: the watering is held again until then (or until you resume), and the valves that were open are not reopened by the pause itself; the program goes on from the resume as it does after any pause. A valve run interrupted by the restart is held the same way: nothing is opened (the pump included) while the pause lasts, and the rest of its pass is watered after the resume, with the water delivered before the restart credited once. A manual run you stopped while it waited is also removed from the stored queue at once, and queued runs wait for every run resumed after the restart (a valve run or a cycle, not only a program) before they start. <strong>The water a pause owes is kept too:</strong> when a pause closes the valves of a step, what each zone still owes (and the passes after it) is recorded, so a reload (an options save) or a restart during the pause does not lose it. After it, and once the pause is over, those zones water what they owed first (credited once, the part delivered before the pause having been credited already), then the program goes on with the next steps. A pause that ended while Home Assistant was down is not held again, and the owed water is watered at once; owed water more than 30 hours old is dropped. <strong>Manual runs waiting for their turn</strong> (a <code>run_program</code> asked for during another program) are kept too: after a restart they are put back in line, behind a program that is being resumed, unless they are more than six hours old or their program is gone, disabled or suspended.</p>
-<p>A valve that is slow to say it is open, a battery valve on Zigbee for instance, is given 30 seconds instead of 8 and is asked to open again at 10 and 20 seconds. Only one that stays closed after that is a failure, reported as <code>valve_did_not_open</code>. A zone can set its own wait (advanced mode) and number of resends (<code>open_resends</code>, YAML only), for a cloud valve that confirms slowly or should not be asked twice: see <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the confirmation per zone</a>.</p>
-<p>A <strong>Sonoff SWV on ZHA</strong> is opened with one command, ZHA's <em>on with timed off</em>, which opens the valve and bounds it at the same time: the time is the pass length plus a 30-second margin, so the valve closes itself even if Home Assistant dies right after opening. Smart Irrigation still closes it at the normal time, and a repeated open (above) sends the same command. This happens only when the zone's safety off mode is <code>auto</code> (the default), the zone has no MQTT topic and the valve is a known SWV; in <code>zha</code> or <code>off</code> mode the normal open is used. The command is tried once, for 6 seconds. If it fails, a warning is logged once for the zone and the valve is opened the normal way. See <a href="configuration-closed-loop.html">closed-loop control</a> for the details and the other valves.</p>
+<p>A valve that is slow to say it is open, a battery valve on Zigbee for instance, is given 30 seconds and is asked to open again at 10 and 20 seconds. Only one that stays closed after that is a failure, reported as <code>valve_did_not_open</code>. A zone can set its own wait (advanced mode) and number of resends (<code>open_resends</code>, YAML only), for a cloud valve that confirms slowly or should not be asked twice: see <a href="configuration-closed-loop.html#when-smart-irrigation-runs-the-valves">the confirmation per zone</a>.</p>
+<p>A <strong>Sonoff SWV on ZHA</strong> is opened with one command that also starts its own timer, so it closes itself even if Home Assistant dies right after opening it. See <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">hardware auto-off</a> for the details and the other valves.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <ul>
 <li>A flow meter shared by zones that water at the same time cannot tell their water apart. While they overlap, their <strong>volume limit</strong> counts the meter's litres divided equally by the number of zones on it (an approximation), and their litres are <strong>not</strong> credited from the meter nor used to calibrate the measured flow: they are credited by time, and a line in the log says so once. Give each zone its own meter for exact limits and calibration.</li>
 </ul>
 <h2 id="what-it-is-not">What it is not<a class="headerlink" href="#what-it-is-not" title="Permanent link">&para;</a></h2>
-<p>It is not a pressure controller, a master-valve scheduler for a whole farm, or a replacement for a controller that already does its job. If a Rain Bird, Hydrawise, Rachio, OpenSprinkler or B-hyve runs your valves, <a href="usage-controllers.html">its blueprint</a> is the right way and the full controller has nothing to add to it.</p>
+<p>It is not a pressure controller, a master-valve scheduler for a whole farm, or a replacement for a controller that already does its job. If a Rain Bird, Hydrawise, Rachio, OpenSprinkler or B-hyve runs your valves, <a href="usage-controllers.html">its blueprint</a> is the right way, with Calculate only, and the programs have nothing to add to it.</p>
 
 
 
@@ -2551,7 +3005,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="usage-enhanced-scheduling-integration.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Enhanced scheduling">
+          <a href="usage-enhanced-scheduling-integration.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Other integrations">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2561,7 +3015,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Enhanced scheduling
+                Other integrations
               </div>
             </div>
           </a>

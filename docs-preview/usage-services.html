@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Services - Smart Irrigation</title>
+        <title>Services - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Services
+              Services
             
           </span>
         </div>
@@ -1687,7 +1687,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1715,7 +1715,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1890,7 +1890,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1985,7 +1985,7 @@
 
 
 <h1 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h1>
-<p>After installation, the following services are available. Where an action acts on zones, a target picks them, and no target means every zone. A zone is picked by its sensor (<code>sensor.smart_irrigation_[zone]</code>); picking an area or a device is refused, so it never stands for every zone. The services that deal with the water balance keep ids with <code>bucket</code> in them, such as <code>smart_irrigation.set_bucket</code>.</p>
+<p>Smart Irrigation adds these actions (services) to Home Assistant. Where an action acts on zones, a target picks them, and no target means every zone. A zone is picked by its sensor (<code>sensor.smart_irrigation_[zone]</code>); picking an area or a device is refused, so it never stands for every zone. The services that deal with the water balance keep ids with <code>bucket</code> in them, such as <code>smart_irrigation.set_bucket</code>.</p>
 <table>
 <thead>
 <tr>
@@ -1995,56 +1995,56 @@
 </thead>
 <tbody>
 <tr>
-<td><code>Smart Irrigation: calculate</code></td>
-<td>Calculates the zones picked, or every automatic zone when none is picked. Weather data used is deleted afterwards unless you specify <code>delete_weather_data: false</code>. Specify <code>dry_run: true</code> to see what the calculation would do without changing anything -- see <a href="#dry-run">Dry run</a> below.</td>
+<td><code>smart_irrigation.calculate</code></td>
+<td>Calculates the zones picked, or every automatic zone when none is picked. Weather data used is deleted afterwards unless you specify <code>delete_weather_data: false</code>. Specify <code>dry_run: true</code> to see what the calculation would do without changing anything: see <a href="#dry-run">Dry run</a> below.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: update_weather</code></td>
+<td><code>smart_irrigation.update_weather</code></td>
 <td>Fetches the weather for the zones picked, or for every automatic zone when none is picked.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: clear_all_weather_data</code></td>
+<td><code>smart_irrigation.clear_all_weather_data</code></td>
 <td>Deletes all weather data. Pick zones and only the weather data of their sensor groups is deleted (the other zones of those groups lose it too, since a group's data is shared).</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: generate_watering_calendar</code></td>
-<td>Generate a 12-month watering calendar for a zone based on representative climate data.</td>
+<td><code>smart_irrigation.generate_watering_calendar</code></td>
+<td>Generates a 12-month watering calendar for a zone based on representative climate data.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: credit_watering</code></td>
-<td>Credits a zone with the water a run of your own delivered: its precipitation rate times <code>seconds</code> (the zone's duration when left out), less its lead time. Use it at the end of an irrigation automation rather than <code>reset_bucket</code>: a run cut short by the zone's maximum duration keeps the deficit it did not water.</td>
+<td><code>smart_irrigation.credit_watering</code></td>
+<td>Credits a zone with the water a run of your own delivered: its precipitation rate times <code>seconds</code> (the zone's duration when left out), less its lead time. Use it at the end of an irrigation automation rather than resetting the water balance: a run cut short by the zone's maximum duration keeps the deficit it did not water.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: set_bucket</code></td>
+<td><code>smart_irrigation.set_bucket</code></td>
 <td>Sets the water balance of the zones picked, or of every zone when none is picked, to <code>new_bucket_value</code>. Without a value it is 0, the reset: the soil back at field capacity, whatever the run delivered, so <code>credit_watering</code> is the better end to an irrigation automation.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: set_multiplier</code></td>
-<td>Sets the multiplier of the zones picked, or of every zone when none is picked, to <code>new_multiplier_value</code> (required; the form suggests 1.0).</td>
+<td><code>smart_irrigation.set_multiplier</code></td>
+<td>Sets the crop factor (multiplier) of the zones picked, or of every zone when none is picked, to <code>new_multiplier_value</code> (required; the form suggests 1.0).</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: set_zone</code></td>
-<td>Allows configuration for water balance (with <code>new_bucket_value</code> (default 0)), multiplier (with <code>new_multiplier_value</code> (default 1.0)), duration (with <code>new_duration_value</code> (default 0)), state (with <code>new_state_value</code> (default 'automatic')) and throughput (with <code>new_throughput_value</code> (default 50)) settings for a zone.</td>
+<td><code>smart_irrigation.set_zone</code></td>
+<td>Sets a zone's water balance (<code>new_bucket_value</code>, default 0), crop factor (<code>new_multiplier_value</code>, default 1.0), duration (<code>new_duration_value</code>, default 0), state (<code>new_state_value</code>, default <code>automatic</code>) and throughput (<code>new_throughput_value</code>, default 50).</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: postpone_irrigation</code></td>
+<td><code>smart_irrigation.postpone_irrigation</code></td>
 <td>Holds watering back for <code>hours</code> (default 24), for rain the forecast missed or an afternoon on the lawn. It is a moment, not a countdown: it survives a restart and ends by itself. It resets nothing, so a zone that is short of water still is when it ends. <code>hours: 0</code> lifts it.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: resume_irrigation</code></td>
+<td><code>smart_irrigation.resume_irrigation</code></td>
 <td>Lifts a postponement now.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: set_seasonal_adjustment</code></td>
+<td><code>smart_irrigation.set_seasonal_adjustment</code></td>
 <td>Scales the crop factor, and shifts the irrigation threshold, over a range of months. Without <code>adjustment_id</code> it creates an adjustment; with it, it changes that one, and with <code>remove: true</code> as well it removes it.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: use_measured_throughput</code></td>
+<td><code>smart_irrigation.use_measured_throughput</code></td>
 <td>Sets a zone's throughput to the flow its water meter measured over its runs. The measurement is advice, never applied on its own: this is how to accept it.</td>
 </tr>
 <tr>
-<td><code>Smart Irrigation: run_program</code> / <code>water_zone</code> / <code>pause_watering</code> / <code>resume_watering</code> / <code>next_step</code> / <code>stop_watering</code> / <code>stop_program</code> / <code>suspend</code> / <code>adjust_program</code> / <code>set_step_enabled</code> / <code>set_schedule_enabled</code></td>
-<td>Drive the watering of the <a href="usage-full-controller.html#driving-the-watering">full controller</a>: run a program or a zone now, pause, skip a step, stop, make a program water longer or shorter for a while, or set a zone or a program aside. <code>suspend</code> refuses an <code>until</code> more than 8760 hours (a year) ahead. <code>set_program_enabled</code> is deprecated (removed in 2027.11): use <code>set_schedule_enabled</code>.</td>
+<td><code>smart_irrigation.run_program</code>, <code>water_zone</code>, <code>pause_watering</code>, <code>resume_watering</code>, <code>next_step</code>, <code>stop_watering</code>, <code>stop_program</code>, <code>suspend</code>, <code>adjust_program</code>, <code>set_step_enabled</code>, <code>set_schedule_enabled</code></td>
+<td>Drive the watering with Calculate and water (see <a href="usage-full-controller.html#driving-the-watering">driving the watering</a>): run a program or a zone now, pause, skip a step, stop, make a program water longer or shorter for a while, or set a zone or a program aside. <code>suspend</code> refuses an <code>until</code> more than 8760 hours (a year) ahead. <code>set_program_enabled</code> is deprecated (removed in 2027.11): use <code>set_schedule_enabled</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2061,8 +2061,8 @@ that window and then scaled by its length, and because the minimum and maximum
 temperature are taken from the samples inside the window, a partial window never
 contains the full daily temperature swing. The result is a lower daily total than if the
 scheduled run had seen the whole day. A dry run avoids this entirely.</p>
-<p>One thing a dry run does still do: if your zone uses the PyETO module with
-<code>forecast_days</code> greater than 0, it fetches forecast data from your weather service just
+<p>One thing a dry run does still do: if your zone is calculated by Smart Irrigation
+with <strong>Look ahead</strong> (<code>forecast_days</code>) above 0, it fetches forecast data from your weather service just
 like a real calculation, because the preview has to be computed from the same inputs to
 be meaningful. Subject to the usual cache, that can count against your weather service's
 API quota, so avoid polling a dry run in a tight loop.</p>
@@ -2114,7 +2114,7 @@ that produced no result at all are left out of the list entirely.</p>
 </tr>
 <tr>
 <td><code>create_recurring_schedule</code>, <code>update_recurring_schedule</code>, <code>delete_recurring_schedule</code></td>
-<td>The programs' schedules, under <strong>Watering</strong> (full controller). No action replaces these.</td>
+<td>The programs' schedules, under <strong>Watering › Programs</strong> (Calculate and water). No action replaces these.</td>
 </tr>
 </tbody>
 </table>

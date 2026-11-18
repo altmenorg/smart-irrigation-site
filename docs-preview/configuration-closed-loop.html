@@ -1302,17 +1302,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#when-does-it-run-the-active-start-trigger" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When does it run? The active start trigger
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1798,7 +1787,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1826,7 +1815,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -2001,7 +1990,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2170,17 +2159,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#when-does-it-run-the-active-start-trigger" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When does it run? The active start trigger
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2207,19 +2185,20 @@
 
 
 <h1 id="closed-loop-watering">Closed-loop watering<a class="headerlink" href="#closed-loop-watering" title="Permanent link">&para;</a></h1>
-<p>By default Smart Irrigation runs <strong>open loop</strong>: it calculates a duration and fires an event, but it does not know whether (or how much) watering actually happened, so you reset the water balance from an automation. The closed-loop features remove that guesswork. They are all opt-in and configured in the panel under <strong>General</strong>.</p>
+<p>With <strong>Calculate only</strong> and nothing else, Smart Irrigation runs <strong>open loop</strong>: it calculates a duration and fires an event, but it does not know whether (or how much) watering actually happened, so your automation credits the water balance. The closed-loop features remove that guesswork: Smart Irrigation credits the water balance itself, from the runs it sees or the runs it makes. <strong>Calculate and water</strong> turns them on; with Calculate only, observed watering is a switch of <strong>Settings › General</strong> on the advanced panel.</p>
 <p><a id="observed-watering-credit-the-bucket-automatically"></a></p>
 <h2 id="observed-watering-credit-the-water-balance-automatically">Observed watering (credit the water balance automatically)<a class="headerlink" href="#observed-watering-credit-the-water-balance-automatically" title="Permanent link">&para;</a></h2>
 <p>When enabled, Smart Irrigation watches each zone's linked valve/switch. Whenever it runs (a manual tap, an automation, or Smart Irrigation itself), the zone's water balance is credited from the run time and the zone's throughput (<code>depth_mm = throughput_L_per_min x minutes / size_m2</code>). No more manual reset.</p>
 <p>To set it up:</p>
 <ol>
-<li>Choosing <strong>Calculate and water</strong> turns it on. Otherwise, on the advanced panel, turn on <strong>Enable observed watering</strong> in <strong>Settings</strong>.</li>
+<li>Choosing <strong>Calculate and water</strong> turns it on. Otherwise, on the advanced panel, switch on the <strong>Observed watering (closed loop)</strong> card of <strong>Settings › General</strong>.</li>
 <li>In <strong>Zones</strong>, set each zone's <strong>Linked valve/switch</strong> to the entity that waters that zone (a <code>switch</code>, <code>valve</code> or <code>input_boolean</code>).</li>
 </ol>
 <p>The Smart Irrigation device has an <strong>Observed watering</strong> binary sensor (<code>binary_sensor.smart_irrigation_observed_watering</code>), on while the option is: one automation shared between several installs can read it to know whether it must reset the water balance itself.</p>
-<blockquote>
-<p>Important: when observed watering is on it becomes the only thing crediting the water balance. Remove any <code>set_bucket</code> or <code>reset_bucket</code> call from your irrigation automation, otherwise the water balance is accounted twice.</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Credit once</p>
+<p>When observed watering is on, it becomes the only thing crediting the water balance. Remove any <code>credit_watering</code>, <code>set_bucket</code> or <code>reset_bucket</code> call from your irrigation automation, or the water is counted twice.</p>
+</div>
 <h3 id="optional-leave-short-runs-out">Optional: leave short runs out<a class="headerlink" href="#optional-leave-short-runs-out" title="Permanent link">&para;</a></h3>
 <p>A short run that only cools the plants on a hot afternoon (a few minutes to keep the leaves from wilting) mostly stays on the leaves and evaporates. Set the zone's <strong>Ignore runs up to</strong> (seconds, advanced mode) and a run of the valve that lasts that long or less is not credited, nor counted as the zone's watering of the cycle. A longer run counts in full, its first seconds included. Empty credits every run. It applies to runs Smart Irrigation observes; the runs it drives itself are credited as they always were.</p>
 <h3 id="optional-a-cumulative-volume-meter-more-precise">Optional: a cumulative volume meter (more precise)<a class="headerlink" href="#optional-a-cumulative-volume-meter-more-precise" title="Permanent link">&para;</a></h3>
@@ -2230,42 +2209,44 @@
 <p>Only for a meter that measures the garden alone: a meter on the house counts the taps and the washing machine too.</p>
 <h3 id="what-the-meter-tells-us-about-your-throughput">What the meter tells us about your throughput<a class="headerlink" href="#what-the-meter-tells-us-about-your-throughput" title="Permanent link">&para;</a></h3>
 <p>Every irrigation duration is derived from the zone's configured throughput: the water balance says how many mm are missing, the size turns that into litres, and the throughput turns litres into minutes. A throughput copied off a datasheet rather than measured at the tap is one of the quietest ways to water twice as long as intended, or half as long, for a whole season.</p>
-<p>A zone with a volume meter gives the answer for free, since a run knows both how many litres came out and how long the valve was open. Smart Irrigation divides one by the other, smooths the result over several runs, and raises a repair notice in <strong>Settings &gt; Repairs</strong> when it drifts more than 25% from what you configured. Runs shorter than two minutes are ignored: filling the pipe dominates them.</p>
+<p>A zone with a volume meter gives the answer for free, since a run knows both how many litres came out and how long the valve was open. Smart Irrigation divides one by the other, smooths the result over several runs, and raises a repair notice in <strong>Settings › Repairs</strong> when it drifts more than 25% from what you configured. Runs shorter than two minutes are ignored: filling the pipe dominates them.</p>
 <p>It only ever tells you. The zone's throughput is never rewritten, because pressure varies, a meter can sit upstream of more than one zone, and silently changing how long valves stay open is not something to do behind your back. If the measurement looks right, copy it into the zone yourself.</p>
 <h2 id="when-smart-irrigation-runs-the-valves">When Smart Irrigation runs the valves<a class="headerlink" href="#when-smart-irrigation-runs-the-valves" title="Permanent link">&para;</a></h2>
-<p>With <strong>Calculate and water</strong> (the <a href="usage-full-controller.html">full controller</a>), Smart Irrigation opens each zone's linked valve, waits the calculated duration, then closes it. No execution automation needed. The water balance is credited for the runs <em>it</em> performs, since it knows exactly what it delivered. Observed watering, on with it, also credits <em>any</em> other run of that valve, which is what you want for a tap somebody opens by hand to water the same lawn. If that valve also does something else (filling a paddling pool, hosing the terrace), turn observed watering off in advanced mode.</p>
+<p>With <strong>Calculate and water</strong> (see <a href="usage-full-controller.html">Watering with programs</a>), Smart Irrigation opens each zone's linked valve, waits the calculated duration, then closes it. No automation of your own is needed. The water balance is credited for the runs <em>it</em> performs, since it knows exactly what it delivered. Observed watering, on with it, also credits <em>any</em> other run of that valve, which is what you want for a tap somebody opens by hand to water the same lawn. If that valve also does something else (filling a paddling pool, hosing the terrace), turn observed watering off in advanced mode.</p>
 <ul>
-<li><strong>Zone sequencing</strong>: <strong>Sequential</strong> runs one zone at a time (safe for water pressure); <strong>Parallel</strong> opens all eligible zones at once. This setting also decides how long the whole run is taken to be, which is what a start trigger works back from when it has to finish at sunrise: sequential is the sum of every zone's run time, parallel is the longest of them. It therefore applies whether Smart Irrigation opens the valves itself or an automation of your own does, and it is available in the general settings either way.</li>
+<li><strong>The order of the zones</strong>: each program's steps decide it, a step with several zones watering them together. The <strong>Irrigate all zones</strong> button has its own order, one after the other or all at once (see <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones now</a>).</li>
 <li><strong>Open confirmation</strong>: before crediting, Smart Irrigation waits for the valve to report an on-state. If it never opens, the run is not credited (so the deficit stays and rolls over to the next day) and a <code>smart_irrigation_zone_problem</code> event is fired. A write-only valve with no readable state is given the benefit of the doubt.</li>
-<li><strong>Confirmation per zone</strong> (advanced mode): <strong>Wait for the valve to confirm</strong> (seconds), and <strong>Send the open again</strong> (how many times; <code>open_resends</code>, <strong>YAML only</strong>, for instance <code>open_resends: 0</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). Empty keeps the defaults: 8 seconds and no resend, or 30 seconds and two resends (at 10 and 20 seconds) with the full controller, and 5 seconds for the valve to report a close. Set, the wait applies to the open and to the close, and the resends are spread evenly over it, so 60 seconds and 2 resends sends the open again at 20 and 40 seconds. <code>0</code> never sends it again. A cloud valve, Gardena's for instance, confirms through the vendor's servers and counts every command against a quota: give it a longer wait and <code>0</code>. A close that is not confirmed is always tried a second time, whatever the resends, because a valve left open costs more than one command. This is Irrigation Unlimited's <code>check_back</code> (<code>delay</code>, <code>retries</code>), per zone.</li>
-<li><strong>Setting a failing zone aside</strong> (advanced mode, off by default, on the <strong>Observed watering</strong> card): with <strong>Set a zone aside after this many failed runs</strong> at 3, say, a zone whose valve did not open, gave no water or could not have its own timer set three runs in a row is no longer watered by any program or cycle, rather than failing every morning with the pump starting for nothing. You are told at once: the programs' <a href="usage-full-controller.html#being-told-when-a-program-has-watered">notifications</a>, a repair in <strong>Settings &gt; Repairs</strong> with a button to put the zone back, the zone's problem sensor (reason <code>zone_set_aside</code>) and a line on the zone in the panel, with <strong>Put back</strong>. It comes back by itself when its valve is seen opening, for instance tried by hand once repaired, and a successful run counts its failures from zero again.</li>
+<li><strong>Confirmation per zone</strong> (advanced mode): <strong>Wait for the valve to confirm</strong> (seconds), and how many times to send the open again (<code>open_resends</code>, <strong>YAML only</strong>, for instance <code>open_resends: 0</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). Empty keeps the defaults: 30 seconds and two resends (at 10 and 20 seconds), and 5 seconds for the valve to report a close. Set, the wait applies to the open and to the close, and the resends are spread evenly over it, so 60 seconds and 2 resends sends the open again at 20 and 40 seconds. <code>0</code> never sends it again. A cloud valve, Gardena's for instance, confirms through the vendor's servers and counts every command against a quota: give it a longer wait and <code>0</code>. A close that is not confirmed is always tried a second time, whatever the resends, because a valve left open costs more than one command. This is Irrigation Unlimited's <code>check_back</code> (<code>delay</code>, <code>retries</code>), per zone.</li>
+<li><strong>Setting a failing zone aside</strong> (advanced mode, off by default, on the <strong>Observed watering</strong> card): with <strong>Set a zone aside after this many failed runs</strong> at 3, say, a zone whose valve did not open, gave no water or could not have its own timer set three runs in a row is no longer watered by any program or cycle, rather than failing every morning with the pump starting for nothing. You are told at once: the programs' <a href="usage-full-controller.html#being-told-when-a-program-has-watered">notifications</a>, a repair in <strong>Settings › Repairs</strong> with a button to put the zone back, the zone's problem sensor (reason <code>zone_set_aside</code>) and a line on the zone in the panel, with <strong>Put back</strong>. It comes back by itself when its valve is seen opening, for instance tried by hand once repaired, and a successful run counts its failures from zero again.</li>
 <li><strong>Reboot resilience</strong>: a run that is in progress when Home Assistant restarts is resumed (or closed if it already exceeded its duration) and then credited.</li>
 <li><strong>One run per zone per cycle</strong>: a zone whose valve is already open is left out, and a zone watered while it waited its turn in a sequential run is not watered again when the queue reaches it. With observed watering on, that includes a valve opened outside Smart Irrigation, by hand or by another automation: running it too would close the valve under that run and count the overlap twice.</li>
 <li><strong>One cycle at a time, in sequential mode</strong>: a run asked for while one is already going joins the queue instead of starting beside it, so two valves are never open at once. A zone already waiting is not queued twice, the zone being watered right now is not queued behind itself, and the zones that joined are in the same end-of-run summary. In parallel mode there is nothing to join: every zone at once is what that setting asks for.</li>
 </ul>
-<blockquote>
-<p><strong>Safety:</strong> if Home Assistant goes down for a long time during a run, the physical valve stays open and keeps watering, because Home Assistant is no longer there to close it. Give your valve a hardware failsafe (a maximum runtime on the device itself). Smart Irrigation also caps the credited time at the zone's maximum duration. For an MQTT valve, the integration can arm that failsafe for you on every run -- see below.</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Give your valve a hardware failsafe</p>
+<p>If Home Assistant goes down for a long time during a run, the physical valve stays open and keeps watering, because Home Assistant is no longer there to close it. Give your valve a maximum run time on the device itself. Smart Irrigation also caps the credited time at the zone's maximum duration. For an MQTT or ZHA valve, Smart Irrigation can arm that failsafe for you on every run: see <a href="#hardware-auto-off-mqtt-on_time-dead-man">hardware auto-off</a>.</p>
+</div>
 <h3 id="watering-one-zone-by-hand">Watering one zone by hand<a class="headerlink" href="#watering-one-zone-by-hand" title="Permanent link">&para;</a></h3>
-<p><strong>Calculate and water</strong> also adds the <strong>Irrigate now</strong> button entities
-for existing zones and <strong>Irrigate all</strong> on the hub, without reloading the
-integration or restarting Home Assistant. Switching it off makes those buttons
-unavailable; switching it on again restores them with the same entity IDs.</p>
+<p><strong>Calculate and water</strong> also adds the <strong>Irrigate now</strong> button entity of each zone and <strong>Irrigate all zones</strong> on the hub, without a reload or a restart. Leaving it makes those buttons unavailable; choosing it again restores them with the same entity ids.</p>
 <p>With <strong>Calculate and water</strong>, each zone with a linked valve has a <strong>Water</strong> button on its card in the Zones page. It asks for minutes, and left empty it waters the run the planning shows. The valve opens straight away, or takes its turn behind what is watering, and the water is credited to the zone's balance like any run of ours. It is the <code>smart_irrigation.water_zone</code> action, which an automation can call with the zone's entity or its <code>zone_id</code>.</p>
 <h3 id="hardware-auto-off-mqtt-on_time-dead-man">Hardware auto-off (MQTT on_time dead-man)<a class="headerlink" href="#hardware-auto-off-mqtt-on_time-dead-man" title="Permanent link">&para;</a></h3>
 <p>The closing of the valve normally happens in Home Assistant: the run opens the valve, waits, and closes it. If Home Assistant stops in that window and never comes back, nothing sends the close and the valve keeps watering. (A restart <em>does</em> recover: an in-flight run is resumed and closed when Home Assistant comes back. The gap is Home Assistant staying down.)</p>
-<p>For a valve controlled over <strong>MQTT</strong> -- a <a href="https://www.zigbee2mqtt.io/">zigbee2mqtt</a> device, for instance -- Smart Irrigation can close that gap with a hardware dead-man. On each pass it publishes an <em>on with timed off</em> command to the device, so the device's own firmware shuts the valve off after the run even if Home Assistant is no longer there. It is armed only after the valve is confirmed open, and it is additive: the normal close still runs, the <code>on_time</code> is set a little longer than the pass so it lands just after, as a failsafe rather than the primary off.</p>
+<p>For a valve controlled over <strong>MQTT</strong> (a <a href="https://www.zigbee2mqtt.io/">zigbee2mqtt</a> device, for instance), Smart Irrigation can close that gap with a hardware dead-man. On each pass it publishes an <em>on with timed off</em> command to the device, so the device's own firmware shuts the valve off after the run even if Home Assistant is no longer there. It is armed only after the valve is confirmed open, and it is additive: the normal close still runs, the <code>on_time</code> is set a little longer than the pass so it lands just after, as a failsafe rather than the primary off.</p>
 <p>Three optional per-zone fields configure it (the topic and the mode on the advanced panel, shown only with Calculate and water and a linked valve set; the state key in YAML). The first two are empty by default, so nothing changes until you fill them in:</p>
 <ul>
-<li><strong>Safety off MQTT topic</strong> -- the device's <code>set</code> topic, e.g. <code>zigbee2mqtt/front_lawn_valve/set</code>.</li>
-<li><strong>Safety off state key</strong> (<code>safety_off_state_key</code>, <strong>YAML only</strong>, for instance <code>safety_off_state_key: state_l1</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>; empty is <code>state</code>) -- the on/off property in the payload: <code>state</code> for a single-channel device, or <code>state_l1</code>...<code>state_l4</code> for one channel of a multi-channel device.</li>
-<li><strong>Safety off mode</strong> -- <code>auto</code> (the default), <code>zha</code> or <code>off</code>, described below.</li>
+<li><strong>Safety off MQTT topic</strong>: the device's <code>set</code> topic, e.g. <code>zigbee2mqtt/front_lawn_valve/set</code>.</li>
+<li><strong>Safety off state key</strong> (<code>safety_off_state_key</code>, <strong>YAML only</strong>, for instance <code>safety_off_state_key: state_l1</code> in the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>; empty is <code>state</code>): the on/off property in the payload: <code>state</code> for a single-channel device, or <code>state_l1</code>...<code>state_l4</code> for one channel of a multi-channel device.</li>
+<li><strong>Safety off mode</strong>: <code>auto</code> (the default), <code>zha</code> or <code>off</code>, described below.</li>
 </ul>
 <p>With those set, a pass that holds the valve for 300 seconds publishes <code>{"state_l1": "ON", "on_time": 330}</code> to the topic (the run time plus a 30-second margin). The device closes its own valve after <code>on_time</code> seconds whatever happens to Home Assistant.</p>
-<blockquote>
-<p><strong>Device support varies.</strong> <code>on_time</code> ("on with timed off") is honoured by the device firmware, not by Smart Irrigation, and <a href="https://www.zigbee2mqtt.io/devices/TYWB_4ch-RF.html">not every device implements it</a>. Test it before you rely on it: start a run, stop Home Assistant while the valve is open, and confirm the valve closes itself after <code>on_time</code>. Some devices need an <code>off_wait_time</code> alongside <code>on_time</code> to behave.</p>
-<p><strong>Verified:</strong> a Sonoff SWV (firmware 1.0.4) on zigbee2mqtt, topic <code>zigbee2mqtt/&lt;friendly name&gt;/set</code>, state key <code>state</code>: with the Zigbee coordinator unplugged in the middle of a run, the valve closed by itself at the end of it (reported in <a href="https://github.com/altmenorg/HAsmartirrigation/issues/893">#893</a>).</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Device support varies</p>
+<p><code>on_time</code> ("on with timed off") is honoured by the device firmware, not by Smart Irrigation, and <a href="https://www.zigbee2mqtt.io/devices/TYWB_4ch-RF.html">not every device implements it</a>. Test it before you rely on it: start a run, stop Home Assistant while the valve is open, and confirm the valve closes itself after <code>on_time</code>. Some devices need an <code>off_wait_time</code> alongside <code>on_time</code> to behave.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Verified</p>
+<p>A Sonoff SWV (firmware 1.0.4) on zigbee2mqtt, topic <code>zigbee2mqtt/&lt;friendly name&gt;/set</code>, state key <code>state</code>: with the Zigbee coordinator unplugged in the middle of a run, the valve closed by itself at the end of it (reported in <a href="https://github.com/altmenorg/HAsmartirrigation/issues/893">#893</a>).</p>
+</div>
 <p><strong>Valves on ZHA</strong> can be armed too. The linked valve must be a ZHA entity (found through the entity registry): each pass then sends the device an <em>on with timed off</em> command (On/Off cluster, command <code>0x42</code>) through <code>zha.issue_zigbee_cluster_command</code>, right after the normal open (a Sonoff SWV is the exception, see below). The unit of the time differs between devices, so the safety off mode matters:</p>
 <ul>
 <li><code>auto</code> (default): armed automatically only for a model known to be verified. That is the <strong>Sonoff SWV</strong> (manufacturer SONOFF, model SWV), tested on a real valve (firmware 1.0.04, ZHA): it honours the command, but counts the time in <strong>seconds</strong>, not in tenths of a second as the ZCL spec says. Smart Irrigation sends it the pass length plus the margin, in seconds (at most 65535 s, about 18 hours). If Home Assistant dies mid-run, the valve closes itself about 30 seconds after the time Home Assistant would have closed it. If a topic is set, the topic wins and ZHA is not used.</li>
@@ -2279,17 +2260,17 @@ unavailable; switching it on again restores them with the same entity IDs.</p>
 <p><strong>Only water with the valve's own timer.</strong> Setting the valve's own timer is best-effort: when it fails (a battery valve asleep, MQTT down, a duration that could not be written), the valve opens all the same, without that safety net for the run. A zone that would rather skip the watering can say so: <strong>If the valve's own timer can't be set</strong> (advanced panel, shown only for a zone whose valve has a timer Smart Irrigation can set: a ZHA valve, an MQTT topic or a valve's own duration) set to <strong>Leave the valve shut</strong>. The valve then stays shut, or is shut at once when the timer is armed right after the open (MQTT, or a ZHA valve other than a Sonoff SWV), nothing is credited, so the water is carried over to the next watering, and the zone reports <code>valve_timer_not_set</code>. A zone with that setting and no way of setting a timer at all is never opened. Home Assistant still closes the valve at the normal time either way: the valve's own timer is the second net, not a replacement.</p>
 <p><strong>Other valves</strong> (Wi-Fi switches, ESPHome, Tuya, or anything that is neither MQTT with a topic nor ZHA) get no automatic dead-man: leave the fields empty and the run behaves exactly as before. For those, set the failsafe on the device itself, which is more reliable than Home Assistant sending it every run: a Shelly has an <em>Auto-off timer</em>, Tasmota has <code>PulseTime</code>, ESPHome can turn a switch off after a delay, and many Tuya Wi-Fi switches have a <em>countdown</em> function.</p>
 <h3 id="cycle-and-soak-and-the-pause-between-zones">Cycle and soak, and the pause between zones<a class="headerlink" href="#cycle-and-soak-and-the-pause-between-zones" title="Permanent link">&para;</a></h3>
-<p>Two general settings, both off by default, for an installation that is already tuned. With <strong>Calculate and water</strong>, each step of a <a href="usage-full-controller.html#programs">program</a> has its own number of passes, and the soak time between them is one setting for every program, shown next to a step's passes; the order, passes and pause of the <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones</a> button are folded at the bottom of <strong>Watering &gt; Programs</strong>. With <strong>Calculate only</strong> they are in the settings, for the start trigger's timing.</p>
+<p>Both are for an installation that is already tuned, and only apply when Smart Irrigation opens the valves itself (Calculate and water). Each step of a <a href="usage-full-controller.html#programs">program</a> has its own number of passes, and the soak time between them is one setting for every program, shown next to a step's passes. The order, passes and pause of the <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones</a> button are folded at the bottom of <strong>Watering › Programs</strong>.</p>
 <p><strong>Water in several passes</strong> splits a run into shorter passes with a pause between them. Clay and compacted soil have an infiltration rate: past it the water runs off or puddles, and the zone is billed for water the roots never see. Three passes of five minutes with fifteen minutes of soaking deliver the same water as one run of fifteen minutes, and the soil keeps more of it. Guidance: sand takes water as fast as you can give it, so leave this at one pass; loam rarely needs more than two; clay and slopes are what it is for.</p>
 <p>The plan is fixed when the run starts, and a run too short to split is left alone (no pass shorter than a minute). Each pass is credited as it closes, so a restart in the middle of a run never credits water twice and never leaves a valve open.</p>
 <p><strong>Pause between zones</strong> waits between two zones of a sequential run, for the line pressure to recover or for a slow valve to finish closing before the next one opens.</p>
-<p>Both lengthen the run without adding water to it, and a start trigger that has to finish at sunrise works back from the whole thing, soaking and pauses included: three zones of half an hour in three passes with fifteen minutes of soaking occupy two and a half hours, not an hour and a half. Watch that against the hour you want to be finished by. When an executor of your own opens the valves instead, neither setting applies and the run length is the watering alone.</p>
+<p>Both lengthen the run without adding water to it, and a schedule that must be done by sunrise works back from the whole thing, soaking and pauses included: three zones of half an hour in three passes with fifteen minutes of soaking occupy two and a half hours, not an hour and a half. Watch that against the hour you want to be finished by. With Calculate only, your own executor opens the valves, neither setting applies, and the start trigger works back from the watering alone.</p>
 <h3 id="events-for-your-own-automations">Events for your own automations<a class="headerlink" href="#events-for-your-own-automations" title="Permanent link">&para;</a></h3>
 <p>When Smart Irrigation waters, it fires events you can use to notify or react, so you do not need one automation per zone. With <strong>Calculate and water</strong>, the first two come from the run of the <a href="usage-full-controller.html#irrigate-all-zones-now">Irrigate all zones</a> button, and from the program with the id <code>main</code> (on an installation that had a main program, the ordinary program it was turned into, <strong>Watering</strong>; there is <a href="usage-full-controller.html#no-main-program">no main program any more</a>), so an automation written for them keeps working; every program also fires <code>smart_irrigation_program_started</code> and <code>smart_irrigation_program_finished</code>.</p>
 <ul>
 <li><code>smart_irrigation_irrigation_started</code> when a run begins. Data: <code>sequencing</code> (<code>sequential</code>/<code>parallel</code>) and <code>zones</code>, a list of <code>{zone_id, zone, seconds}</code> about to be watered.</li>
 <li><code>smart_irrigation_irrigation_finished</code> when the whole run is done. Data: <code>zones</code>, a list of <code>{zone_id, zone, seconds, volume_l, bucket}</code> that ran (volume delivered and the new water balance), and <code>problems</code>, a list of <code>{zone_id, zone, reason}</code> for zones that delivered no water: the valve did not open (<code>valve_did_not_open</code>), or it opened and the zone's flow meter did not move (<code>no_flow</code>). A valve that watered but would not close is still in <code>zones</code>, since the water it delivered is credited, and is reported by its own <code>smart_irrigation_zone_problem</code> event.</li>
-<li><code>smart_irrigation_zone_problem</code> the moment something goes wrong with a valve. Data: <code>zone_id</code>, <code>zone</code>, <code>entity_id</code>, <code>reason</code>: <code>valve_did_not_open</code>, <code>valve_did_not_close</code> (the close failed or the valve still reads open, retried once), or <code>no_flow</code> (the valve opened but the zone's flow meter did not move, so the run is not credited), <code>valve_closed_early</code> (full controller: the valve read <code>off</code> or <code>closed</code> while it should have been open, so the zone's run ends and is credited for the time it was open), <code>supply_did_not_turn_on</code> (full controller: the pump or main valve the zone depends on never came on, so the zone's valve stays shut), or <code>valve_timer_not_set</code> (the zone asks for the valve's own timer and it could not be set, so the valve stays shut or is shut at once).</li>
+<li><code>smart_irrigation_zone_problem</code> the moment something goes wrong with a valve. Data: <code>zone_id</code>, <code>zone</code>, <code>entity_id</code>, <code>reason</code>: <code>valve_did_not_open</code>, <code>valve_did_not_close</code> (the close failed or the valve still reads open, retried once), or <code>no_flow</code> (the valve opened but the zone's flow meter did not move, so the run is not credited), <code>valve_closed_early</code> (the valve read <code>off</code> or <code>closed</code> while it should have been open, so the zone's run ends and is credited for the time it was open), <code>supply_did_not_turn_on</code> (the pump or main valve the zone depends on never came on, so the zone's valve stays shut), or <code>valve_timer_not_set</code> (the zone asks for the valve's own timer and it could not be set, so the valve stays shut or is shut at once).</li>
 </ul>
 <p>Example: a single end-of-watering report for all zones.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Watering report</span>
@@ -2303,7 +2284,7 @@ unavailable; switching it on again restores them with the same entity IDs.</p>
 <span class="w">      </span><span class="nt">problems</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">trigger.event.data.problems</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notify.mobile_app_your_phone</span>
 <span class="w">    </span><span class="nt">data</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">'🚨'</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">problems</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">count</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">'🌱'</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">Watering</span><span class="nv"> </span><span class="s">finished"</span>
+<span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">"Watering</span><span class="nv"> </span><span class="s">finished{{</span><span class="nv"> </span><span class="s">'</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">problems'</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">problems</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">count</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">''</span><span class="nv"> </span><span class="s">}}"</span>
 <span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
 <span class="w">        </span><span class="no">{% set l = namespace(t=[]) %}</span>
 <span class="w">        </span><span class="no">{% for z in zones %}</span>
@@ -2315,13 +2296,11 @@ unavailable; switching it on again restores them with the same entity IDs.</p>
 <span class="w">        </span><span class="no">{{ l.t | join("\n") }}</span>
 <span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single</span>
 </code></pre></div>
-<blockquote>
-<p>If you previously had one automation per zone that opened the valve and called <code>set_bucket</code> or <code>reset_bucket</code>, remove them once you choose <strong>Calculate and water</strong>: Smart Irrigation now opens the valves and credits the water balance itself, so the old automations would double up. Keep only report/notification automations like the one above.</p>
-</blockquote>
-<p>The legacy <code>smart_irrigation_start_irrigation_all_zones</code> event still fires too (it carries the trigger identity), for setups that drive watering from their own automation or an external executor, with <strong>Calculate only</strong>.</p>
-<h2 id="when-does-it-run-the-active-start-trigger">When does it run? The active start trigger<a class="headerlink" href="#when-does-it-run-the-active-start-trigger" title="Permanent link">&para;</a></h2>
-<p>Irrigation starts on a single <strong>active trigger</strong>, chosen in <strong>General</strong> under the start triggers. The triggers you define are the pool of options; only the selected one starts watering, so a run happens once per day.</p>
-<p>The default, <strong>Default: done by sunrise</strong>, times the run so it finishes right at sunrise. Add custom triggers (sunset, solar azimuth, offsets) below and pick one as the active trigger if you prefer.</p>
+<div class="admonition warning">
+<p class="admonition-title">Remove your old watering automations</p>
+<p>If you had one automation per zone that opened the valve and called <code>set_bucket</code> or <code>reset_bucket</code>, remove them once you choose <strong>Calculate and water</strong>: Smart Irrigation opens the valves and credits the water balance itself, so the old automations would double up. Keep only report or notification automations like the one above.</p>
+</div>
+<p>With <strong>Calculate only</strong>, Smart Irrigation opens no valve: it fires <code>smart_irrigation_start_irrigation_all_zones</code> at the <a href="configuration-general.html#start-triggers">start trigger</a> for your own automation or executor, with the trigger's identity. See <a href="usage-events.html">events</a>.</p>
 
 
 

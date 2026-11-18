@@ -27,7 +27,7 @@
     
     
       
-        <title>Configuration: Modules - Smart Irrigation</title>
+        <title>Modules - Smart Irrigation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-configuration" class="md-skip">
+        <a href="#modules" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuration: Modules
+              Modules
             
           </span>
         </div>
@@ -1137,10 +1137,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#manual" class="md-nav__link">
+  <a href="#a-fixed-amount-manual" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manual
+        A fixed amount (Manual)
       
     </span>
   </a>
@@ -1148,10 +1148,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#standard" class="md-nav__link">
+  <a href="#provided-by-a-sensor-or-a-service-standard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Standard
+        Provided by a sensor or a service (Standard)
       
     </span>
   </a>
@@ -1159,10 +1159,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#advanced" class="md-nav__link">
+  <a href="#calculated-by-smart-irrigation-advanced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Advanced
+        Calculated by Smart Irrigation (Advanced)
       
     </span>
   </a>
@@ -1726,7 +1726,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1754,7 +1754,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1929,7 +1929,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1989,10 +1989,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#manual" class="md-nav__link">
+  <a href="#a-fixed-amount-manual" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manual
+        A fixed amount (Manual)
       
     </span>
   </a>
@@ -2000,10 +2000,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#standard" class="md-nav__link">
+  <a href="#provided-by-a-sensor-or-a-service-standard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Standard
+        Provided by a sensor or a service (Standard)
       
     </span>
   </a>
@@ -2011,10 +2011,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#advanced" class="md-nav__link">
+  <a href="#calculated-by-smart-irrigation-advanced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Advanced
+        Calculated by Smart Irrigation (Advanced)
       
     </span>
   </a>
@@ -2062,15 +2062,16 @@
   
 
 
-<h1 id="module-configuration">Module configuration<a class="headerlink" href="#module-configuration" title="Permanent link">&para;</a></h1>
+<h1 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h1>
 <p>A module is the method used to work out how much water evaporated.</p>
-<p><strong>You no longer create or pick one.</strong> A zone says how it is calculated, in plain words, on its own card: <em>calculated from the weather data</em>, <em>provided by a sensor or a service</em>, or <em>a fixed amount</em>. The module behind that answer is created and reused for you, one per zone, and its own settings (how many days to look ahead, coastal, the fixed amount) are on the zone card too. There is no modules page any more: the three modes below are what those three answers mean.</p>
+<p><strong>You no longer create or pick one.</strong> A zone says how it is calculated, in plain words, in its <strong>Evapotranspiration</strong> field: <em>Calculated by Smart Irrigation</em>, <em>Provided by a sensor or a service</em>, or <em>A fixed amount</em>. The module behind that answer is created and reused for you, one per zone, and its own settings (how many days to look ahead, coastal, the fixed amount) are on the zone card too. There is no modules page any more: the three modes below are what those three answers mean.</p>
 <p>The sensor group still records which kind of module it feeds, because what sources a group has to provide depends on it. When one group feeds zones that are calculated differently, it records none and each zone answers for itself.</p>
 <h2 id="the-three-modes">The three modes<a class="headerlink" href="#the-three-modes" title="Permanent link">&para;</a></h2>
-<p>They differ in one thing: where the evapotranspiration figure comes from. Everything after that, the water balance, the rain, the duration, is the same whichever you choose.</p>
+<p>They differ in one thing: where the evapotranspiration figure comes from. Everything after that (the water balance, the rain, the duration) is the same whichever you choose.</p>
 <table>
 <thead>
 <tr>
+<th>The zone's answer</th>
 <th>Mode</th>
 <th>Where the figure comes from</th>
 <th>What you need</th>
@@ -2078,43 +2079,51 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Manual</strong> (a fixed amount)</td>
+<td><em>A fixed amount</em></td>
+<td><strong>Manual</strong></td>
 <td>You give one number, used every day</td>
 <td>Nothing</td>
 </tr>
 <tr>
-<td><strong>Standard</strong> (provided)</td>
+<td><em>Provided by a sensor or a service</em></td>
+<td><strong>Standard</strong></td>
 <td>An evapotranspiration figure that already exists</td>
 <td>A weather service that publishes one, or your own sensor</td>
 </tr>
 <tr>
-<td><strong>Advanced</strong> (from the weather data)</td>
-<td>Computed from the weather, by FAO-56 Penman-Monteith</td>
+<td><em>Calculated by Smart Irrigation</em></td>
+<td><strong>Advanced</strong></td>
+<td>Computed from the weather, with FAO-56 Penman-Monteith</td>
 <td>Temperature, humidity, pressure and wind, ideally solar radiation</td>
 </tr>
 </tbody>
 </table>
-<p>If you are unsure, <strong>Standard</strong> with Open-Meteo is the shortest path to something correct: it is free, needs no API key, and publishes a reference evapotranspiration computed the same way Advanced would.</p>
-<blockquote>
-<p>In the logs, the services and the stored configuration these are still called <code>Static</code>, <code>Passthrough</code> and <code>PyETO</code>. The names above are what the panel shows.</p>
-</blockquote>
-<h3 id="manual">Manual<a class="headerlink" href="#manual" title="Permanent link">&para;</a></h3>
-<p>A fixed amount of evaporation per day, which you set yourself on the zone card (<strong>Evaporation per day</strong>), as a positive number: 4 means the zone loses 4 mm a day. No sensors and no weather service. Underneath, the module stores it as the change to the water balance, -4; a positive value stored before v2026.10.7 added water every day instead, and is turned around when Smart Irrigation starts.</p>
+<p>If you are unsure, <em>Provided by a sensor or a service</em> with Open-Meteo is the shortest path to something correct: it is free, needs no API key, and publishes a reference evapotranspiration computed the same way Smart Irrigation would.</p>
+<div class="admonition note">
+<p class="admonition-title">Names in the code</p>
+<p>The setup assistant's summary uses the mode names (Manual, Standard, Advanced). In the logs, the services and the stored configuration, the modules are still called <code>Static</code>, <code>Passthrough</code> and <code>PyETO</code>.</p>
+</div>
+<h3 id="a-fixed-amount-manual">A fixed amount (Manual)<a class="headerlink" href="#a-fixed-amount-manual" title="Permanent link">&para;</a></h3>
+<p>A fixed amount of evaporation per day, which you set on the zone card (<strong>Evaporation per day</strong>), as a positive number: 4 means the zone loses 4 mm a day. No sensors and no weather service.</p>
 <p>It is coarser than the other two, but it is not the same as no integration at all: rain still counts against it, the water balance still tracks what you have already applied, and the duration still follows from your zone's size and throughput. Somewhere around 4 to 5 mm a day is a common starting point for a temperate summer, and worth adjusting by season.</p>
-<h3 id="standard">Standard<a class="headerlink" href="#standard" title="Permanent link">&para;</a></h3>
+<details class="note">
+<summary>Coming from v2026.10.6 or earlier</summary>
+<p>Underneath, the module stores the amount as the change to the water balance, -4. A positive value stored before v2026.10.7 added water every day instead, and is turned around when Smart Irrigation starts.</p>
+</details>
+<h3 id="provided-by-a-sensor-or-a-service-standard">Provided by a sensor or a service (Standard)<a class="headerlink" href="#provided-by-a-sensor-or-a-service-standard" title="Permanent link">&para;</a></h3>
 <p>Takes an evapotranspiration figure that already exists and uses it as it stands.</p>
-<p>Two ways to feed it. Either a weather service that publishes one, which today means <strong>Open-Meteo</strong> among the three supported, or a sensor of your own that reports evapotranspiration. Set the <strong>Evapotranspiration</strong> source in the sensor group accordingly.</p>
-<p>Rain still counts: the water balance is the evapotranspiration from this figure minus the precipitation your sensor group reports. Nothing else is required, and the group will not ask you for temperature or wind, because this mode never reads them.</p>
-<h3 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h3>
+<p>Two ways to feed it: a weather service that publishes one, which among the online services means <strong>Open-Meteo</strong>, or a sensor of your own that reports evapotranspiration. Set the <strong>Evapotranspiration</strong> source of the sensor group accordingly (<strong>Ready-made ET₀ from the weather service</strong>, or the sensor).</p>
+<p>Rain still counts: the water balance is the evapotranspiration from this figure minus the precipitation your sensor group reports. Nothing else is required, and the group does not ask for temperature or wind, because this mode never reads them.</p>
+<h3 id="calculated-by-smart-irrigation-advanced">Calculated by Smart Irrigation (Advanced)<a class="headerlink" href="#calculated-by-smart-irrigation-advanced" title="Permanent link">&para;</a></h3>
 <p>The full FAO-56 Penman-Monteith calculation, from the individual weather quantities. The most accurate option when your sensors sit where the plants are, and the one that asks for the most.</p>
-<p>It reads temperature, dewpoint, humidity, pressure, wind speed and solar radiation from the sensor group. Solar radiation is the term that drives the result: when a source provides it, it is used; when none does, it is estimated from the daily temperature range, which is coarser but still workable. Under glass, a light sensor can stand in for a radiation sensor, described under <a href="configuration-sensor-groups.html">sensor groups</a>.</p>
-<p>Two settings of its own:</p>
+<p>It reads temperature, dew point, humidity, pressure, wind speed and solar radiation from the sensor group. Solar radiation is the term that drives the result: when a source provides it, it is used; when none does, it is estimated from the daily temperature range, which is coarser but still workable. Under glass, a light sensor can stand in for a radiation sensor, described under <a href="configuration-sensor-groups.html">sensor groups</a>.</p>
+<p>Two settings of its own, on the zone:</p>
 <ul>
-<li><em>Coastal</em> (the zone's <strong>Coastal site</strong>, advanced panel): enable it if your location is on or near the coast of a large land mass, or anywhere air masses are influenced by a nearby body of water. It adjusts the radiation estimate.</li>
-<li><em>Forecast days</em>: how many forecast days to fold into the calculation. <code>0</code> uses today's weather only; a higher value averages today's evapotranspiration with the forecast evapotranspiration of that many upcoming days, so a hot tomorrow raises today's run. It never reads forecast rain: a cloudy, humid day ahead only lowers the average a little, whatever it is forecast to rain. To hold a run back ahead of rain, use the rain forecast condition under <a href="configuration-weather.html#skipping-a-run">Skipping a run</a>. Requires a weather service.</li>
+<li><strong>Coastal site</strong> (advanced mode): for a location on or near the coast of a large land mass, or anywhere air masses are influenced by a nearby body of water. It adjusts the radiation estimate.</li>
+<li><strong>Look ahead</strong> (advanced mode): how many forecast days to fold into the calculation. <code>0</code> uses today's weather only; a higher value averages today's evapotranspiration with the forecast evapotranspiration of that many days to come, so a hot tomorrow raises today's run. It never reads forecast rain: a cloudy, humid day ahead only lowers the average a little, whatever rain is forecast. To hold a run back ahead of rain, use the rain forecast check under <a href="configuration-weather.html#skipping-a-run">Skipping a run</a>. It needs a weather service.</li>
 </ul>
 <h2 id="adding-and-deleting-a-module">Adding and deleting a module<a class="headerlink" href="#adding-and-deleting-a-module" title="Permanent link">&para;</a></h2>
-<p>A zone creates the module behind it when you choose how it is calculated, and a module nothing uses any more is removed. The <a href="configuration-setup.html">setup assistant</a> under <strong>Settings &gt; General</strong> creates the module, the sensor group and the zone together, from what you answer.</p>
+<p>A zone creates the module behind it when you choose how it is calculated, and a module nothing uses any more is removed. The <a href="configuration-setup.html">setup assistant</a> creates the module, the sensor group and the zone together, from your answers.</p>
 
 
 

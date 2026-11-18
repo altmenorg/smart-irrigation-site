@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Entities - Smart Irrigation</title>
+        <title>Entities - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Entities
+              Entities
             
           </span>
         </div>
@@ -1514,6 +1514,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hub-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hub device
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#program-sensors" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1687,7 +1698,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1715,7 +1726,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1890,7 +1901,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1949,6 +1960,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hub-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hub device
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#program-sensors" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1985,8 +2007,8 @@
 
 
 <h1 id="entities">Entities<a class="headerlink" href="#entities" title="Permanent link">&para;</a></h1>
-<p>Each <a href="configuration-zones.html">zone</a> you configure will be added as a sensor entity to Home Assistant. The sensor will be named as follows: <code>sensor.smart_irrigation_[zone_name]</code>. So if you have a zone called 'lawn' then the sensor would be named <code>sensor.smart_irrigation_lawn</code>.</p>
-<p>Each entity will have the following attributes:</p>
+<p>Each <a href="configuration-zones.html">zone</a> has a duration sensor in Home Assistant, named <code>sensor.smart_irrigation_[zone_name]</code>: a zone called "Lawn" has <code>sensor.smart_irrigation_lawn</code>. Its state is the watering duration in seconds.</p>
+<p>Its attributes:</p>
 <table>
 <thead>
 <tr>
@@ -2001,11 +2023,11 @@
 </tr>
 <tr>
 <td><code>size</code></td>
-<td>the total area the irrigation system reaches in m<sup>2</sup> or sq ft.</td>
+<td>the area the zone waters, in m² or sq ft.</td>
 </tr>
 <tr>
 <td><code>throughput</code></td>
-<td>total amount of water that flows through the irrigation system in liters or gallon per minute.</td>
+<td>the flow of the zone, in litres or gallons per minute.</td>
 </tr>
 <tr>
 <td><code>input_method</code></td>
@@ -2017,7 +2039,7 @@
 </tr>
 <tr>
 <td><code>state</code></td>
-<td>disabled, manual, automatic</td>
+<td><code>automatic</code>, <code>manual</code> or <code>disabled</code>.</td>
 </tr>
 <tr>
 <td><code>bucket</code></td>
@@ -2025,7 +2047,7 @@
 </tr>
 <tr>
 <td><code>bucket_unit</code>, <code>size_unit</code>, <code>throughput_unit</code>, <code>drainage_rate_unit</code>, <code>current_drainage_unit</code>, <code>maximum_bucket_unit</code>, <code>precipitation_rate_unit</code>, <code>et_value_unit</code>, <code>et_deficiency_unit</code>, <code>eto_unit</code></td>
-<td>the unit each figure is shown in, following the unit system of Home Assistant (mm or inch, m<sup>2</sup> or sq ft, liter or gallon per minute).</td>
+<td>the unit each figure is shown in, following the unit system of Home Assistant (mm or inch, m² or sq ft, litres or gallons per minute).</td>
 </tr>
 <tr>
 <td><code>multiplier</code></td>
@@ -2077,27 +2099,26 @@
 </tr>
 <tr>
 <td><code>unit_of_measurement</code></td>
-<td>seconds</td>
+<td>seconds.</td>
 </tr>
 <tr>
 <td><code>device_class</code></td>
-<td>duration</td>
+<td>duration.</td>
 </tr>
 <tr>
 <td><code>icon</code></td>
-<td>default: mdi:sprinkler</td>
+<td><code>mdi:sprinkler</code> by default.</td>
 </tr>
 <tr>
 <td><code>friendly_name</code></td>
-<td>Name of your zone.</td>
+<td>the name of your zone.</td>
 </tr>
 </tbody>
 </table>
-<p>Sample screenshot:</p>
-<p><img alt="" src="assets/images/sensor.%5Bzone_name%5D.png" /></p>
-<p>If you want to expose these attributes as separate sensors, you can add <a href="https://www.home-assistant.io/integrations/template/#state-based-template-binary-sensors-buttons-images-numbers-selects-and-sensors">template sensors</a> using a template like the following example for <code>bucket</code>:</p>
-<p><code>{{state_attr('sensor.smart_irrigation_your_zone_sensor_name', 'bucket')}}</code></p>
-<p>(Since the per-zone device was added, you can also just use the dedicated entities below instead of template sensors.)</p>
+<p><img alt="The attributes of a zone's duration sensor" src="assets/images/sensor.%5Bzone_name%5D.png" /></p>
+<p>Most attributes also have an entity of their own, below. For another one, a <a href="https://www.home-assistant.io/integrations/template/">template sensor</a> can read it, for example the water balance:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">state_attr</span><span class="o">(</span><span class="s1">'sensor.smart_irrigation_lawn'</span><span class="o">,</span> <span class="s1">'bucket'</span><span class="o">)</span> <span class="cp">}}</span>
+</code></pre></div>
 <h2 id="per-zone-device-and-entities">Per-zone device and entities<a class="headerlink" href="#per-zone-device-and-entities" title="Permanent link">&para;</a></h2>
 <p>Each zone is also grouped as a <strong>device</strong> in Home Assistant (named after the zone), attached to the single <strong>Smart Irrigation</strong> hub device. Alongside the duration sensor above, the device exposes dedicated entities, so a zone reads as a set of entities rather than one attribute bag:</p>
 <table>
@@ -2150,6 +2171,16 @@
 <td>Cumulative water delivered to the zone (litres).</td>
 </tr>
 <tr>
+<td>Last run volume</td>
+<td>sensor (water)</td>
+<td>The water the zone's last credited run delivered (litres).</td>
+</tr>
+<tr>
+<td>Next irrigation</td>
+<td>sensor (timestamp)</td>
+<td>When the zone is watered next, as the panel says. Unknown when no run to come waters it; a run the weather would hold back as things stand is still its next run, with the attribute <code>skip_expected</code> saying so.</td>
+</tr>
+<tr>
 <td>Multiplier</td>
 <td>number</td>
 <td>Editable per-zone crop factor, written to the store and used by the next calculation. Listed under Configuration.</td>
@@ -2180,7 +2211,7 @@
 <td>Set the water balance to 0 ("I just watered, start from zero").</td>
 </tr>
 <tr>
-<td>Reset usage</td>
+<td>Reset water usage</td>
 <td>button</td>
 <td>Zero the cumulative water-used counter.</td>
 </tr>
@@ -2196,11 +2227,18 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Diagnostic, Configuration, disabled.</strong> Applied ET, Daily ET deficiency and Current drainage repeat an attribute of the duration sensor that few dashboards show, so they are diagnostic entities and a zone created since 2026.11 has them disabled: enable one in its entity settings when you want it. A zone that already had them keeps them as they were. The Multiplier is a setting and is listed under Configuration, as are the hub's Skip on precipitation and Precipitation threshold. Home Assistant leaves diagnostic and configuration entities out of the dashboards it generates; a dashboard of your own can show them like any other.</p>
-<p>The <strong>Smart Irrigation hub device</strong> also carries global action buttons: <em>calculate all zones</em>, <em>refresh weather</em>, and (with Calculate and water) <em>irrigate all zones</em>. It has the master switch, <strong>Calculate and water</strong> (<code>switch.smart_irrigation_irrigation_enabled</code>): off, nothing is calculated and nothing is watered (see <a href="configuration-general.html#stop-everything">Stop everything</a>; with <strong>Calculate only</strong> it stays on, see <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">Calculate and water, calculate only, or stop everything</a>). It also has a switch, <strong>Skip on precipitation</strong>, and a number, <strong>Precipitation threshold</strong>, both under Configuration: the rain forecast skip of the <a href="configuration-weather.html#skipping-a-run">Skip watering</a> page, which you can change from an automation or a dashboard. The number is in mm, or inch with the imperial unit system.</p>
-<p><strong>Postponing from a dashboard.</strong> The hub device also has two buttons, <strong>Postpone watering 24 h</strong> and <strong>Postpone watering 48 h</strong>, a <strong>Resume watering</strong> button, and a datetime entity, <strong>Watering postponed until</strong> (<code>datetime.smart_irrigation_postponed_until</code>). The datetime shows the end of the postponement in force, or nothing, and setting it holds the watering back until that moment: a date and time for the end of your holidays, for instance, from a dashboard or an automation. A moment already past lifts the postponement. They all do what the <code>postpone_irrigation</code> and <code>resume_irrigation</code> services do, and what the Postpone buttons of the Info page do.</p>
+<p><strong>Diagnostic, configuration, disabled.</strong> Applied ET, Daily ET deficiency and Current drainage repeat an attribute of the duration sensor that few dashboards show, so they are diagnostic entities and a zone created since 2026.11 has them disabled: enable one in its entity settings when you want it. A zone that already had them keeps them as they were. The Multiplier is a setting and is listed under Configuration, as are the hub's Skip on precipitation and Precipitation threshold. Home Assistant leaves diagnostic and configuration entities out of the dashboards it generates; a dashboard of your own can show them like any other.</p>
+<h2 id="hub-device">Hub device<a class="headerlink" href="#hub-device" title="Permanent link">&para;</a></h2>
+<p>The <strong>Smart Irrigation hub device</strong> carries the entities of the whole installation:</p>
+<ul>
+<li>the buttons <strong>Calculate all zones</strong>, <strong>Refresh weather</strong>, and, with Calculate and water, <strong>Irrigate all zones</strong>;</li>
+<li>the binary sensors <strong>A zone needs water</strong> and <strong>Problem</strong> (on while any zone's own is on), <strong>Leak</strong> (see <a href="configuration-closed-loop.html#water-flowing-with-every-valve-closed-advanced-mode">water flowing with every valve closed</a>) and <strong>Observed watering</strong> (on while observed watering is);</li>
+<li>the switch <strong>Calculate and water</strong> (<code>switch.smart_irrigation_irrigation_enabled</code>): off, nothing is calculated and nothing is watered (see <a href="configuration-general.html#stop-everything">Stop everything</a>). It stays on with Calculate only (see <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">What Smart Irrigation does</a>).
+It also has a switch, <strong>Skip on precipitation</strong>, and a number, <strong>Precipitation threshold</strong>, both under Configuration: the rain forecast skip of the <a href="configuration-weather.html#skipping-a-run">Skip watering</a> page, which you can change from an automation or a dashboard. The number is in mm, or inch with the imperial unit system.</li>
+</ul>
+<p><strong>Postponing from a dashboard.</strong> The hub device also has two buttons, <strong>Postpone watering 24 h</strong> and <strong>Postpone watering 48 h</strong>, a <strong>Resume watering</strong> button, and a datetime entity, <strong>Watering postponed until</strong> (<code>datetime.smart_irrigation_postponed_until</code>). The datetime shows the end of the postponement in force, or nothing, and setting it holds the watering back until that moment: a date and time for the end of your holidays, for instance, from a dashboard or an automation. A moment already past lifts the postponement. They all do what the <code>postpone_irrigation</code> and <code>resume_irrigation</code> actions do, and what <strong>Hold for 24 h</strong>, <strong>Hold for 48 h</strong> and <strong>Resume now</strong> on the Info page do.</p>
 <h2 id="program-sensors">Program sensors<a class="headerlink" href="#program-sensors" title="Permanent link">&para;</a></h2>
-<p>With the <a href="usage-full-controller.html">full controller</a> on, each program has one sensor on the hub device: <code>sensor.smart_irrigation_program_&lt;id&gt;</code>, named "Program <name>". A program that is added gets its sensor, and one that is deleted loses it. The state is one of <code>idle</code>, <code>waiting</code>, <code>running</code>, <code>paused</code> or <code>suspended</code>. The attributes:</p>
+<p>With <strong>Calculate and water</strong>, each <a href="usage-full-controller.html">program</a> has one sensor on the hub device: <code>sensor.smart_irrigation_program_&lt;id&gt;</code>, named "Program <name>". A program that is added gets its sensor, and one that is deleted loses it. The state is one of <code>idle</code>, <code>waiting</code>, <code>running</code>, <code>paused</code> or <code>suspended</code>. The attributes:</p>
 <table>
 <thead>
 <tr>
@@ -2253,7 +2291,7 @@
 </table>
 <p>The attributes from <code>manual</code> down are only there while the program waits or runs.</p>
 <p>A program has no on and off switch of its own: it starts on its own through its schedules that are on. To keep one from watering (say, for the holidays), switch its schedules off with <code>set_schedule_enabled</code>, or suspend it. The program switch entities of 2026.11.0 are gone; the <a href="usage-full-controller.html#no-main-program">migration</a> switched off the schedules of a program that was off.</p>
-<p>These entities are <strong>additive</strong>: nothing was removed. The duration sensor keeps its <code>entity_id</code>, recorded history and attributes, so existing dashboards, automations and templates keep working. A one-time registry migration moves the duration sensor's internal <code>unique_id</code> to a stable per-zone scheme; the <code>entity_id</code> and history carry over.</p>
+<p>The per-zone entities are <strong>additive</strong>: nothing was removed. The duration sensor keeps its <code>entity_id</code>, recorded history and attributes, so existing dashboards, automations and templates keep working. A one-time registry migration moves the duration sensor's internal <code>unique_id</code> to a stable per-zone scheme; the <code>entity_id</code> and history carry over.</p>
 <p>The per-zone device/entity layout is inspired by <a href="https://github.com/JustChr/HAsmartirrigation">JustChr's Smart Irrigation fork</a> (MIT).</p>
 
 

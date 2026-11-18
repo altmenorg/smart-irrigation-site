@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Troubleshooting - Smart Irrigation</title>
+        <title>Troubleshooting - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Troubleshooting
+              Troubleshooting
             
           </span>
         </div>
@@ -1618,7 +1618,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1646,7 +1646,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1783,13 +1783,41 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reading-the-diagnostic--storage-file" class="md-nav__link">
+  <a href="#nothing-ever-waters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reading the diagnostic / storage file
+        Nothing ever waters
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-diagnostics-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The diagnostics file
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The diagnostics file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1912,7 +1940,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1960,13 +1988,41 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reading-the-diagnostic--storage-file" class="md-nav__link">
+  <a href="#nothing-ever-waters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reading the diagnostic / storage file
+        Nothing ever waters
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-diagnostics-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The diagnostics file
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The diagnostics file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2029,24 +2085,26 @@
 
 
 <h1 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h1>
-<p>In order to troubleshoot this integration or get help, it's important to check two sources:</p>
+<h2 id="nothing-ever-waters">Nothing ever waters<a class="headerlink" href="#nothing-ever-waters" title="Permanent link">&para;</a></h2>
+<p>The <strong>Home</strong> page answers first: it says whether the installation would ever water, and names the reason when it would not (see <a href="usage-info.html#one-answer-first">Info</a>). Then check what <strong>Settings › General</strong> says Smart Irrigation does:</p>
 <ul>
-<li>the diagnostic file / storage file. You can either generate a diagnostic file or get the <code>smart_irrigation.storage</code> file from the <code>configuration/.storage</code> folder. To download a diagnostics file, in Home Assistant, go to Settings &gt;Devices&amp;Services &gt; Integrations &gt;Smart Irrigation, or use this <a href="https://my.home-assistant.io/redirect/integration/?domain=smart_irrigation">link</a>. Click the 'three vertical dots' menu and select 'download diagnostics'.</li>
+<li><strong>Calculate and water</strong>: a zone is only watered once a <a href="usage-full-controller.html#programs">program</a> has it in a step, and only when it has a <strong>Linked valve/switch</strong>. <strong>Watering › Planning</strong> shows what will run.</li>
+<li><strong>Calculate only</strong>: Smart Irrigation opens no valve. Your automation, blueprint or controller does, on the start event of the active <a href="configuration-general.html#start-triggers">start trigger</a>. With the trigger on <strong>None</strong>, nothing starts.</li>
+<li><strong>Stop everything</strong>: nothing is calculated or watered.</li>
 </ul>
-<h2 id="reading-the-diagnostic--storage-file">Reading the diagnostic / storage file<a class="headerlink" href="#reading-the-diagnostic--storage-file" title="Permanent link">&para;</a></h2>
-<p>The diagnostic / storage file is in a JSON format and lists your configuration settings, your zones, sensor groups and modules.
-It also lists the weather data collected. The weather data is stored in the metric system, so might not match up with what you see in the UI.
-Here's a list of units:</p>
+<h2 id="the-diagnostics-file">The diagnostics file<a class="headerlink" href="#the-diagnostics-file" title="Permanent link">&para;</a></h2>
+<p>To get help, a diagnostics file is the most useful thing to attach to an <a href="https://github.com/altmenorg/HAsmartirrigation/issues">issue</a>. In <strong>Settings › Devices &amp; services › Smart Irrigation</strong> (or <a href="https://my.home-assistant.io/redirect/integration/?domain=smart_irrigation">this link</a>), choose <strong>Download diagnostics</strong> in the three-dot menu. The storage file, <code>smart_irrigation.storage</code> in the <code>.storage</code> folder of your configuration, holds the same configuration.</p>
+<h3 id="reading-it">Reading it<a class="headerlink" href="#reading-it" title="Permanent link">&para;</a></h3>
+<p>The file is JSON. It lists your settings, zones, sensor groups and modules, and the weather data collected. The weather data is stored in metric, so it may not match what the panel shows:</p>
 <ul>
-<li>Dewpoint, Temperature: degrees Celsius (C)</li>
-<li>Evapotranspiration, Total Precipitation: millimeters (mm)</li>
-<li>Humidity: Percentage (%)</li>
-<li>Pressure: converted to absolute if provided as relative pressure and stored in hPa</li>
-<li>Solar radiation: megajoule per day per square meter (MJ/day/m2)</li>
-<li>Windspeed: meter per second (m/s)</li>
+<li>dew point, temperature: degrees Celsius (°C);</li>
+<li>evapotranspiration, total precipitation: millimetres (mm);</li>
+<li>humidity: percent (%);</li>
+<li>pressure: hectopascals (hPa), converted to absolute pressure when provided as relative;</li>
+<li>solar radiation: megajoules per square metre per day (MJ/day/m²);</li>
+<li>wind speed: metres per second (m/s).</li>
 </ul>
-<p>The reason we're using these units is consistency but also because the most-used module (PyETO) requires the data to be provided in these units (at least, that's what the limited documentation and code seem to imply).
-For those interested, <a href="https://github.com/altmenorg/HAsmartirrigation/blob/master/custom_components/smart_irrigation/helpers.py">here's the function that does this most of the conversion in code (with the exception of the absolute to relative conversion for pressure)</a>: </p>
+<p>These are the units the FAO-56 calculation works in. Most of the conversions are in <a href="https://github.com/altmenorg/HAsmartirrigation/blob/master/custom_components/smart_irrigation/helpers.py">helpers.py</a>.</p>
 <h2 id="a-zone-is-never-watered-and-its-deficit-does-not-move">"A zone is never watered and its deficit does not move"<a class="headerlink" href="#a-zone-is-never-watered-and-its-deficit-does-not-move" title="Permanent link">&para;</a></h2>
 <p>When every day of the window lacks something the equation needs (a temperature, the wind),
 the evapotranspiration comes out as nothing: the deficit stays where it was and the zone is
@@ -2070,8 +2128,8 @@ problem sensor (<code>binary_sensor.smart_irrigation_&lt;zone&gt;_problem</code>
 <li><strong>No module</strong>: choose how the zone is calculated on its card.</li>
 <li><strong>No evapotranspiration</strong>: the zone takes its evapotranspiration from a sensor or a
   weather service, and the sensor group had none. Check that sensor or the service.</li>
-<li><strong>A forecast without a weather service</strong>: the module looks days ahead, which needs a
-  weather service. Set one up, or set the module's forecast days to 0.</li>
+<li><strong>A forecast without a weather service</strong>: the zone looks days ahead, which needs a
+  weather service. Set one up, or set the zone's <strong>Look ahead</strong> to 0.</li>
 <li><strong>An error</strong>: the message is shown. If it keeps happening, please open an issue with it
   and the diagnostics file.</li>
 </ul>
@@ -2081,12 +2139,12 @@ calculated, so it shows no such problem.</p>
 <h2 id="the-calculated-duration-looks-wrong">"The calculated duration looks wrong"<a class="headerlink" href="#the-calculated-duration-looks-wrong" title="Permanent link">&para;</a></h2>
 <p>The diagnostic file shows the current state, not how it was reached. To find out why a
 particular day watered the way it did, switch on the
-<a href="configuration-general.html">calculation log</a> in the general settings (turn on the advanced mode
-first: the card is there). From then on every
+<a href="configuration-general.html#calculation-log">calculation log</a> in the general settings (turn on
+the advanced mode first: the switch is there). From then on every
 calculation appends one line to <code>config/smart_irrigation/calc_log.jsonl</code> with the sensor
 records and their aggregation, the module intermediates (solar radiation and whether it was
-measured or estimated, net radiation, ET0) and the resulting water balance, duration and volume - so
-two days can simply be diffed against each other. The most recent records are also included in
+measured or estimated, net radiation, ET0) and the resulting water balance, duration and volume, so
+two days can simply be compared. The most recent records are also included in
 the diagnostics download (coordinates rounded, entity ids removed), which makes them easy to
 attach to an issue.</p>
 
@@ -2144,13 +2202,13 @@ attach to an issue.</p>
         
         
           
-          <a href="help.html" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration: Help">
+          <a href="help.html" class="md-footer__link md-footer__link--next" aria-label="Next: Help">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Configuration: Help
+                Help
               </div>
             </div>
             <div class="md-footer__button md-icon">

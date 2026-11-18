@@ -1676,7 +1676,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1704,7 +1704,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1879,7 +1879,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1963,7 +1963,7 @@
 
 
 <h1 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h1>
-<p>One word for each thing in the panel; these pages follow as they are revised. The code, the services, the entity ids and the attributes keep their names, so automations that use them don't change. The column "In code" gives that name.</p>
+<p>One word for each thing in the panel, and these pages use the same words. The code, the services, the entity ids and the attributes keep their own names, so automations that use them do not change. The column "In code" gives that name.</p>
 <p>When you translate the panel, use the word in the second or third column for the thing in the first; a language without a column yet is free to pick its word, as long as it keeps to one.</p>
 <table>
 <thead>
@@ -2003,7 +2003,7 @@
 <td>The water lost to evaporation and plants. ET0 is the reference value from the weather, ETc that value times the crop factor.</td>
 <td>Evapotranspiration (ET0, ETc)</td>
 <td>Evapotranspiration (ET0, ETc)</td>
-<td>—</td>
+<td>(none)</td>
 </tr>
 <tr>
 <td>The factor between ET0 and what the planting uses.</td>
@@ -2036,22 +2036,40 @@
 <td><code>duration</code></td>
 </tr>
 <tr>
-<td>What starts the watering: a time, sunrise or sunset, or the sun's position.</td>
+<td>With Calculate only, when the start event fires: a time, sunrise or sunset, or the sun's position.</td>
 <td>Start trigger</td>
 <td>Startauslöser</td>
 <td><code>irrigation_start_triggers</code></td>
 </tr>
 <tr>
-<td>A set of zones watered together on a schedule (full controller only).</td>
+<td>What Smart Irrigation does: open the valves itself with its programs, only calculate, or nothing.</td>
+<td>Calculate and water, Calculate only, Stop everything</td>
+<td>Berechnen und bewässern, Nur berechnen, Alles anhalten</td>
+<td><code>mode</code>: <code>water</code>, <code>calculate</code>, <code>off</code></td>
+</tr>
+<tr>
+<td>An ordered list of steps that waters zones, started by its schedules (with Calculate and water).</td>
 <td>Program</td>
 <td>Programm</td>
 <td><code>programs</code></td>
 </tr>
 <tr>
-<td>Smart Irrigation opens and closes the valves itself.</td>
-<td>Full controller</td>
-<td>Volle Steuerung</td>
-<td><code>full_controller</code></td>
+<td>One zone, or several watered together, in a program.</td>
+<td>Step</td>
+<td>Schritt</td>
+<td><code>steps</code></td>
+</tr>
+<tr>
+<td>When a program starts: a moment and the days it applies to.</td>
+<td>Schedule</td>
+<td>Zeitplan</td>
+<td><code>schedules</code></td>
+</tr>
+<tr>
+<td>A pump or a main valve that runs while a zone it feeds is watered.</td>
+<td>Pump or main valve</td>
+<td>Pumpe oder Hauptventil</td>
+<td><code>supplies</code></td>
 </tr>
 <tr>
 <td>A soil or planting nobody picked: the zone is calculated with the value it started with.</td>
@@ -2075,6 +2093,10 @@
 <td>water balance, Wasserbilanz</td>
 </tr>
 <tr>
+<td>full controller, master switch</td>
+<td>Calculate and water, What Smart Irrigation does</td>
+</tr>
+<tr>
 <td>engine, calculation engine, Berechnungs-Engine</td>
 <td>module, Modul</td>
 </tr>
@@ -2095,6 +2117,9 @@
 
 
 
+
+  
+  
 
 
 

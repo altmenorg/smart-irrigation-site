@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Info and history - Smart Irrigation</title>
+        <title>Info and history - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Info and history
+              Info and history
             
           </span>
         </div>
@@ -1484,7 +1484,7 @@
   <a href="#will-it-be-skipped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Will it be skipped
+        Will it be skipped?
       
     </span>
   </a>
@@ -1737,7 +1737,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1765,7 +1765,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1940,7 +1940,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2025,7 +2025,7 @@
   <a href="#will-it-be-skipped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Will it be skipped
+        Will it be skipped?
       
     </span>
   </a>
@@ -2089,63 +2089,28 @@
 happen, and what already happened. Info is its first page, History its second.</p>
 <h2 id="info">Info<a class="headerlink" href="#info" title="Permanent link">&para;</a></h2>
 <h3 id="one-answer-first">One answer, first<a class="headerlink" href="#one-answer-first" title="Permanent link">&para;</a></h3>
-<p>The page opens with a single sentence, because that is what the question
-deserves: this zone will water for so long at the next start, or nothing is
-short of water, or a postponement is holding it back, or the weather is. It
-used to print four rows of label and value which between them managed to say
-"next run tomorrow at 07:58" and "nothing to water" at the same time -- both
-true, and nonsense together.</p>
-<p>Underneath it, the detail: which trigger decides the start, whether it works
-back from sunrise, the zones that would run and how the total is counted. When
-a trigger works back from sunrise, the start is the moment the run has to begin
-to finish on time, so it moves with the season and with the durations
-themselves. A run shortened by rain still starts when it was scheduled and
-finishes early, rather than starting late.</p>
-<p>Three things the page says when they are true, each of which used to be
-invisible:</p>
+<p>The page opens with a single sentence: this zone will water for so long at the next start, or nothing is short of water, or a postponement is holding it back, or the weather is. While something waters, it says <strong>Watering now</strong>, with <strong>Pause</strong>, <strong>Next step</strong> and <strong>Stop</strong> at hand.</p>
+<p>Underneath it, the detail: what decides the start, whether it works back from sunrise, the zones that would run and how the total is counted. When the start works back from sunrise, it is the moment the run has to begin to finish on time, so it moves with the season and with the durations themselves. A run shortened by rain still starts when it was scheduled and finishes early, rather than starting late.</p>
+<p>Three warnings stand above the sentence while they are true, since each needs something done:</p>
 <ul>
-<li><strong>nothing is scheduled to start a run that is owed.</strong> The time above it is
-  arithmetic; whether anything is armed to act on it is another question, and a
-  countdown reaching zero and rolling over to tomorrow is what the answer used
-  to look like.</li>
-<li><strong>a zone has stopped being calculated</strong>, with the date of its last one. One
-  zone can freeze while everything else works, and it then waters on the
-  weather of days ago.</li>
-<li><strong>this installation would never water</strong>, when the configuration says so:
-  nothing calculated, no zone in a state that waters, or nothing here that can
-  open a valve. This integration calculates and something else acts, so an
-  installation can be correct, update its durations every night and never open
-  a valve, in silence.</li>
+<li><strong>Nothing is armed to start a run that is owed.</strong> The time shown is arithmetic; whether anything is armed to act on it is another question.</li>
+<li><strong>A zone is no longer being calculated</strong>, with the date of its last calculation. One zone can freeze while everything else works, and it then waters on the weather of days ago.</li>
+<li><strong>This installation would never water</strong>, when the configuration says so: <strong>No watering duration is being calculated</strong>, <strong>No zone waters on its own</strong>, or <strong>Nothing here opens a valve</strong>. An installation can be correct, update its durations every night and never open a valve, in silence: this says so.</li>
 </ul>
-<p>These three stand above the sentence while they are true, since each needs
-something done. Everything else comes after it, the button to hold watering
-back first.</p>
+<p>Everything else comes after the sentence, the buttons to hold watering back first.</p>
 <h3 id="hold-watering-back">Hold watering back<a class="headerlink" href="#hold-watering-back" title="Permanent link">&para;</a></h3>
-<p>One button postpones every zone for a day or two, for rain the forecast missed.
-It ends by itself and resets nothing, so the deficit it was holding back is
-still there afterwards. The same thing is available as the
-<code>postpone_irrigation</code> action for automations.</p>
-<h3 id="will-it-be-skipped">Will it be skipped<a class="headerlink" href="#will-it-be-skipped" title="Permanent link">&para;</a></h3>
-<p>When nothing holds the run back, the card says so in one line; open it for the
-checks. When something does, the checks are shown straight away.</p>
-<p>The seven checks that can hold a day back, each with its own state and its
-own numbers: whether you postponed the run, the rain sensor, the freeze, the
-wind, the rain forecast against your threshold, the days since the last
-irrigation against the interval you set, and the soil moisture of the zones.</p>
-<p>This is a <strong>preview, not a promise</strong>. It is evaluated now, and a forecast can
-change before the start. That is also why a projected skip does not move the
-next start to the following day: the page says the start would be skipped on
-the forecast as it stands, and lets you see the numbers it is saying it from.</p>
-<p>Underneath, the last <em>real</em> decision, with the moment it was taken. That is the
-one that actually happened.</p>
-<p>If you want to be told rather than to look, the
-<a href="usage-events.html"><code>smart_irrigation_irrigation_skipped</code> event</a> fires when a
-start is skipped, carrying the reason.</p>
+<p><strong>Hold for 24 h</strong> and <strong>Hold for 48 h</strong> postpone every zone, for rain the forecast missed or an afternoon on the lawn; <strong>Resume now</strong> lifts it. A postponement ends by itself and resets nothing, so the deficit it held back is still there afterwards. The same thing is available as the <code>postpone_irrigation</code> and <code>resume_irrigation</code> actions, and as buttons of the hub device (see <a href="usage-entities.html">entities</a>).</p>
+<h3 id="will-it-be-skipped">Will it be skipped?<a class="headerlink" href="#will-it-be-skipped" title="Permanent link">&para;</a></h3>
+<p>When nothing holds the next run back, the card says so in one line; open it for the checks. When something does, the checks are shown straight away.</p>
+<p>Seven checks can hold a run back, each with its own state and its own numbers: a postponement of yours, the rain sensor, the freeze, the wind, the rain forecast against your threshold, the days since the last watering against the days between irrigation, and the soil moisture of the zones. They are set on <a href="configuration-weather.html#skipping-a-run">Weather › Skip watering</a>.</p>
+<p>This is a <strong>preview, not a promise</strong>. It is evaluated now, and a forecast can change before the start. That is also why a projected skip does not move the next start to the following day: the page says the start would be skipped on the forecast as it stands, and shows the numbers it says it from.</p>
+<p>Underneath, the <strong>last real decision</strong>, with the moment it was taken.</p>
+<p>To be told rather than to look, use the <a href="usage-events.html"><code>smart_irrigation_irrigation_skipped</code> event</a>, fired when a start is skipped, with the reason.</p>
 <h3 id="where-each-zone-stands">Where each zone stands<a class="headerlink" href="#where-each-zone-stands" title="Permanent link">&para;</a></h3>
 <p>For every zone: the deficit <strong>now</strong>, the deficit <strong>at its last calculation</strong>,
 how long it <strong>would water</strong> if it ran at this moment, and when it <strong>last
 watered</strong>.</p>
-<p>The headline and this table use the live estimate. With the watering duration set to <strong>Just before each start</strong>, the announced run is the estimate, and a line says "Estimated: the zones are calculated again just before the start". The warning "Nothing is being calculated" only appears when the watering duration is set to <strong>Only when I ask</strong> (see <a href="configuration-general.html">General configuration</a>). When the active start trigger is <strong>None</strong>, the page says "No trigger is active". <strong>At last calculation</strong> shows the day and time of that calculation.</p>
+<p>The headline and this table use the live estimate. With the watering duration set to <strong>Just before each start</strong>, the announced run is the estimate, and a line says so. The warning <strong>No watering duration is being calculated</strong> only appears when the watering duration is set to <strong>Only when I ask</strong> (see <a href="configuration-general.html#calculating-the-watering-duration">General settings</a>). With Calculate only and the active start trigger on <strong>None</strong>, the page says <strong>No trigger is active</strong>. <strong>At last calculation</strong> shows the day and time of that calculation.</p>
 <p>"Now" is an estimate. It re-runs the calculation over the readings collected
 since the last one and throws the result away: nothing is written, no reading
 is consumed, and the zone keeps the value of its last calculation until the
@@ -2154,15 +2119,15 @@ without disturbing anything.</p>
 <p>A zone shows nothing here when no reading has arrived since it last
 calculated, which is normal in the minutes after a calculation.</p>
 <h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h2>
-<p>The <strong>History</strong> tab lists what actually ran, grouped by day: which zone, when,
+<p>The <strong>History</strong> page lists what actually ran, grouped by day: which zone, when,
 for how long and how much water. A run appears whether Smart Irrigation drove
 the valve itself or observed one being driven by something else.</p>
-<p>The <strong>Weather service</strong> page, under <strong>Weather</strong>, keeps its own history of what was retrieved and
-when, which is the place to look when a calculation used a value you did not
-expect.</p>
+<p>The <strong>Weather › Weather service</strong> page keeps its own history of what was
+retrieved and when, which is the place to look when a calculation used a value
+you did not expect.</p>
 <p>For the full chain behind a single number, from each raw reading to the
 duration, there is the opt-in
-<a href="configuration-general.html">calculation log</a>.</p>
+<a href="configuration-general.html#calculation-log">calculation log</a>.</p>
 
 
 

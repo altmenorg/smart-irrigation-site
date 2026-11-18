@@ -27,7 +27,7 @@
     
     
       
-        <title>Installation: Options - Smart Irrigation</title>
+        <title>Options: the Configure button - Smart Irrigation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation-options" class="md-skip">
+        <a href="#options-the-configure-button" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation: Options
+              Options: the Configure button
             
           </span>
         </div>
@@ -1628,7 +1628,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1656,7 +1656,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1831,7 +1831,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1895,15 +1895,16 @@
   
 
 
-<h1 id="installation-options">Installation: Options<a class="headerlink" href="#installation-options" title="Permanent link">&para;</a></h1>
-<p>Everything is set in the Smart Irrigation panel, in the sidebar. The integration's <strong>Configure</strong> button (Settings &gt; Devices &amp; services &gt; Smart Irrigation) only says so.</p>
+<h1 id="options-the-configure-button">Options: the Configure button<a class="headerlink" href="#options-the-configure-button" title="Permanent link">&para;</a></h1>
+<p>Everything is set in the Smart Irrigation panel, in the sidebar. The integration's <strong>Configure</strong> button (<strong>Settings › Devices &amp; services › Smart Irrigation</strong>) only says so.</p>
 <ul>
-<li><strong>The location the weather is read for</strong> is Home Assistant's, unless you give other coordinates on the <strong>Location coordinates</strong> card, on the <strong>Weather service</strong> page of the <strong>Weather</strong> tab. The card shows in the <a href="configuration-general.html">advanced mode</a>, or whenever manual coordinates are on. See <a href="MANUAL_COORDINATES.html">manual coordinates</a>.</li>
+<li><strong>The location the weather is read for</strong> is Home Assistant's, unless you give other coordinates on the <strong>Location coordinates</strong> card, under <strong>Weather › Weather service</strong>. The card shows in <a href="configuration.html#standard-and-advanced">advanced mode</a>, or whenever manual coordinates are on. See <a href="MANUAL_COORDINATES.html">manual coordinates</a>.</li>
 <li><strong>The weather service and its API key</strong>: see <a href="installation-weatherservice.html">Configuring the weather service</a>.</li>
 </ul>
-<blockquote>
+<details class="note">
+<summary>Coming from 2026.11.0 or earlier</summary>
 <p>Up to 2026.11.0, <strong>Configure</strong> asked for manual coordinates, but what it saved was never used: the weather was always read for the coordinates of the panel's card. If you set coordinates there, set them again on the card.</p>
-</blockquote>
+</details>
 
 
 

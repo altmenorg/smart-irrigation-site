@@ -27,7 +27,7 @@
     
     
       
-        <title>Installation: Migration - Smart Irrigation</title>
+        <title>Migrating from V1 to V2 - Smart Irrigation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation-migration-from-v1-00x-to-v2-202xxx" class="md-skip">
+        <a href="#migrating-from-v1-00x-to-v2" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation: Migration
+              Migrating from V1 to V2
             
           </span>
         </div>
@@ -1628,7 +1628,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1656,7 +1656,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1831,7 +1831,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1895,18 +1895,25 @@
   
 
 
-<h1 id="installation-migration-from-v1-00x-to-v2-202xxx">Installation: Migration from V1 (0.0.X) to V2 (202X.X.X)<a class="headerlink" href="#installation-migration-from-v1-00x-to-v2-202xxx" title="Permanent link">&para;</a></h1>
-<p>Version 2 (202X.X.X) presents a complete rewrite of the integration compared to V1 (0.0.X). Everything was done from scratch. Many bugs present in V1 are fixed in V2. On top of that V2 provides multi zone support and overall better performance, more accurate results and more flexibility to configure the system to your needs.
-Also, in version 2 only one instance of Smart Irrigation is allowed. In V1, if you wanted multiple zones you needed to install multiple instances of Smart Irrigation.</p>
-<p>With the big jump from V1 to V2, however, there is no upgrade path. However, we want to make it as easy as possible for you to move to V2 from V1.
-Please follow the procedure below for each installed instance of V1, before upgrading to V2:</p>
+<h1 id="migrating-from-v1-00x-to-v2">Migrating from V1 (0.0.X) to V2<a class="headerlink" href="#migrating-from-v1-00x-to-v2" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Only for very old installations</p>
+<p>This page is for an installation still on version 0.0.X. Any later version updates normally: see <a href="installation-updating.html">Updating</a>.</p>
+</div>
+<p>Version 2 is a complete rewrite of the integration. It fixes many bugs of V1, supports several zones in one installation, and is more accurate and more flexible. In V1, each zone needed its own instance of Smart Irrigation; V2 allows only one instance, with as many zones as you need.</p>
+<p>There is no automatic upgrade path from V1 to V2. Follow these steps for each V1 instance before you upgrade:</p>
 <ol>
-<li>Make sure you are at least on V0.0.82.</li>
-<li>In Home Assistant, go to Settings&gt;Devices&amp;Services&gt;Integrations&gt;Smart Irrigation, or use <a href="https://my.home-assistant.io/redirect/integration/?domain=smart_irrigation">this link</a>.</li>
-<li>For each instance of Smart Irrigation that you have configured, click the 'three vertical dots' menu and select 'download diagnostics':
-<img alt="image" src="https://github.com/jeroenterheerdt/HAsmartirrigation/assets/8188990/d9715201-d4ee-4b58-a158-c0504e82eca4" /></li>
-<li>Your browser should download a diagnostics file. Store this file in a safe place and don't share it with anyone as it includes your Open Weather Map API key (if you have that configured). Consider giving it an easy to remember name, like 'Zone 1', etc.</li>
-<li>Confirm your diagnostics file opens and looks similar to this:
+<li>Make sure you are on V0.0.82 or later.</li>
+<li>In Home Assistant, go to <strong>Settings › Devices &amp; services › Smart Irrigation</strong>, or use <a href="https://my.home-assistant.io/redirect/integration/?domain=smart_irrigation">this link</a>.</li>
+<li>
+<p>For each instance of Smart Irrigation, choose <strong>Download diagnostics</strong> in the three-dot menu.</p>
+<p><img alt="The Download diagnostics entry of the three-dot menu" src="https://github.com/jeroenterheerdt/HAsmartirrigation/assets/8188990/d9715201-d4ee-4b58-a158-c0504e82eca4" /></p>
+</li>
+<li>
+<p>Your browser downloads a diagnostics file. Keep it somewhere safe and do not share it: it contains your OpenWeatherMap API key, if you set one. Give it a name you will recognise, such as "Zone 1".</p>
+</li>
+<li>
+<p>Check that the diagnostics file opens and looks similar to this:</p>
 <div class="highlight"><pre><span></span><code>{
   "home_assistant": {
     "installation_type": "...",
@@ -1971,17 +1978,22 @@ Please follow the procedure below for each installed instance of V1, before upgr
     }
   }
 }
-</code></pre></div></li>
-<li>After you have downloaded and confirmed all diagnostics files (one for each instance of Smart Irrigation), remove all instances of Smart Irrigation.</li>
-<li>Restart Home Assistant</li>
-<li>Use HACS to install Smart Irrigation V202X.X. Make sure you use the correct API key and API version if you want to continue using Open Weather Map (recommended). Also, refer to your diagnostics file to remind yourself if and which sensors you used to supply part of the required weather data.</li>
-<li>Use the panel in the left sidebar to set up your zones, leveraging your diagnostics file to make the correct settings. A couple of things have changed:
-- you can disregard reference ET values, they are not required.
-- each zone has a property called 'throughput'. To calculate throughput do <code>number of sprinklers x flow</code> from your diagnostics file for that zone.
-- each zone has a property called 'size'. This is the same as the <code>area</code> from your diagnostics file for that zone.
-- sensor groups are where you decide what sources to use (Open Weather Map, Sensors, Static values (new in V2) or a mix). Use the true/false values and sensors from your diagnostics file to figure out what set up you had.</li>
+</code></pre></div>
+</li>
+<li>
+<p>Once you have downloaded and checked a diagnostics file for each instance, remove all instances of Smart Irrigation.</p>
+</li>
+<li>Restart Home Assistant.</li>
+<li>Install the current Smart Irrigation with HACS (see <a href="installation.html">Installation</a>). To keep using OpenWeatherMap, use your API key; your diagnostics file also reminds you which sensors supplied part of the weather data.</li>
+<li>Set up your zones in the Smart Irrigation panel, using the diagnostics file. A few things have changed:<ul>
+<li>Reference ET values are no longer needed.</li>
+<li>Each zone has a <strong>Throughput</strong>: <code>number_of_sprinklers x flow</code> from the diagnostics file for that zone.</li>
+<li>Each zone has a <strong>Size</strong>: the <code>area</code> from the diagnostics file.</li>
+<li><a href="configuration-sensor-groups.html">Sensor groups</a> say where each value comes from: a weather service, a sensor, a static value, or a mix. The true/false values and the sensors of your diagnostics file tell you what you had.</li>
+</ul>
+</li>
 </ol>
-<p>If you need help, please reach out by <a href="https://github.com/altmenorg/HAsmartirrigation/issues">opening an issue</a>.</p>
+<p>If you need help, <a href="https://github.com/altmenorg/HAsmartirrigation/issues">open an issue</a>.</p>
 
 
 

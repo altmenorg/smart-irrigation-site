@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Assistants (AI) - Smart Irrigation</title>
+        <title>Assistants (AI) - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Assistants (AI)
+              Assistants (AI)
             
           </span>
         </div>
@@ -1618,7 +1618,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1646,7 +1646,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1923,7 +1923,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2055,7 +2055,7 @@
 <p>There is nothing to turn on in Smart Irrigation: it offers itself to Home Assistant (an API of Home Assistant's LLM helper, no server of its own), and no assistant sees it until you pick it there. Whatever it is asked, the assistant never runs a watering and never opens a valve.</p>
 <h2 id="using-it">Using it<a class="headerlink" href="#using-it" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>With an MCP client</strong>: add Home Assistant's own <strong>Model Context Protocol Server</strong> integration (Settings, Devices &amp; services, Add integration) and tick <strong>Smart Irrigation</strong> in its options. Connect the client to Home Assistant as that integration's page explains; Home Assistant does the authentication.</li>
+<li><strong>With an MCP client</strong>: add Home Assistant's own <strong>Model Context Protocol Server</strong> integration (<strong>Settings › Devices &amp; services › Add integration</strong>) and tick <strong>Smart Irrigation</strong> in its options. Connect the client to Home Assistant as that integration's page explains; Home Assistant does the authentication.</li>
 <li><strong>With Assist</strong>: in the options of your conversation agent, tick <strong>Smart Irrigation</strong> among the APIs it may use.</li>
 </ul>
 <p>Untick it there and the assistant no longer reaches Smart Irrigation.</p>
@@ -2082,7 +2082,7 @@
 </tr>
 <tr>
 <td><code>GetPrograms</code></td>
-<td>The programs of the <a href="usage-full-controller.html">full controller</a>, their steps (zones by id and by name) and schedules.</td>
+<td>The <a href="usage-full-controller.html">programs</a>, their steps (zones by id and by name) and schedules.</td>
 </tr>
 <tr>
 <td><code>GetPlanning</code></td>
@@ -2129,7 +2129,7 @@
 </tr>
 <tr>
 <td><code>SaveSettings</code></td>
-<td>Change general settings: <code>mode</code>, what Smart Irrigation does (<code>water</code>, <code>calculate</code> or <code>off</code>, the list at the top of Settings), then calculation, skip conditions, start triggers, sequencing, passes and soak, pumps... The switches <code>mode</code> replaced are refused one by one.</td>
+<td>Change general settings: <code>mode</code>, what Smart Irrigation does (<code>water</code>, <code>calculate</code> or <code>off</code>: Calculate and water, Calculate only, Stop everything), then calculation, skip conditions, start triggers, sequencing, passes and soak, pumps... The switches <code>mode</code> replaced are refused one by one.</td>
 </tr>
 <tr>
 <td><code>SaveProgram</code>, <code>DeleteProgram</code></td>
@@ -2139,7 +2139,7 @@
 </table>
 <p>Every change goes through the path the panel saves with, so the same checks apply: a zone cannot be linked to one of Smart Irrigation's own valves, an unknown setting is refused, a program is cleaned the same way. The assistant is told to say what it is about to change, and most clients ask you before a tool that writes; deleting is marked as such. Each change is written in Home Assistant's log (<code>An assistant saved zone 3</code>, at the info level).</p>
 <h2 id="writing-a-program-together">Writing a program together<a class="headerlink" href="#writing-a-program-together" title="Permanent link">&para;</a></h2>
-<p>Ask for the program you want ("water the vegetable garden and the greenhouse together every other evening, then the hedges"). The assistant writes it in the <a href="usage-full-controller.html#a-program-in-yaml">YAML shape of the program editor</a>, checks it with <code>PreviewProgram</code> and gives it to you. Paste it in <strong>Watering</strong>, <strong>Programs</strong>, with <strong>Edit in YAML</strong> on a <strong>New program</strong> or on an existing one: the timeline shows what it would do before you apply it.</p>
+<p>Ask for the program you want ("water the vegetable garden and the greenhouse together every other evening, then the hedges"). The assistant writes it in the <a href="usage-full-controller.html#a-program-in-yaml">YAML shape of the program editor</a>, checks it with <code>PreviewProgram</code> and gives it to you. Paste it under <strong>Watering › Programs</strong>, with <strong>Edit in YAML</strong> on a <strong>New program</strong> or on an existing one: the timeline shows what it would do before you apply it.</p>
 <p>The assistant does not have to guess the fields: <code>GetConfigReference</code> lists every one a program, a step, a schedule and a zone can be written with, the <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a> included (a step's <code>adjust_seconds</code>, a schedule's <code>months</code> or <code>fallback_time</code>...), with their range and default. So it can set an option the panel's form has no field for, and that no program of yours uses yet.</p>
 <h2 id="privacy">Privacy<a class="headerlink" href="#privacy" title="Permanent link">&para;</a></h2>
 <p>The assistant receives what these tools return: zone names, entity ids and the names and models of your devices, the weather-based figures and the schedules. With a cloud assistant, that leaves your home. Do not tick Smart Irrigation in the MCP server or the conversation agent if you do not want that.</p>

@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: The output contract - Smart Irrigation</title>
+        <title>The output contract - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: The output contract
+              The output contract
             
           </span>
         </div>
@@ -1742,7 +1742,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1770,7 +1770,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1945,7 +1945,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2095,10 +2095,7 @@
 
 
 <h1 id="the-output-contract">The output contract<a class="headerlink" href="#the-output-contract" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>See also: <a href="usage-entities.html">Entities</a>, <a href="usage-events.html">Events</a>, <a href="usage-automations.html">Automations</a></p>
-</blockquote>
-<p>This page is for anybody who drives the water themselves: your own automation, a controller integration, or another integration that wants to consume what Smart Irrigation decides. It is one page on purpose, so it can be read without reading the rest, and it says what is promised and what is not.</p>
+<p>This page is for anybody who drives the water themselves, with <strong>Calculate only</strong>: your own automation, a controller integration, or another integration that wants to consume what Smart Irrigation decides. It is one page on purpose, so it can be read without reading the rest, and it says what is promised and what is not. See also <a href="usage-entities.html">entities</a>, <a href="usage-events.html">events</a> and <a href="usage-automations.html">automations</a>.</p>
 <p>Smart Irrigation calculates. Something else opens a valve. This is the interface between the two.</p>
 <h2 id="the-one-number">The one number<a class="headerlink" href="#the-one-number" title="Permanent link">&para;</a></h2>
 <p>Per zone, one sensor carries the answer:</p>
@@ -2142,42 +2139,42 @@
 </tr>
 <tr>
 <td><code>smart_irrigation_irrigation_started</code></td>
-<td>Smart Irrigation begins a run</td>
+<td>Smart Irrigation begins a run (Calculate and water)</td>
 <td><code>sequencing</code>, and <code>zones</code>: <code>{zone_id, zone, seconds}</code></td>
 </tr>
 <tr>
 <td><code>smart_irrigation_irrigation_finished</code></td>
-<td>Smart Irrigation finishes a run</td>
+<td>Smart Irrigation finishes a run (Calculate and water)</td>
 <td><code>zones</code>: <code>{zone_id, zone, seconds, volume_l, bucket}</code>, and <code>problems</code>: <code>{zone_id, zone, reason}</code></td>
 </tr>
 <tr>
 <td><code>smart_irrigation_zone_problem</code></td>
-<td>A valve did not open, did not close, or opened with no water flowing</td>
-<td><code>zone_id</code>, <code>zone</code>, <code>entity_id</code>, <code>reason</code> (<code>valve_did_not_open</code>, <code>valve_did_not_close</code>, <code>no_flow</code>, and, in the full controller, <code>valve_closed_early</code> and <code>supply_did_not_turn_on</code>)</td>
+<td>A valve Smart Irrigation drives did not open, did not close, or opened with no water flowing</td>
+<td><code>zone_id</code>, <code>zone</code>, <code>entity_id</code>, <code>reason</code> (<code>valve_did_not_open</code>, <code>valve_did_not_close</code>, <code>no_flow</code>, <code>valve_closed_early</code>, <code>supply_did_not_turn_on</code>, <code>valve_timer_not_set</code>)</td>
 </tr>
 <tr>
 <td><code>smart_irrigation_program_started</code></td>
-<td>Full controller: a program run begins</td>
+<td>Calculate and water: a program run begins</td>
 <td><code>program_id</code>, <code>program</code>, <code>manual</code>, <code>tours</code>, <code>zones</code> (first round only: <code>{zone_id, zone, seconds}</code>), and <code>resumed</code> after a restart</td>
 </tr>
 <tr>
 <td><code>smart_irrigation_program_finished</code></td>
-<td>Full controller: a program run ends</td>
+<td>Calculate and water: a program run ends</td>
 <td><code>program_id</code>, <code>program</code>, <code>manual</code>, <code>zones</code>, <code>problems</code>, <code>stopped</code>, and <code>cut</code> and <code>reason</code> (<code>deadline</code>) when the run was cut</td>
 </tr>
 <tr>
 <td><code>smart_irrigation_valve_on</code> / <code>smart_irrigation_valve_off</code></td>
-<td>Full controller: a zone valve or a supply is switched</td>
+<td>Calculate and water: a zone valve or a supply is switched</td>
 <td><code>entity_id</code>, <code>kind</code> (<code>zone</code> or <code>supply</code>), <code>zone_id</code> and <code>zone</code> or <code>supply_id</code> and <code>supply</code>; the off of a zone valve adds <code>closed</code></td>
 </tr>
 <tr>
 <td><code>smart_irrigation_supply_problem</code></td>
-<td>Full controller: a pump or main valve did not come on or go off</td>
+<td>Calculate and water: a pump or main valve did not come on or go off</td>
 <td><code>supply_id</code>, <code>supply</code>, <code>entity_id</code>, <code>reason</code> (<code>supply_did_not_turn_on</code>, <code>supply_did_not_turn_off</code>)</td>
 </tr>
 <tr>
 <td><code>smart_irrigation_valve_out_of_sync</code></td>
-<td>Full controller: a valve held open reads closed (checked every 60 seconds); it is not opened again</td>
+<td>Calculate and water: a valve held open reads closed (checked every 60 seconds); it is not opened again</td>
 <td><code>zone_id</code>, <code>zone</code>, <code>entity_id</code>, <code>expected</code> (<code>open</code>), <code>actual</code> (<code>off</code>, <code>closed</code>...), <code>reason</code> (<code>closed_early</code>)</td>
 </tr>
 <tr>
@@ -2192,7 +2189,7 @@
 </tr>
 <tr>
 <td><code>smart_irrigation_zone_unwatered</code></td>
-<td>Full controller: a zone has been dry for over 3 days and no program will water it; fired once, with a repair notice</td>
+<td>Calculate and water: a zone has been dry for over 3 days and no program will water it; fired once, with a repair notice</td>
 <td><code>zone_id</code>, <code>zone</code>, <code>days</code>, <code>deficit_mm</code></td>
 </tr>
 </tbody>
@@ -2226,8 +2223,8 @@
 <li>Depths in the entities follow Home Assistant's unit system; internally everything is metric and converted at the edges only.</li>
 <li>The start event fires once per trigger, and either it or the skip event fires when a trigger is reached.</li>
 <li>The duration published when the start event fires already accounts for rain since the calculation.</li>
-<li>The zone sensors never carry a runtime adjustment. With the optional <a href="usage-full-controller.html">full controller</a>, <code>smart_irrigation.adjust_program</code> changes how long a program's steps water (a percentage and/or seconds, for a while); it is applied by the controller to the runs it starts, and shown in the <code>adjustment</code> attribute of the program's sensor, not in the zone's number.</li>
-<li>The same controller's run services leave the zone's number alone too: <code>run_program</code> and <code>water_zone</code> take an optional <code>seconds</code> and a <code>mode</code> (<code>queue</code>, the default, or <code>replace</code>), <code>stop_program</code> ends one program, and <code>set_step_enabled</code> and <code>set_schedule_enabled</code> switch a step or a schedule on or off (<code>set_program_enabled</code> is deprecated, see <a href="usage-full-controller.html#no-main-program">the full controller</a>). See <a href="usage-full-controller.html#driving-the-watering">driving the watering</a>.</li>
+<li>The zone sensors never carry a runtime adjustment. With <a href="usage-full-controller.html">Calculate and water</a>, <code>smart_irrigation.adjust_program</code> changes how long a program's steps water (a percentage and/or seconds, for a while); it is applied by the controller to the runs it starts, and shown in the <code>adjustment</code> attribute of the program's sensor, not in the zone's number.</li>
+<li>Its run actions leave the zone's number alone too: <code>run_program</code> and <code>water_zone</code> take an optional <code>seconds</code> and a <code>mode</code> (<code>queue</code>, the default, or <code>replace</code>), <code>stop_program</code> ends one program, and <code>set_step_enabled</code> and <code>set_schedule_enabled</code> switch a step or a schedule on or off (<code>set_program_enabled</code> is deprecated, see <a href="usage-full-controller.html#no-main-program">no main program</a>). See <a href="usage-full-controller.html#driving-the-watering">driving the watering</a>.</li>
 </ul>
 <p><strong>Not promised.</strong></p>
 <ul>

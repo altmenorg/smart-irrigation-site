@@ -823,10 +823,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#skipping-the-calculation-entirely-open-meteo--passthrough" class="md-nav__link">
+  <a href="#skipping-the-calculation-entirely-open-meteos-own-et0" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skipping the calculation entirely (Open-Meteo + Passthrough)
+        Skipping the calculation entirely (Open-Meteo's own ET0)
       
     </span>
   </a>
@@ -1781,7 +1781,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1809,7 +1809,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1984,7 +1984,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2115,10 +2115,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#skipping-the-calculation-entirely-open-meteo--passthrough" class="md-nav__link">
+  <a href="#skipping-the-calculation-entirely-open-meteos-own-et0" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skipping the calculation entirely (Open-Meteo + Passthrough)
+        Skipping the calculation entirely (Open-Meteo's own ET0)
       
     </span>
   </a>
@@ -2173,9 +2173,6 @@
 
 
 <h1 id="weather-services">Weather services<a class="headerlink" href="#weather-services" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Related: <a href="how-it-works.html">How it works</a> &middot; <a href="configuration-sensor-groups.html">Sensor groups</a> &middot; <a href="installation-weatherservice.html">Weather service setup</a></p>
-</blockquote>
 <p>Smart Irrigation needs weather data to estimate evapotranspiration (ET) and, from it, how long to run each zone. That data can come from a <strong>weather service</strong>, from your <strong>own sensors</strong>, or from a mix of both (configured per field in a <a href="configuration-sensor-groups.html">sensor group</a>).</p>
 <p>Four weather services are supported: three online services, and a weather entity of Home Assistant itself.</p>
 <h2 id="the-services-at-a-glance">The services at a glance<a class="headerlink" href="#the-services-at-a-glance" title="Permanent link">&para;</a></h2>
@@ -2193,39 +2190,39 @@
 <tr>
 <td><strong>Open-Meteo</strong> <em>(default)</em></td>
 <td><strong>None</strong></td>
-<td>✅ yes</td>
-<td>✅ yes</td>
+<td>Yes</td>
+<td>Yes</td>
 <td>Free</td>
 </tr>
 <tr>
 <td>OpenWeatherMap</td>
 <td>Required</td>
-<td>❌ no</td>
-<td>❌ no</td>
-<td>Free tier + paid</td>
+<td>No</td>
+<td>No</td>
+<td>Free tier, then paid</td>
 </tr>
 <tr>
 <td>Pirate Weather</td>
 <td>Required</td>
-<td>❌ no</td>
-<td>❌ no</td>
-<td>Free tier + paid</td>
+<td>No</td>
+<td>No</td>
+<td>Free tier, then paid</td>
 </tr>
 <tr>
 <td>A weather entity in Home Assistant</td>
 <td><strong>None</strong></td>
-<td>❌ no</td>
-<td>❌ no</td>
+<td>No</td>
+<td>No</td>
 <td>Free</td>
 </tr>
 </tbody>
 </table>
 <p>The online services provide temperature, humidity, dew point, pressure, wind and precipitation. A weather entity provides temperature, humidity, pressure and wind, a dew point when its integration has one, and never the rain that fell (see <a href="#a-weather-entity-in-home-assistant">below</a>). The difference that matters for accuracy is <strong>solar radiation</strong>.</p>
 <h2 id="why-solar-radiation-matters">Why solar radiation matters<a class="headerlink" href="#why-solar-radiation-matters" title="Permanent link">&para;</a></h2>
-<p>The PyETO module computes ET with the <strong>FAO-56 Penman-Monteith</strong> equation, the agronomic reference for reference evapotranspiration. Solar radiation is its dominant term. Two cases:</p>
+<p>When Smart Irrigation calculates the evapotranspiration itself, it uses the <strong>FAO-56 Penman-Monteith</strong> equation, the agronomic reference for reference evapotranspiration. Solar radiation is its dominant term. Two cases:</p>
 <ul>
-<li><strong>Radiation available</strong> → a full Penman-Monteith calculation. Most accurate.</li>
-<li><strong>No radiation</strong> → radiation is <strong>estimated from temperature</strong> (a Hargreaves-style approximation). Still useful, but less precise, especially in cloudy or coastal climates.</li>
+<li><strong>Radiation available</strong>: a full Penman-Monteith calculation. Most accurate.</li>
+<li><strong>No radiation</strong>: radiation is <strong>estimated from the temperature range</strong> (FAO-56 Eq. 50). Still useful, but less precise, especially in cloudy or coastal climates.</li>
 </ul>
 <p>You do not configure this. Radiation is <strong>used automatically whenever a source provides it, and estimated from temperature otherwise</strong>. There is no "estimation method" toggle to get wrong.</p>
 <h2 id="getting-solar-radiation-per-service">Getting solar radiation, per service<a class="headerlink" href="#getting-solar-radiation-per-service" title="Permanent link">&para;</a></h2>
@@ -2259,13 +2256,13 @@
 <li>with <strong>Open-Meteo itself and a sensor group that reads every input of the ET from the weather service</strong> (temperature, humidity or dew point, wind, pressure, solar radiation), the hourly calculation is priced on Open-Meteo's own hourly history instead of the readings Smart Irrigation took (see <a href="configuration-general.html">the hourly calculation</a>). What feeds the rain doesn't matter, as rain doesn't enter the ET: a rain gauge of your own keeps the history. A group that measures some inputs of the ET (a thermometer of your own, say) takes the history for the inputs it reads from Open-Meteo and keeps its own values for the others.</li>
 </ul>
 <p>None of this is a single point of failure. When Open-Meteo cannot be reached, each of these falls back to what Smart Irrigation can do without it: the sun is estimated from the day's temperature range (FAO-56 Eq. 50) or read from your sensor, the rain comes from the readings, a forecast that is not available leaves the zone on the daily equation, and the hourly calculation sums the readings it recorded. A calculation is made, with a little less precision, and the log says what was missing.</p>
-<h2 id="skipping-the-calculation-entirely-open-meteo--passthrough">Skipping the calculation entirely (Open-Meteo + Passthrough)<a class="headerlink" href="#skipping-the-calculation-entirely-open-meteo--passthrough" title="Permanent link">&para;</a></h2>
-<p>Open-Meteo also returns a finished FAO-56 ET0. If you would rather not run the calculation yourself, use the <strong>Passthrough</strong> module instead of PyETO and set the <strong>Evapotranspiration</strong> source to <strong>Weather service</strong>. The integration then uses Open-Meteo's ET0 as-is. (Open-Meteo computes that ET0 from its own model data, so it does not take your individual sensor mappings into account; PyETO + a radiation source does.)</p>
+<h2 id="skipping-the-calculation-entirely-open-meteos-own-et0">Skipping the calculation entirely (Open-Meteo's own ET0)<a class="headerlink" href="#skipping-the-calculation-entirely-open-meteos-own-et0" title="Permanent link">&para;</a></h2>
+<p>Open-Meteo also returns a finished FAO-56 ET0. To use it as it is, set the zone's <strong>Evapotranspiration</strong> to <em>Provided by a sensor or a service</em>, and the sensor group's <strong>Evapotranspiration</strong> source to <strong>Ready-made ET₀ from the weather service</strong>. Open-Meteo computes that ET0 from its own model data, so it does not take your own sensors into account; the calculation by Smart Irrigation with a radiation source does. See <a href="configuration-modules.html#the-three-modes">modules</a>.</p>
 <h2 id="switching-service-at-any-time">Switching service at any time<a class="headerlink" href="#switching-service-at-any-time" title="Permanent link">&para;</a></h2>
-<p>You can change the weather service whenever you like from the <strong>Weather service</strong> page under <strong>Weather</strong>, without reinstalling the integration. The API-key field is hidden for keyless services such as Open-Meteo, and the key is validated against the service before the change is applied. For a weather entity, Save stays disabled until one is picked.</p>
+<p>You can change the weather service whenever you like under <strong>Weather › Weather service</strong>, without reinstalling the integration. The API-key field is hidden for keyless services such as Open-Meteo, and the key is validated against the service before the change is applied. For a weather entity, Save stays disabled until one is picked.</p>
 <h2 id="which-should-i-pick">Which should I pick?<a class="headerlink" href="#which-should-i-pick" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Want it to just work, accurately, for free?</strong> Use <strong>Open-Meteo</strong> (the default), source Solar Radiation from the weather service, done.</li>
+<li><strong>Want it to just work, accurately, for free?</strong> Use <strong>Open-Meteo</strong> (the default) and take Solar Radiation from the weather service.</li>
 <li><strong>Already invested in OpenWeatherMap or Pirate Weather and want full accuracy?</strong> Source Solar Radiation from the weather service (filled from Open-Meteo automatically), or add a dedicated radiation sensor.</li>
 <li><strong>Already have your national weather service in Home Assistant?</strong> Choose <strong>A weather entity in Home Assistant</strong>, and give each sensor group a rain sensor.</li>
 <li><strong>No radiation source at all?</strong> It still works, on a temperature-based estimate, which is good enough for many gardens.</li>

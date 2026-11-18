@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#three-ways-to-use-it" class="md-skip">
+        <a href="#two-ways-to-use-it" class="md-skip">
           Skip to content
         </a>
       
@@ -1616,7 +1616,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1644,7 +1644,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1819,7 +1819,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1865,10 +1865,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#three-ways-to-use-it" class="md-nav__link">
+  <a href="#two-ways-to-use-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Three ways to use it
+        Two ways to use it
       
     </span>
   </a>
@@ -1968,26 +1968,27 @@
   <img src="assets/images/panel-home.png" alt="The Home page: the next watering, why, and what could hold it back" width="860">
 </p>
 
-<h2 id="three-ways-to-use-it">Three ways to use it<a class="headerlink" href="#three-ways-to-use-it" title="Permanent link">&para;</a></h2>
+<h2 id="two-ways-to-use-it">Two ways to use it<a class="headerlink" href="#two-ways-to-use-it" title="Permanent link">&para;</a></h2>
+<p>You choose one in <strong>Settings › General</strong>, under <strong>What Smart Irrigation does</strong>. The setup assistant asks too.</p>
 <ol>
-<li><strong>It calculates, you water.</strong> Each zone gets a duration, a water balance and the reasons behind them, as entities and events. Your own automation, a <a href="usage-controllers.html">blueprint for your controller</a> (Rain Bird, Hydrawise, Rachio, OpenSprinkler, B-hyve, ESPHome), or Irrigation Unlimited does the watering.</li>
-<li><strong>It opens the valves.</strong> With <strong>Calculate and water</strong>, Smart Irrigation waters each zone for its duration: in turn or together, with cycle and soak so clay takes the water in, a pause between zones, a watchdog for a valve left open, and the water actually delivered credited to the zone.</li>
-<li><strong>It runs your whole irrigation.</strong> The <a href="usage-full-controller.html">full controller</a>, off until you switch it on, adds programs of ordered steps, schedules ("done by sunrise", every other day, only in summer), pumps and main valves, and a planning of what will run and why. It can <a href="usage-from-irrigation-unlimited.html">import an Irrigation Unlimited configuration</a>.</li>
+<li><strong>Calculate only: it calculates, you water.</strong> Each zone gets a duration, a water balance and the reasons behind them, as entities and events. Your own automation, a <a href="usage-controllers.html">blueprint for your controller</a> (Rain Bird, Hydrawise, Rachio, OpenSprinkler, B-hyve, ESPHome), or Irrigation Unlimited does the watering. This is the choice of a new installation.</li>
+<li><strong>Calculate and water: it runs your whole irrigation.</strong> Smart Irrigation opens the valves itself, with <a href="usage-full-controller.html">programs</a> of ordered steps, schedules ("done by sunrise", every other day, only in summer, after another program), cycle and soak so clay takes the water in, pumps and main valves, a watchdog for a valve left open, and a planning of what will run and why. The water actually delivered is credited to each zone. It can <a href="usage-from-irrigation-unlimited.html">import an Irrigation Unlimited configuration</a>.</li>
 </ol>
+<p>The third choice, <strong>Stop everything</strong>, calculates and waters nothing, for the winter.</p>
 <h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>It measures instead of guessing.</strong> Each zone keeps a water balance in millimetres: evaporation out, rain in. When the balance says the soil is short, the zone waters exactly that much back, and not a drop more.</li>
 <li><strong>It uses the science, not a rule of thumb.</strong> Evapotranspiration comes from the FAO-56 Penman-Monteith equation, the reference method in agronomy, computed hour by hour or day by day, from your own sensors, a weather service, any weather integration of Home Assistant, or a mix.</li>
 <li><strong>It says why.</strong> Every calculation shows its work: what was read, what was computed, and what it decided. The Home page shows the next watering, what is watering now, and whether a run would be held back and on what numbers.</li>
-<li><strong>It does not water when it should not.</strong> Rain in the forecast, a rain sensor, frost, wind, or soil that is already wet: any of these can hold a run back, and each schedule of the full controller chooses which apply to it.</li>
+<li><strong>It does not water when it should not.</strong> Rain in the forecast, a rain sensor, frost, wind, or soil that is already wet: any of these can hold a run back, and each schedule of a program can choose which apply to it.</li>
 <li><strong>It knows a greenhouse.</strong> Under glass the sky is not what reaches the plant. A lux sensor inside answers it, and without one the glass dims the sun.</li>
-<li><strong>It is easy to start and deep when you need it.</strong> A panel built with Home Assistant's own components, in a standard mode with a setup assistant that creates your first zone, and an advanced mode that opens every setting.</li>
-<li><strong>It fits into Home Assistant.</strong> A <code>valve</code> entity per zone for dashboards and voice assistants, a master switch to stop everything for the winter, sensors, buttons and events for your own automations, and <a href="usage-card.html">a dashboard card</a> that shows where each zone stands and can water one on demand.</li>
+<li><strong>It is easy to start and deep when you need it.</strong> A panel built with Home Assistant's own components, in a standard mode with a setup assistant that creates your first zone, an advanced mode that opens every setting, and <strong>Edit in YAML</strong> for the few options a power user wants.</li>
+<li><strong>It fits into Home Assistant.</strong> A <code>valve</code> entity per zone for dashboards and voice assistants, sensors, buttons and events for your own automations, and <a href="usage-card.html">a dashboard card</a> that shows where each zone stands and can water one on demand.</li>
 <li><strong>It speaks your language.</strong> The panel and everything Home Assistant shows for it come in 20 languages. Most were machine-translated and wait for a native speaker: <a href="help.html#help-translate">you can correct them on Weblate</a>, in the browser.</li>
 </ul>
 <p align="center">
   <img src="assets/images/panel-zones.png" alt="The Zones page: each zone, where it stands and how long it would water" width="420">
-  <img src="assets/images/panel-programs.png" alt="A program of the full controller: its steps and its schedules" width="420">
+  <img src="assets/images/panel-programs.png" alt="A program: its steps and its schedules" width="420">
 </p>
 
 <h2 id="how-it-works-in-one-paragraph">How it works, in one paragraph<a class="headerlink" href="#how-it-works-in-one-paragraph" title="Permanent link">&para;</a></h2>
@@ -1999,9 +2000,10 @@
 <li><strong>A few minutes.</strong> The setup assistant asks what it needs, one question at a time, and creates the first zone for you.</li>
 </ul>
 <p>Smart Irrigation opens your valves itself only if you choose <strong>Calculate and water</strong>. Otherwise it calculates, and you decide what listens.</p>
-<blockquote>
-<p><strong>Use this integration at your own risk.</strong> We assume no responsibility for any inconvenience caused by using it. Always use common sense before deciding to irrigate on the numbers it provides: watering during heavy rain can cause flooding.</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Use this integration at your own risk</p>
+<p>We assume no responsibility for any inconvenience caused by using it. Always use common sense before deciding to irrigate on the numbers it provides: watering during heavy rain can cause flooding.</p>
+</div>
 <h2 id="start-here">Start here<a class="headerlink" href="#start-here" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="getting-started-from-scratch.html">Never done any of this?</a></strong> The whole path in half an hour: a machine, a valve, Home Assistant, a zone that waters itself.</li>

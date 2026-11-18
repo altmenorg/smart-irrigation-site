@@ -1628,7 +1628,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1656,7 +1656,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1831,7 +1831,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1896,20 +1896,22 @@
 
 
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Starting with nothing at all, not even Home Assistant? <a href="getting-started-from-scratch.html">From nothing to a watered garden</a> walks the whole path in half an hour, hardware included, and comes back here for this part.</p>
-</blockquote>
+<div class="admonition tip">
+<p class="admonition-title">Starting with nothing at all?</p>
+<p>Not even Home Assistant? <a href="getting-started-from-scratch.html">From nothing to a watered garden</a> walks the whole path in half an hour, hardware included, and comes back here for this part.</p>
+</div>
 <p>Smart Irrigation needs Home Assistant 2026.3 or later.</p>
-<p>Three steps:</p>
+<p>Four steps:</p>
 <ol>
 <li><strong><a href="installation-download.html">Download the integration</a></strong> from HACS (one click) or by hand, and restart Home Assistant.</li>
 <li>
 <p><strong>Add it</strong> in Settings › Devices &amp; services › Add integration › Smart Irrigation. Setup asks nothing: a new <strong>Smart Irrigation</strong> panel appears in the sidebar.</p>
-<p><img alt="" src="assets/images/installation-1.png" /></p>
+<p><img alt="Adding Smart Irrigation in Home Assistant" src="assets/images/installation-1.png" /></p>
 </li>
 <li>
-<p><strong>Open the panel</strong> and follow its setup assistant: it creates your first zone and picks the <a href="installation-weatherservice.html">weather service</a> (Open-Meteo by default, no key needed). From there, <a href="configuration.html">configure the rest</a>.</p>
+<p><strong>Turn on a <a href="installation-weatherservice.html">weather service</a></strong> if you want one, under <strong>Weather › Weather service</strong> in the panel: Open-Meteo is the default and needs no key. Skip this if all your weather comes from your own sensors.</p>
 </li>
+<li><strong>Run the setup assistant</strong> (<strong>Settings › General</strong>, <strong>Open the assistant</strong>): it asks what Smart Irrigation should do and creates your first zone with its sensor group. From there, <a href="configuration.html">configure the rest</a>.</li>
 </ol>
 <p>Also in this section:</p>
 <ul>

@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Coming from Irrigation Unlimited - Smart Irrigation</title>
+        <title>Coming from Irrigation Unlimited - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Coming from Irrigation Unlimited
+              Coming from Irrigation Unlimited
             
           </span>
         </div>
@@ -1618,7 +1618,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1646,7 +1646,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1962,7 +1962,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2129,8 +2129,8 @@
 
 
 <h1 id="coming-from-irrigation-unlimited">Coming from Irrigation Unlimited<a class="headerlink" href="#coming-from-irrigation-unlimited" title="Permanent link">&para;</a></h1>
-<p><a href="https://github.com/rgc99/irrigation_unlimited">Irrigation Unlimited</a> (IU) is a scheduler and a sequencer of valves with no water model: it does not know the weather, the evapotranspiration or how much water a zone has lost. Smart Irrigation does, and until now the two were joined by two automations written by hand (<code>adjust_time</code> into IU, <code>reset_bucket</code> at the end).</p>
-<p>The <a href="usage-full-controller.html">full controller</a> does the scheduling and the running itself. This page says where each thing you used in IU went. It can also bring your configuration over for you: see <a href="#importing-your-configuration">Importing your configuration</a>.</p>
+<p><a href="https://github.com/rgc99/irrigation_unlimited">Irrigation Unlimited</a> (IU) is a scheduler and a sequencer of valves with no water model: it does not know the weather, the evapotranspiration or how much water a zone has lost. Smart Irrigation does, and the two used to be joined by two automations written by hand (<code>adjust_time</code> into IU, <code>reset_bucket</code> at the end).</p>
+<p>With <strong>Calculate and water</strong>, Smart Irrigation does the scheduling and the running itself, with its <a href="usage-full-controller.html">programs</a>. This page says where each thing you used in IU went. It can also bring your configuration over for you: see <a href="#importing-your-configuration">Importing your configuration</a>.</p>
 <h2 id="the-words">The words<a class="headerlink" href="#the-words" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2206,11 +2206,11 @@
 </tr>
 <tr>
 <td><code>entity_states</code></td>
-<td>Not the same feature. In IU it lets a timed valve receive only the on command, only the off, or neither. We have no such switch. The nearest things are the per-zone <strong>safety off mode</strong> (<code>auto</code>, <code>zha</code>, <code>off</code>), which can arm a hardware timed off (MQTT topic, or a ZHA command) as a dead-man behind the normal close, and <a href="usage-full-controller.html">the check while a valve is open</a>. The ZHA timed off is armed automatically for a Sonoff SWV (tested on a real valve, ZHA, firmware 1.0.04: it honours the command and counts the time in seconds); for any other ZHA model it is opt-in (<code>zha</code> mode) because the unit of the time is unverified. A Sonoff SWV in <code>auto</code> mode is now also <em>opened</em> by that timed command, so it never runs without its own timer. See <a href="configuration-closed-loop.html">closed loop</a>.</td>
+<td>Not the same feature. In IU it lets a timed valve receive only the on command, only the off, or neither. We have no such switch. The nearest things are the per-zone <strong>safety off mode</strong> (<code>auto</code>, <code>zha</code>, <code>off</code>), which can arm a hardware timed off (MQTT topic, or a ZHA command) as a dead-man behind the normal close, the <strong>Valve's own duration</strong> of a valve that closes by itself, and <a href="usage-full-controller.html#seeing-what-is-going-on">the check while a valve is open</a>. See <a href="configuration-closed-loop.html#hardware-auto-off-mqtt-on_time-dead-man">hardware auto-off</a>.</td>
 </tr>
 <tr>
 <td><code>check_back</code> (<code>delay</code>, <code>retries</code>)</td>
-<td>The zone's <strong>Wait for the valve to confirm</strong> and <strong>Send the open again</strong> (<code>open_resends</code>, YAML only: the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>); the wait is in its advanced settings. The wait applies to the open and the close. A valve that closes by itself while it should be open is caught by the check every 60 seconds and is not reopened (see <code>sync_error</code> below)</td>
+<td>The zone's <strong>Wait for the valve to confirm</strong> (advanced mode) and how often the open is sent again (<code>open_resends</code>, <strong>YAML only</strong>: the zone's <a href="configuration-zones.html#a-zone-in-yaml">Edit in YAML</a>). The wait applies to the open and the close. A valve that closes by itself while it should be open is caught by the check every 60 seconds and is not reopened (see <code>sync_error</code> below)</td>
 </tr>
 <tr>
 <td><code>irrigation_unlimited_start</code> and <code>finish</code> events</td>
@@ -2235,10 +2235,10 @@
 <li><strong>Programs never overlap.</strong> IU lets overlapping runs go on together; here a second program waits for the first, and a step with several zones (or a negative wait between steps) is how you ask for zones at the same time. A pump on a home network seldom has the pressure for more.</li>
 <li><strong>The weather is part of the schedule.</strong> A schedule skips, shortens or holds back what the skip conditions say. Turn it off per schedule if you want a plain timer.</li>
 <li><strong>The default duration is the one Smart Irrigation calculated</strong>, not a number you type.</li>
-<li><strong>Nothing is configured in YAML.</strong> It is all in the panel, and a restart goes on with the steps still to do instead of dropping a run that was under way.</li>
+<li><strong>No YAML file to maintain.</strong> It is all in the panel; a few power-user options are written in a program's or a zone's <strong>Edit in YAML</strong> (see <a href="usage-full-controller.html#yaml-only-options">YAML-only options</a>). A restart goes on with the steps still to do instead of dropping a run that was under way.</li>
 </ul>
 <h2 id="importing-your-configuration">Importing your configuration<a class="headerlink" href="#importing-your-configuration" title="Permanent link">&para;</a></h2>
-<p>In <strong>Settings, General</strong>, the card <strong>Import from Irrigation Unlimited</strong> opens a wizard that reads your IU configuration and turns it into zones, programs, their schedules and supplies. It takes the configuration from where IU has it: your YAML (<code>configuration.yaml</code> and its includes, as Home Assistant loaded it), IU's own settings when it was set up in the interface, or YAML you paste. Pasted YAML is read as text: <code>!include</code>, <code>!secret</code> and <code>!env_var</code> are not followed, and the report says so.</p>
+<p>Under <strong>Settings › General</strong>, the card <strong>Import from Irrigation Unlimited</strong> opens a wizard that reads your IU configuration and turns it into zones, programs, their schedules and supplies. It takes the configuration from where IU has it: your YAML (<code>configuration.yaml</code> and its includes, as Home Assistant loaded it), IU's own settings when it was set up in the interface, or YAML you paste. Pasted YAML is read as text: <code>!include</code>, <code>!secret</code> and <code>!env_var</code> are not followed, and the report says so.</p>
 <p>Nothing is changed before you have seen it all:</p>
 <ol>
 <li><strong>Zones</strong>: each IU zone is matched to one of your zones (by the one you choose, then by its valve, the blueprint that feeds it, or its name) or created. A zone you already have keeps its settings and only gets the fields it had empty.</li>
@@ -2246,7 +2246,7 @@
 <li><strong>The report</strong>: what was carried over exactly, what was approximated (a cron expression turned into times, for example) and what has no equivalent here.</li>
 </ol>
 <p>The schedules of new programs are created <strong>switched off</strong>, so IU keeps watering until you are ready to <a href="#switching-over">switch over</a>. The wizard says so differently when IU is not running, for instance because Home Assistant rejected its configuration: nothing waters then until you switch the schedules on.</p>
-<p>Switching the full controller on, which the programs need, creates a program with every zone that has a valve when there is no program yet. If you import first, the imported programs are the ones that water: a program only waters the zones of its steps. A program of your own that waters the same zones as the imported ones waters them twice: switch its schedules off under Programs. Importing again later updates what the earlier import made, in place, and removes what IU no longer has; the wizard asks before it removes anything. Only an administrator can import.</p>
+<p>The programs need <strong>Calculate and water</strong>. Choosing it creates a program with every zone that has a valve when there is no program yet. If you import first, the imported programs are the ones that water: a program only waters the zones of its steps. A program of your own that waters the same zones as the imported ones waters them twice: switch its schedules off under <strong>Watering › Programs</strong>. Importing again later updates what the earlier import made, in place, and removes what IU no longer has; the wizard asks before it removes anything. Only an administrator can import.</p>
 <h3 id="switching-over">Switching over<a class="headerlink" href="#switching-over" title="Permanent link">&para;</a></h3>
 <p>At the top of the import page, once something is imported:</p>
 <ul>
@@ -2267,12 +2267,12 @@
 <h3 id="by-hand">By hand<a class="headerlink" href="#by-hand" title="Permanent link">&para;</a></h3>
 <p>If you would rather rebuild than import:</p>
 <ol>
-<li>Switch on the <a href="usage-full-controller.html">full controller</a>.</li>
-<li>Add your pump or main valve as a supply, and pick it in each zone.</li>
+<li>Choose <strong>Calculate and water</strong> in <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">Settings › General</a>.</li>
+<li>Add your pump or main valve under <strong>Watering › Pumps and valves</strong>, and pick it in each zone.</li>
 <li>Make a program per IU sequence: its steps are the sequence's zones, in order. Leave the duration on <em>calculated</em>.</li>
 <li>Add a schedule to each. If IU ran it to finish at sunrise, take <em>Sunrise</em>, <em>must be done</em>.</li>
 <li>Switch IU's own schedules off, and remove the two automations that handed it durations and reset the water balance.</li>
-<li>Look at the <strong>Planning</strong> card: it shows the next days (3, 7 or 14, as you pick on the chart). Compare it with what IU would have done before you remove IU.</li>
+<li>Look at <strong>Watering › Planning</strong>: it shows the next days (3, 7 or 14, as you pick on the chart). Compare it with what IU would have done before you remove IU.</li>
 </ol>
 <h2 id="not-in-smart-irrigation">Not in Smart Irrigation<a class="headerlink" href="#not-in-smart-irrigation" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2327,7 +2327,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="usage-full-controller.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Full controller">
+          <a href="usage-full-controller.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Watering with programs">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2337,7 +2337,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Full controller
+                Watering with programs
               </div>
             </div>
           </a>

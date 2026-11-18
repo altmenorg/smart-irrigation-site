@@ -27,7 +27,7 @@
     
     
       
-        <title>Installation: Download - Smart Irrigation</title>
+        <title>Downloading the integration - Smart Irrigation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation-download" class="md-skip">
+        <a href="#downloading-the-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation: Download
+              Downloading the integration
             
           </span>
         </div>
@@ -633,6 +633,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Downloading the integration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="installation-download.html" class="md-nav__link md-nav__link--active">
         
   
@@ -649,6 +667,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#with-hacs-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With HACS (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By hand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#then" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Then
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1628,7 +1698,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1656,7 +1726,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1831,7 +1901,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1872,6 +1942,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#with-hacs-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With HACS (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By hand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#then" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Then
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1895,22 +2006,19 @@
   
 
 
-<h1 id="installation-download">Installation: Download<a class="headerlink" href="#installation-download" title="Permanent link">&para;</a></h1>
+<h1 id="downloading-the-integration">Downloading the integration<a class="headerlink" href="#downloading-the-integration" title="Permanent link">&para;</a></h1>
+<h2 id="with-hacs-recommended">With HACS (recommended)<a class="headerlink" href="#with-hacs-recommended" title="Permanent link">&para;</a></h2>
+<p>Smart Irrigation is in the HACS default store, and HACS handles the updates. Open it in HACS in one click:</p>
+<p><a href="https://my.home-assistant.io/redirect/_change/?redirect=marketplace_repository%2F%3Fowner%3Daltmenorg%26repository%3DHAsmartirrigation%26category%3Dintegration"><img alt="Open Smart Irrigation in HACS on your Home Assistant" src="https://my.home-assistant.io/badges/hacs_repository.svg" /></a></p>
+<p>or search for <strong>Smart Irrigation</strong> in the <a href="https://hacs.xyz">HACS</a> panel. Then click <strong>Download</strong>.</p>
+<p>If you added this repository as a custom repository in the past, that entry is no longer needed.</p>
+<h2 id="by-hand">By hand<a class="headerlink" href="#by-hand" title="Permanent link">&para;</a></h2>
+<p>Download the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">latest release</a> as a zip file and extract it into the <code>custom_components</code> folder of your Home Assistant configuration. You should end up with <code>custom_components/smart_irrigation/</code>.</p>
+<h2 id="then">Then<a class="headerlink" href="#then" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p>Install the custom integration using HACS or manually:
-    * <strong>Using HACS (recommended)</strong>: Smart Irrigation is in the HACS default store, and HACS handles updates. Open it in HACS in one click:</p>
-<pre><code>[![Open Smart Irrigation in HACS on your Home Assistant](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/_change/?redirect=marketplace_repository%2F%3Fowner%3Daltmenorg%26repository%3DHAsmartirrigation%26category%3Dintegration)
-
-or search for **Smart Irrigation** in the [HACS](https://hacs.xyz) panel. Then click **Download**. If you added this repository as a custom repository in the past, that entry is no longer needed.
-</code></pre>
-<p>* <strong>Manually</strong>: Download the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">latest release</a> as a zip file and extract it into the <code>custom_components</code> folder of your Home Assistant configuration (you should end up with <code>custom_components/smart_irrigation/</code>).</p>
-</li>
-<li>
-<p>Restart Home Assistant to load the integration.</p>
-</li>
-<li>Go to <strong>Settings → Devices &amp; Services → Add Integration</strong>, search for <strong>Smart Irrigation</strong> and click to add it.</li>
-<li>Confirm with <strong>OK</strong>: setup asks nothing. Then open the Smart Irrigation panel, where the setup assistant creates a first zone with you and the <a href="installation-weatherservice.html">weather service</a> is chosen.</li>
+<li>Restart Home Assistant to load the integration.</li>
+<li>Go to <strong>Settings › Devices &amp; services › Add integration</strong>, search for <strong>Smart Irrigation</strong> and add it.</li>
+<li>Confirm with <strong>OK</strong>: setup asks nothing. Open the <strong>Smart Irrigation</strong> panel in the sidebar, turn on the <a href="installation-weatherservice.html">weather service</a> if you want one, and let the setup assistant create your first zone (see <a href="installation.html">Installation</a>).</li>
 </ol>
 
 

@@ -27,7 +27,7 @@
     
     
       
-        <title>Configuration: Guided setup - Smart Irrigation</title>
+        <title>Setup assistant - Smart Irrigation</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#guided-setup" class="md-skip">
+        <a href="#setup-assistant" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuration: Guided setup
+              Setup assistant
             
           </span>
         </div>
@@ -1034,6 +1034,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#with-calculate-and-water" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With Calculate and water
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1687,7 +1698,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1715,7 +1726,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1890,7 +1901,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -1959,6 +1970,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#with-calculate-and-water" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With Calculate and water
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1984,56 +2006,34 @@
   
 
 
-<h1 id="guided-setup">Guided setup<a class="headerlink" href="#guided-setup" title="Permanent link">&para;</a></h1>
-<p>The setup assistant exists because the other pages assume you already know what
-a sensor group is. It asks one question at a time, and only the questions your
-previous answers leave open, then creates the things a working zone needs.</p>
-<p>It is <strong>not a tab</strong>: it is a card of <strong>Settings &gt; General</strong>, under System, because it is for an
-installation that has nothing yet, and a tab inviting one with three zones to
-set itself up was in the way. Use it for a first zone, another one, or a fresh
-start.</p>
-<p>You do not have to use it. Everything it does can be done by hand in the panel
-(zones under Zones, sensor groups under Weather), and nothing it creates is locked afterwards.</p>
+<h1 id="setup-assistant">Setup assistant<a class="headerlink" href="#setup-assistant" title="Permanent link">&para;</a></h1>
+<p>The setup assistant exists because the other pages assume you already know what a sensor group is. It asks one question at a time, and only the questions your previous answers leave open, then creates the things a working zone needs.</p>
+<p>It is <strong>not a tab</strong>: open it with <strong>Open the assistant</strong>, on its card under <strong>Settings › General</strong>, in the System section. Use it for a first zone, another one, or a fresh start.</p>
+<p>You do not have to use it. Everything it does can be done by hand in the panel (zones under <strong>Zones</strong>, sensor groups under <strong>Weather › Sensor groups</strong>), and nothing it creates is locked afterwards.</p>
 <h2 id="what-it-asks">What it asks<a class="headerlink" href="#what-it-asks" title="Permanent link">&para;</a></h2>
-<p><strong>What are you watering.</strong> A name, the area, and the flow. The flow is the
-quantity of water this zone delivers per minute, and it is worth measuring
-rather than reading off a datasheet: every duration is computed from it, so an
-optimistic figure is the quietest way to water for twice as long as you think.</p>
-<p><strong>Where it grows.</strong> Outdoors, or under glass or plastic. A greenhouse never
-receives rain, so saying so stops a rain forecast pausing irrigation that the
-rain cannot reach, and hides the sources that would measure weather happening
-somewhere the plants are not.</p>
-<p><strong>Where the evaporation should come from.</strong> Four answers, in plain terms
-rather than by the name of the algorithm behind them:</p>
+<p><strong>What should Smart Irrigation do?</strong> Only for the first zone: <strong>Calculate and water</strong> (Smart Irrigation opens the valves itself, with a program) or <strong>Calculate only</strong> (your automation, Irrigation Unlimited or your controller opens them). See <a href="configuration-general.html#calculate-and-water-calculate-only-or-stop-everything">What Smart Irrigation does</a>.</p>
+<p><strong>What are you watering?</strong> A name, the area, the flow, and the valve. The flow is the quantity of water this zone delivers per minute, and it is worth measuring rather than reading off a datasheet: every duration is computed from it, so an optimistic figure is the quietest way to water for twice as long as you think.</p>
+<p><strong>Where does it grow?</strong> Outdoors, or under glass or plastic. A greenhouse never receives rain, so saying so stops a rain forecast from holding back a watering the rain cannot reach, and hides the sources that would measure weather the plants never see.</p>
+<p><strong>Where should the evaporation figure come from?</strong> Four answers, in plain terms rather than by the name of the method behind them:</p>
 <ul>
-<li>the weather service you have configured, which needs nothing installed;</li>
+<li>the weather service you configured, which needs nothing installed (offered once a <a href="installation-weatherservice.html">weather service</a> is on, and not under glass);</li>
 <li>your own weather sensors;</li>
 <li>a sensor that already reports evapotranspiration;</li>
-<li>a fixed quantity per day.</li>
+<li>a fixed amount per day.</li>
 </ul>
-<p>They map onto the three <a href="configuration-modules.html">calculation modes</a>. The
-wizard picks the mode for you.</p>
-<p><strong>Which sensors.</strong> Only when your previous answer needs them, and only the
-sources the mode you chose actually reads. Choosing the weather service skips
-this step, except when the service is <a href="weather-services.html#a-weather-entity-in-home-assistant">a weather entity of Home
-Assistant</a>: it reports
-no rain that fell, so outdoors the wizard asks for a sensor that measures rain
-(the rate, or a gauge's total).</p>
+<p>They map onto the three <a href="configuration-modules.html">calculation modes</a>, and the assistant picks the mode for you.</p>
+<p><strong>Which entities should it read?</strong> Only when your previous answer needs them, and only the sources the chosen mode actually reads. Choosing the weather service skips this step, except when the service is <a href="weather-services.html#a-weather-entity-in-home-assistant">a weather entity of Home Assistant</a>: it reports no rain that fell, so outdoors the assistant asks for a sensor that measures rain (the rate, or a gauge's total).</p>
 <h2 id="what-it-creates">What it creates<a class="headerlink" href="#what-it-creates" title="Permanent link">&para;</a></h2>
-<p>A calculation module, a sensor group and a zone, exactly as you would have
-created them by hand: <a href="configuration-modules.html">modules</a>,
-<a href="configuration-sensor-groups.html">sensor groups</a> and <a href="configuration-zones.html">zones</a>. The recap on
-the last step lists what is about to be created before anything is written.</p>
-<p>Afterwards, the zone is an ordinary zone: change the mode, repoint the sensors,
-add more zones to the same sensor group, or delete it.</p>
-<p><a id="with-calculate-and-water"></a><strong>With Calculate and water</strong>, a zone is
-only watered once a <a href="usage-full-controller.html#programs">program</a> has it in a
-step, so the assistant puts a new zone with a valve in one. With one program,
-the zone becomes its last step; with none, it creates a program (named
-"Watering" in your language) with that step and a schedule done by sunrise
-every day; with several, the last step asks which one, or a new program. The
-step takes the calculated duration. Change it, or move the zone to another
-program, under Watering &gt; Programs.</p>
+<p>A calculation module, a sensor group and a zone, exactly as you would have created them by hand: <a href="configuration-modules.html">modules</a>, <a href="configuration-sensor-groups.html">sensor groups</a> and <a href="configuration-zones.html">zones</a>. The last step lists what is about to be created before anything is written.</p>
+<p>Afterwards, the zone is an ordinary zone: change how it is calculated, point it at other sensors, add more zones to the same sensor group, or delete it.</p>
+<h2 id="with-calculate-and-water">With Calculate and water<a class="headerlink" href="#with-calculate-and-water" title="Permanent link">&para;</a></h2>
+<p>A zone is only watered once a <a href="usage-full-controller.html#programs">program</a> has it in a step, so the assistant puts a new zone with a valve in one:</p>
+<ul>
+<li>with no program, it creates one, named <strong>Watering</strong> in your language, with that step and a schedule done by sunrise every day;</li>
+<li>with one program, the zone becomes its last step;</li>
+<li>with several, the last step of the assistant asks which one, or a new program.</li>
+</ul>
+<p>The step takes the calculated duration. Change it, or move the zone to another program, under <strong>Watering › Programs</strong>.</p>
 
 
 

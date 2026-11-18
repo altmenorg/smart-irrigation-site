@@ -27,7 +27,7 @@
     
     
       
-        <title>Usage: Dashboard card - Smart Irrigation</title>
+        <title>Dashboard card - Smart Irrigation</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Usage: Dashboard card
+              Dashboard card
             
           </span>
         </div>
@@ -1731,7 +1731,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1759,7 +1759,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1934,7 +1934,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2090,7 +2090,7 @@
 <p>Then put <code>type: custom:smart-irrigation-card</code> in a view.</p>
 <h2 id="what-it-shows">What it shows<a class="headerlink" href="#what-it-shows" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>The next start</strong>, and when a run would be held back, the reason it would be: rain in the forecast, freezing, wind, or a rain sensor that says it is raining.</li>
+<li><strong>The next start</strong>, and when a run would be held back, the reason: rain forecast, freeze, wind, rain sensor, days between irrigation, soil moisture, or a postponement.</li>
 <li><strong>Per zone</strong>: the water it is short of, the run that would deliver it, and when it last watered. A zone in manual or disabled state says so next to its name.</li>
 <li><strong>A zone that would water now</strong> is in the accent colour, so a glance is enough.</li>
 </ul>
@@ -2107,10 +2107,10 @@
 <tbody>
 <tr>
 <td>Water now (drop)</td>
-<td>Runs that zone's valve for the calculated duration, and credits the water balance when it finishes. It takes <strong>two taps</strong>: the first arms it, the second runs it, and it disarms itself after five seconds. It only appears for a zone that has a <a href="configuration-zones.html">linked valve</a>, and only with <strong>Calculate and water</strong>.</td>
+<td>Runs that zone's valve for the calculated duration, and credits the water balance when it finishes. It takes <strong>two taps</strong>: the first arms it, the second runs it, and it disarms itself after five seconds. It only appears with <strong>Calculate and water</strong>, for a zone that has a <a href="configuration-zones.html">linked valve</a>.</td>
 </tr>
 <tr>
-<td>Calculate (calculator)</td>
+<td>Calculate now (calculator)</td>
 <td>Runs the calculation for that zone now and commits it, as the panel's own button does.</td>
 </tr>
 <tr>
@@ -2132,8 +2132,8 @@
 </tbody>
 </table>
 <h2 id="programs">Programs<a class="headerlink" href="#programs" title="Permanent link">&para;</a></h2>
-<p>When the <a href="usage-full-controller.html">full controller</a> is on and has programs, a block above the zones lists one row per program: its name, its state (idle, running, waiting, paused, suspended or disabled) and its next start. While a program runs, the row shows the step (for example 2/3), the percentage done and the time left. The card asks for this every 5 seconds while a program is running, paused or waiting, and every 60 seconds otherwise, and not at all while the tab is hidden. With the full controller off, or no program, nothing is shown and the card looks as before. Hide the block with <code>show_programs: false</code>.</p>
-<p>Stop acts on the whole watering, not on one program, because the controller waters one program at a time.</p>
+<p>With <strong>Calculate and water</strong> and at least one <a href="usage-full-controller.html">program</a>, a block above the zones lists one row per program: its name, its state (idle, running, waiting, paused or suspended) and its next start, or the program it starts after. While a program runs, the row shows the step (for example 2/3), the percentage done and the time left. The card asks for this every 5 seconds while a program is running, paused or waiting, and every 60 seconds otherwise, and not at all while the tab is hidden. With Calculate only, or no program, the block is not shown. Hide it with <code>show_programs: false</code>.</p>
+<p>Stop acts on all the watering, not on one program.</p>
 <h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
 <p>All of them are in the visual editor, and this is what they are called in YAML:</p>
 <table>
@@ -2168,7 +2168,7 @@
 <tr>
 <td><code>show_programs</code></td>
 <td><code>true</code></td>
-<td>The programs block, shown only when the <a href="usage-full-controller.html">full controller</a> is on and has at least one program. Set it to <code>false</code> to hide it.</td>
+<td>The programs block, shown only with Calculate and water and at least one <a href="usage-full-controller.html">program</a>. Set it to <code>false</code> to hide it.</td>
 </tr>
 </tbody>
 </table>
@@ -2177,9 +2177,7 @@
 <span class="nt">zones</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">]</span>
 <span class="nt">compact</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
-<blockquote>
-<p>The card reads its words from the language files, with English as the fallback. The programs block is translated in all 20 languages.</p>
-</blockquote>
+<p>The card speaks the 20 languages of the panel, with English as the fallback.</p>
 <h2 id="a-card-from-the-community">A card from the community<a class="headerlink" href="#a-card-from-the-community" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/lweberru/ha_irrigation_zone_card">Irrigation Zone Card</a>, by <a href="https://github.com/lweberru">@lweberru</a>, is a visual card for one zone at a time: the soil moisture as a ring, the live water balance on a scale with its zero point, the calculated duration, the water used and an optional valve control; the same installation adds Irrigation Overview, a card for the planning, rain and frost protection and the integration-wide actions. It finds a zone's entities from the integration's stable ids, so renamed entities keep working. It is installed from HACS as a custom repository (type Dashboard) and maintained by its author; questions about it go to <a href="https://github.com/lweberru/ha_irrigation_zone_card">its repository</a>.</p>
 

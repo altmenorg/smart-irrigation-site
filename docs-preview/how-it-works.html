@@ -1296,27 +1296,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#weekly-behavior-example" class="md-nav__link">
+  <a href="#a-week-as-an-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Weekly behavior example
+        A week, as an example
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Weekly behavior example">
+    <nav class="md-nav" aria-label="A week, as an example">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#initialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initialization
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#variables-used" class="md-nav__link">
@@ -1346,10 +1335,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-irrigate" class="md-nav__link">
+  <a href="#when-to-water" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to irrigate
+        When to water
       
     </span>
   </a>
@@ -1748,7 +1737,7 @@
   <span class="md-ellipsis">
     
   
-    Enhanced scheduling
+    Other integrations
   
 
     
@@ -1776,7 +1765,7 @@
   <span class="md-ellipsis">
     
   
-    Full controller
+    Watering with programs
   
 
     
@@ -1951,7 +1940,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration: Help
+    Help
   
 
     
@@ -2021,27 +2010,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#weekly-behavior-example" class="md-nav__link">
+  <a href="#a-week-as-an-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Weekly behavior example
+        A week, as an example
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Weekly behavior example">
+    <nav class="md-nav" aria-label="A week, as an example">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#initialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initialization
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#variables-used" class="md-nav__link">
@@ -2071,10 +2049,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-irrigate" class="md-nav__link">
+  <a href="#when-to-water" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to irrigate
+        When to water
       
     </span>
   </a>
@@ -2107,18 +2085,30 @@
 
 
 <h1 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h1>
-<p>The below image shows a graphical representation of what this integration does.</p>
-<p>The words for each part, as the panel uses them, are in the <a href="glossary.html">glossary</a>.</p>
-<p><img alt="" src="assets/images/smart_irrigation_diagram.png" /></p>
+<p>The picture below shows what Smart Irrigation does. The words for each part, as the panel uses them, are in the <a href="glossary.html">glossary</a>.</p>
+<p><img alt="Rain adds water to the soil, evapotranspiration takes it away, and the water balance keeps the difference" src="assets/images/smart_irrigation_diagram.png" /></p>
 <ol>
-<li>Snow and rain fall on the ground add moisture. Together, this makes up the <code>precipitation</code>.</li>
-<li>Sunshine, temperature, wind speed, place on earth and other factors influence the amount of moisture lost from the ground(<code>evapotranspiration</code>).</li>
-<li>The difference between <code>precipitation</code> and <code>evapotranspiration</code> is the <code>delta</code> or <code>nett precipitation</code>: negative values mean more moisture is lost than gets added by rain/snow, while positive values mean more moisture is added by rain/snow than what evaporates.</li>
-<li>At some point in the day (configurable) the <code>nett precipitation</code> is added/substracted from the water balance (the <code>bucket</code> attribute), which starts at zero. The water balance is calculated using this formula: `old_bucket + nett precipitation.</li>
-<li>If the water balance &gt; 0, the <code>drainage rate</code> is taken into the account (if set) and subtracted from the water balance value. The actual drainage rate is determined dynamically by the fraction the water balance is of the maximum water balance value, following hydraulic conductivity method of <a href="https://open.library.okstate.edu/rainorshine/chapter/1-8-models-for-soil-hydraulic-conductivity/">Brooks and Corey, Eq. 4-6</a>. When it rained during the window, the window is replayed <strong>hour by hour</strong>: each hour gets its evapotranspiration, the rain that fell in it, then that hour's drainage. The evapotranspiration of each hour is the hourly equation's own figure when the hourly calculation is on, and otherwise follows the sun (in proportion to how high it stands, nothing at night). A rain that just fell is only drained from the hour it fell, not as if it had been in the soil since the previous calculation. When the rain is seen is taken from the readings of the rain sensor (a rain gauge's total, or a rain rate); when nothing says it, the rain is spread evenly over the window.</li>
-<li>If the water balance is below zero, irrigation is required.</li>
-<li>Irrigation should run for <code>sensor.smart_irrigation_[zone_name]</code> seconds, which is 0 when <code>bucket &gt;= 0</code> or when the deficit is below the zone's <strong>irrigation threshold</strong>: deep and infrequent beats a daily trickle.</li>
-<li>Afterwards the water balance has to be credited with the water that went in. Three ways, and you pick one: let Smart Irrigation <a href="configuration-closed-loop.html">open the valve itself</a>, which credits the run it performed; let it <a href="configuration-closed-loop.html">watch the valve</a> and credit any run of it; or call <a href="usage-services.html"><code>credit_watering</code></a> from your own automation with how long the zone ran. Never two of them, or the water is counted twice. A <a href="usage-automations.html">blueprint</a> does the third for you, per brand of controller.</li>
+<li>Rain and snow add water to the ground: the <strong>precipitation</strong>.</li>
+<li>Sun, temperature, humidity, wind and the place on earth decide how much water leaves the ground and the leaves: the <strong>evapotranspiration</strong>.</li>
+<li>The difference between the two is the <strong>net precipitation</strong> (the <code>delta</code>). Negative, more water was lost than the rain brought; positive, the rain brought more than was lost.</li>
+<li>At each calculation, the net precipitation is added to the zone's <strong>water balance</strong> (the <code>bucket</code> attribute), which starts at zero: <code>new water balance = old water balance + net precipitation</code>.</li>
+<li>
+<p>Above zero, the soil holds more than it can keep, and the surplus drains. The drainage rate falls as the surplus empties, following the hydraulic conductivity of <a href="https://open.library.okstate.edu/rainorshine/chapter/1-8-models-for-soil-hydraulic-conductivity/">Brooks and Corey, Eq. 4-6</a>, scaled by the maximum water balance.</p>
+<p>When it rained during the period, the period is replayed <strong>hour by hour</strong>: each hour gets its evapotranspiration, the rain that fell in it, then that hour's drainage. The evapotranspiration of each hour is the hourly equation's own figure when the hourly calculation is on, and otherwise follows the sun (in proportion to how high it stands, nothing at night). A rain that just fell only drains from the hour it fell, not as if it had been in the soil since the previous calculation. When the rain fell is taken from the readings of the rain sensor (a rain gauge's total, or a rain rate); when nothing says it, the rain is spread evenly over the period.</p>
+</li>
+<li>
+<p>Below zero, the zone is short of water: watering is needed.</p>
+</li>
+<li>The zone waters for <code>sensor.smart_irrigation_[zone_name]</code> seconds. That is 0 when the water balance is zero or above, or when the deficit is below the zone's <strong>irrigation threshold</strong>: deep and infrequent beats a daily trickle.</li>
+<li>
+<p>Afterwards, the water balance is credited with the water that went in. Three ways, and you pick one:</p>
+<ul>
+<li>let Smart Irrigation <a href="usage-full-controller.html">open the valve itself</a> (Calculate and water), which credits the runs it makes;</li>
+<li>let it <a href="configuration-closed-loop.html">watch the valve</a> (observed watering) and credit any run of it;</li>
+<li>call <a href="usage-services.html"><code>credit_watering</code></a> from your own automation with how long the zone ran. A <a href="usage-automations.html">blueprint</a> does it for you, per brand of controller.</li>
+</ul>
+<p>Never two of them, or the water is counted twice.</p>
+</li>
 </ol>
 <p>The whole of what is published and when it changes is on one page: <a href="usage-output-contract.html">the output contract</a>.</p>
 <h2 id="what-the-crop-needs-not-what-a-lawn-of-grass-would">What the crop needs, not what a lawn of grass would<a class="headerlink" href="#what-the-crop-needs-not-what-a-lawn-of-grass-would" title="Permanent link">&para;</a></h2>
@@ -2126,8 +2116,8 @@
 well-watered grass surface would lose. A hedge, a vegetable bed and a lawn do
 not lose the same, and the difference is the <strong>crop factor</strong> <code>Kc</code>, which is the
 zone's crop factor setting:</p>
-<pre><code>ETc = ET0 x Kc
-</code></pre>
+<div class="highlight"><pre><span></span><code>ETc = ET0 x Kc
+</code></pre></div>
 <p>It is applied to the evapotranspiration, before the water balance. That order
 matters, and it is worth saying why, because it used to be the other way round:
 the factor was applied at the very end, to the duration. That scaled the whole
@@ -2148,26 +2138,23 @@ an average of a curve.</p>
 <p>A new installation starts on the hourly form. One that existed before it arrived
 keeps the daily one until its owner switches, because the two give different
 numbers and nobody's watering should change on an update. The switch is under
-Settings &gt; General, and <a href="configuration-general.html">what each form needs is documented
+Settings › General, and <a href="configuration-general.html">what each form needs is documented
 there</a>.</p>
 <p>Either way the sun is the term the result is most sensitive to. A radiation
 sensor is best, a weather service that publishes radiation is next, and the
 day's temperature range is the last resort: the estimate FAO-56 gives for
 exactly that case.</p>
-<h2 id="weekly-behavior-example">Weekly behavior example<a class="headerlink" href="#weekly-behavior-example" title="Permanent link">&para;</a></h2>
-<p>To understand how <code>precipitation</code>, <code>nett precipitation</code>, the water balance and irrigation interact, see let's look at an example behavior in a week.
-With this you should be able to do a sanity check against your confiruation and make sure everything is working together.
-The scenario is as follows: we will look at several days, including the precipitation and evapotranspiration for those days and the effects on the water balance and whether ot not irrigation should be triggered. Note that the values here are not representative of any real-life situation and the example below only uses one zone to keep things simple.</p>
-<h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
-<p>Initially, the water balance is <code>0</code>, so the duration for irrigation is set to <code>0s</code>. </p>
+<h2 id="a-week-as-an-example">A week, as an example<a class="headerlink" href="#a-week-as-an-example" title="Permanent link">&para;</a></h2>
+<p>To see how the precipitation, the net precipitation, the water balance and the watering work together, here is one zone over a week. Use it to check your own configuration. The values are made up and only show the mechanism.</p>
+<p>At the start, the water balance is <code>0</code>, so the duration is <code>0</code> seconds.</p>
 <h3 id="variables-used">Variables used<a class="headerlink" href="#variables-used" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>P</code>: Precipitation</li>
-<li><code>Et</code>: Evapotranspiation</li>
-<li><code>D</code>: nett Precipitation or Delta (<code>=P-Et</code>)</li>
-<li><code>B</code>: Water balance</li>
-<li><code>Bu</code>: Water balance after calculation has happened (=<code>B+D</code>)</li>
-<li><code>Du</code>: Duration for irrigation in seconds</li>
+<li><code>P</code>: precipitation</li>
+<li><code>Et</code>: evapotranspiration</li>
+<li><code>D</code>: net precipitation, or delta (<code>P - Et</code>)</li>
+<li><code>B</code>: water balance</li>
+<li><code>Bu</code>: water balance after the calculation (<code>B + D</code>)</li>
+<li><code>Du</code>: watering duration, in seconds</li>
 </ul>
 <h3 id="scenario">Scenario<a class="headerlink" href="#scenario" title="Permanent link">&para;</a></h3>
 <table>
@@ -2192,27 +2179,27 @@ The scenario is as follows: we will look at several days, including the precipit
 <td><code>0</code></td>
 <td><code>0.4</code></td>
 <td><code>0</code></td>
-<td><code>P &gt; Et</code> so water balance increased from <code>0</code> to <code>0.4</code>. Since <code>Bu &gt; 0</code> no irrigation is required</td>
+<td><code>P &gt; Et</code>, so the water balance increased from <code>0</code> to <code>0.4</code>. Since <code>Bu &gt; 0</code>, no watering is required</td>
 </tr>
 <tr>
 <td>2</td>
 <td><code>0</code></td>
 <td><code>0.6</code></td>
 <td><code>-0.6</code></td>
-<td><code>0.40</code></td>
+<td><code>0.4</code></td>
 <td><code>-0.2</code></td>
 <td><code>180</code></td>
-<td><code>P &lt; Et</code>, so water balance decreased from <code>0.4</code> to <code>-0.2</code>. Since Bu &lt; 0` irrigation is required and water balance is reset afterwards</td>
+<td><code>P &lt; Et</code>, so the water balance decreased from <code>0.4</code> to <code>-0.2</code>. Since <code>Bu &lt; 0</code>, watering is required, and the water balance is credited back to <code>0</code> afterwards</td>
 </tr>
 <tr>
 <td>3</td>
 <td><code>1</code></td>
 <td><code>0.2</code></td>
 <td><code>0.8</code></td>
-<td><code>0</code> (reset)</td>
+<td><code>0</code> (credited)</td>
 <td><code>0.8</code></td>
 <td><code>0</code></td>
-<td>No irrigation required</td>
+<td>No watering required</td>
 </tr>
 <tr>
 <td>4</td>
@@ -2222,7 +2209,7 @@ The scenario is as follows: we will look at several days, including the precipit
 <td><code>0.8</code></td>
 <td><code>0.6</code></td>
 <td><code>0</code></td>
-<td>No irrigation required even though <code>P &lt; Et</code> and water balance was decreased from <code>0.8</code> to <code>0.6</code></td>
+<td>No watering required, even though <code>P &lt; Et</code> and the water balance decreased from <code>0.8</code> to <code>0.6</code></td>
 </tr>
 <tr>
 <td>5</td>
@@ -2232,38 +2219,45 @@ The scenario is as follows: we will look at several days, including the precipit
 <td><code>0.6</code></td>
 <td><code>-0.9</code></td>
 <td><code>600</code></td>
-<td>Since <code>Bu &lt; 0</code> irrigation is required and water balance is reset afterwards</td>
+<td>Since <code>Bu &lt; 0</code>, watering is required, and the water balance is credited back to <code>0</code> afterwards</td>
 </tr>
 <tr>
 <td>6</td>
 <td><code>0</code></td>
 <td><code>0.4</code></td>
 <td><code>-0.4</code></td>
-<td><code>0</code> (reset)</td>
+<td><code>0</code> (credited)</td>
 <td><code>-0.4</code></td>
 <td><code>300</code></td>
-<td>Since <code>Bu &lt; 0</code> irrigation is required and water balance is reset afterwards</td>
+<td>Since <code>Bu &lt; 0</code>, watering is required, and the water balance is credited back to <code>0</code> afterwards</td>
 </tr>
 <tr>
 <td>7</td>
 <td><code>0.5</code></td>
 <td><code>0.2</code></td>
 <td><code>0.3</code></td>
-<td><code>0</code> (reset)</td>
+<td><code>0</code> (credited)</td>
 <td><code>0.3</code></td>
 <td><code>0</code></td>
-<td>No irrigation required</td>
+<td>No watering required</td>
 </tr>
 </tbody>
 </table>
-<h2 id="when-to-irrigate">When to irrigate<a class="headerlink" href="#when-to-irrigate" title="Permanent link">&para;</a></h2>
-<p>You should irrigate when the irrigation tells you to, but keep in mind that for grass, experts say you should water deeply but infrequently to avoid overwatering and encourage deep rooting. It might be a good idea to create an automation that starts early enough to finish before sunrise and run that only once per week if <code>duration is 0</code> or if the <code>bucket &lt; -25 mm (~1")</code>. Adjust to your specific needs. See <a href="usage-automations.html">Example automation</a> for examples.</p>
+<h2 id="when-to-water">When to water<a class="headerlink" href="#when-to-water" title="Permanent link">&para;</a></h2>
+<p>For most plants, a lawn included, deep and infrequent watering is better than a little every day: it encourages deep roots. Smart Irrigation does that with two settings rather than an automation of your own:</p>
+<ul>
+<li>the zone's <strong>irrigation threshold</strong>, the deficit it lets build up before watering at all (see <a href="configuration-zones.html">zones</a>, which explains how to pick a number from your soil and root depth);</li>
+<li>the <strong>days between irrigation</strong>, the fewest days between two waterings (see <a href="configuration-weather.html#days-between-irrigation-events">Skip watering</a>).</li>
+</ul>
 
 
 
 
 
 
+
+  
+  
 
 
 
