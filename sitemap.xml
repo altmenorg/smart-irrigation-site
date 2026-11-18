@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://smart-irrigation.org/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://smart-irrigation.org/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://smart-irrigation.org/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smart-irrigation.org/"/>
+  </url>
+  <url>
+    <loc>https://smart-irrigation.org/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://smart-irrigation.org/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://smart-irrigation.org/fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smart-irrigation.org/"/>
+  </url>
+</urlset>

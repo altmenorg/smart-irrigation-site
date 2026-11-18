@@ -3,10 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Smart Irrigation for Home Assistant: water each zone for what its soil actually lost, skip when the sky does it, and set it all up by talking to your AI assistant.">
+<title>Smart Irrigation for Home Assistant: weather-based garden watering</title>
+<meta name="description" content="Smart Irrigation for Home Assistant waters each zone for what its soil lost (FAO-56), skips when rain is coming, and can be set up by your AI assistant. Free, in HACS.">
 <meta name="robots" content="noindex">
-<link rel="alternate" hreflang="fr" href="fr/">
-<title>Smart Irrigation for Home Assistant</title>
+<link rel="canonical" href="https://smart-irrigation.org/">
+<link rel="alternate" hreflang="en" href="https://smart-irrigation.org/">
+<link rel="alternate" hreflang="fr" href="https://smart-irrigation.org/fr/">
+<link rel="alternate" hreflang="x-default" href="https://smart-irrigation.org/">
+<meta name="theme-color" content="#1479bd">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Smart Irrigation">
+<meta property="og:title" content="Smart Irrigation for Home Assistant: weather-based garden watering">
+<meta property="og:description" content="Smart Irrigation for Home Assistant waters each zone for what its soil lost (FAO-56), skips when rain is coming, and can be set up by your AI assistant. Free, in HACS.">
+<meta property="og:url" content="https://smart-irrigation.org/">
+<meta property="og:image" content="https://smart-irrigation.org/og-logo.png">
+<meta property="og:image:width" content="1367">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="Smart Irrigation logo: a water drop and a leaf">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smart Irrigation for Home Assistant: weather-based garden watering">
+<meta name="twitter:description" content="Smart Irrigation for Home Assistant waters each zone for what its soil lost (FAO-56), skips when rain is coming, and can be set up by your AI assistant. Free, in HACS.">
+<meta name="twitter:image" content="https://smart-irrigation.org/og-logo.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Smart Irrigation", "alternateName": "Smart Irrigation for Home Assistant", "applicationCategory": "HomeApplication", "applicationSubCategory": "Home Assistant integration", "operatingSystem": "Home Assistant", "description": "Smart Irrigation for Home Assistant waters each zone for what its soil lost (FAO-56), skips when rain is coming, and can be set up by your AI assistant. Free, in HACS.", "url": "https://smart-irrigation.org/", "image": "https://smart-irrigation.org/og-logo.png", "inLanguage": "en", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "downloadUrl": "https://github.com/altmenorg/HAsmartirrigation/releases", "codeRepository": "https://github.com/altmenorg/HAsmartirrigation", "softwareHelp": "https://altmenorg.github.io/HAsmartirrigation/"}</script>
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -244,7 +263,7 @@ footer a { color: var(--muted); }
     </svg>
     <div class="wrap">
       <div>
-        <p class="eyebrow">For Home Assistant</p>
+        <p class="eyebrow">Smart Irrigation for Home Assistant</p>
         <h1 style="margin-top:14px">Water your <span class="leafw">garden</span> for what it <em>actually drank</em>.</h1>
         <p class="lead">Smart Irrigation follows the water in each zone's soil, day by day: what the sun and wind took, what the rain gave back. It waters only the millimetres that are missing, and nothing when the sky has done the job.</p>
         <div class="ctas">

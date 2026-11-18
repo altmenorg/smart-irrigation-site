@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /docs-preview/
+
+Sitemap: https://smart-irrigation.org/sitemap.xml
