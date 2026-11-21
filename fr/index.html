@@ -82,6 +82,7 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 
 /* Top bar */
+html { scroll-padding-top: 96px; }
 .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
@@ -362,7 +363,7 @@ tous les 2 jours · météo : oui</div>
 
       <div class="science">
         <div>
-          <p class="eyebrow">Comment ça marche</p>
+          <p class="eyebrow" id="model">Comment ça marche</p>
           <h2 style="margin-top:12px">Un bilan hydrique par zone, comme les agronomes</h2>
           <p class="lead" style="margin-top:16px">Le modèle est la méthode de référence de la FAO pour les besoins en eau des cultures, utilisée en agriculture dans le monde entier. Smart Irrigation la calcule chaque jour, ou heure par heure, pour chaque zone.</p>
           <p class="formula" style="margin-top:22px">bilan = bilan − ET₀ × Kc + pluie + arrosage<small>Sous zéro, la zone manque d'eau. 1 mm qui manque = 1 litre par m².</small></p>
@@ -414,7 +415,7 @@ tous les 2 jours · météo : oui</div>
     </div>
     <div>
       <h4>Apprendre</h4>
-      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Documentation (en anglais)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Notes de version</a></li><li><a href="#how">Le modèle FAO-56</a></li></ul>
+      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Documentation (en anglais)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Notes de version</a></li><li><a href="#model">Le modèle FAO-56</a></li></ul>
     </div>
     <div>
       <h4>Communauté</h4>

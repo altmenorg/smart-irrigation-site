@@ -82,6 +82,7 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 
 /* Top bar */
+html { scroll-padding-top: 96px; }
 .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
@@ -362,7 +363,7 @@ alle 2 Tage · Wetter: ja</div>
 
       <div class="science">
         <div>
-          <p class="eyebrow">So funktioniert's</p>
+          <p class="eyebrow" id="model">So funktioniert's</p>
           <h2 style="margin-top:12px">Eine Wasserbilanz pro Zone, wie bei Agronomen</h2>
           <p class="lead" style="margin-top:16px">Das Modell ist die Referenzmethode der FAO für den Wasserbedarf von Pflanzen, weltweit in der Landwirtschaft genutzt. Smart Irrigation rechnet sie jeden Tag, oder Stunde für Stunde, für jede Zone.</p>
           <p class="formula" style="margin-top:22px">Bilanz = Bilanz − ET₀ × Kc + Regen + Bewässerung<small>Unter null fehlt der Zone Wasser. 1 mm Defizit = 1 Liter pro m².</small></p>
@@ -414,7 +415,7 @@ alle 2 Tage · Wetter: ja</div>
     </div>
     <div>
       <h4>Lernen</h4>
-      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Dokumentation (Englisch)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Versionshinweise</a></li><li><a href="#how">Das Modell, FAO-56</a></li></ul>
+      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Dokumentation (Englisch)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Versionshinweise</a></li><li><a href="#model">Das Modell, FAO-56</a></li></ul>
     </div>
     <div>
       <h4>Community</h4>

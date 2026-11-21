@@ -82,6 +82,7 @@ section { padding-block: clamp(56px, 8vw, 96px); }
 .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 
 /* Top bar */
+html { scroll-padding-top: 96px; }
 .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
@@ -362,7 +363,7 @@ cada 2 días · tiempo: sí</div>
 
       <div class="science">
         <div>
-          <p class="eyebrow">Cómo funciona</p>
+          <p class="eyebrow" id="model">Cómo funciona</p>
           <h2 style="margin-top:12px">Un balance hídrico por zona, como los agrónomos</h2>
           <p class="lead" style="margin-top:16px">El modelo es el método de referencia de la FAO para las necesidades de agua de los cultivos, usado en la agricultura de todo el mundo. Smart Irrigation lo calcula cada día, u hora a hora, para cada zona.</p>
           <p class="formula" style="margin-top:22px">balance = balance − ET₀ × Kc + lluvia + riego<small>Bajo cero, a la zona le falta agua. 1 mm que falta = 1 litro por m².</small></p>
@@ -414,7 +415,7 @@ cada 2 días · tiempo: sí</div>
     </div>
     <div>
       <h4>Aprender</h4>
-      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Documentación (en inglés)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Notas de versión</a></li><li><a href="#how">El modelo FAO-56</a></li></ul>
+      <ul><li><a href="https://altmenorg.github.io/HAsmartirrigation/">Documentación (en inglés)</a></li><li><a href="https://github.com/altmenorg/HAsmartirrigation/releases">Notas de versión</a></li><li><a href="#model">El modelo FAO-56</a></li></ul>
     </div>
     <div>
       <h4>Comunidad</h4>
