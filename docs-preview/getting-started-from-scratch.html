@@ -2252,14 +2252,13 @@
 <p>Then prove it works, before Smart Irrigation is anywhere near it: in <strong>Developer tools › Actions</strong>, call <code>switch.turn_on</code> (or <code>valve.open_valve</code>) on that entity and watch the water. Turn it off again. If that does not work, nothing later will, and it will look like our fault.</p>
 <p>Write the entity id down, <code>switch.garden_tap</code> or whatever it is.</p>
 <h2 id="3-smart-irrigation-5-minutes">3. Smart Irrigation (5 minutes)<a class="headerlink" href="#3-smart-irrigation-5-minutes" title="Permanent link">&para;</a></h2>
-<p>Install <a href="https://hacs.xyz">HACS</a> if you do not have it, then:</p>
 <ol>
-<li>In <strong>HACS</strong>, search for <strong>Smart Irrigation</strong>, download it.</li>
+<li>In <strong>Settings › Marketplace</strong>, search for <strong>Smart Irrigation</strong> and install it (the Marketplace is built into Home Assistant from 2026.11).</li>
 <li>Restart Home Assistant.</li>
 <li><strong>Settings › Devices &amp; services › Add integration</strong>, search for <strong>Smart Irrigation</strong>.</li>
 <li>Confirm: setup asks nothing. The weather service is chosen later, in the panel: Open-Meteo needs nothing; OpenWeatherMap and Pirate Weather ask for a free API key.</li>
 </ol>
-<p>The full version of this step, including the manual install and what to do when HACS does not find it, is on the <a href="installation.html">installation</a> page.</p>
+<p>The full version of this step, including the manual install and an older Home Assistant, is on the <a href="installation.html">installation</a> page.</p>
 <h2 id="4-the-first-zone-5-minutes">4. The first zone (5 minutes)<a class="headerlink" href="#4-the-first-zone-5-minutes" title="Permanent link">&para;</a></h2>
 <p>Open <strong>Smart Irrigation</strong> in the sidebar. To use a weather service, turn it on first: on <strong>Weather › Weather service</strong>, switch on <strong>Use a weather service</strong>, keep <strong>Open-Meteo</strong> and save. Then open the setup assistant (<strong>Settings › General</strong>, <strong>Open the assistant</strong>). It asks a few questions, one at a time:</p>
 <ol>

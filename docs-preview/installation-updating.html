@@ -2076,13 +2076,13 @@
 <h1 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">&para;</a></h1>
 <h2 id="to-the-latest-version">To the latest version<a class="headerlink" href="#to-the-latest-version" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Installed with HACS</strong>: HACS, and the Home Assistant updates, show a notification when a new version is out. Install it from there. To check for an update now, use <strong>Update information</strong> on the repository in HACS.</li>
+<li><strong>Installed from the Marketplace</strong> (or HACS before Home Assistant 2026.11): the update shows under <strong>Settings › Updates</strong> when a new version is out. Install it from there.</li>
 <li><strong>Installed by hand</strong>: download the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">latest release</a> as a zip file and extract it into the <code>custom_components</code> folder of your Home Assistant configuration, over the previous installation.</li>
 </ul>
 <p>Then restart Home Assistant.</p>
 <h2 id="to-a-specific-version">To a specific version<a class="headerlink" href="#to-a-specific-version" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Installed with HACS</strong>: pick the version under <strong>Redownload</strong> in HACS, or call the <code>update.install</code> action:<div class="highlight"><pre><span></span><code><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update.install</span>
+<li><strong>Installed from the Marketplace</strong>: on Smart Irrigation's page in <strong>Settings › Marketplace</strong>, choose <strong>Install another version</strong> in the three-dot menu (in HACS, before Home Assistant 2026.11: <strong>Redownload</strong>), or call the <code>update.install</code> action:<div class="highlight"><pre><span></span><code><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update.install</span>
 <span class="nt">target</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">update.smart_irrigation_update</span>
 <span class="nt">data</span><span class="p">:</span>

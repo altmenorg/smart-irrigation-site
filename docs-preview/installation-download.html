@@ -684,10 +684,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#with-hacs-recommended" class="md-nav__link">
+  <a href="#from-the-marketplace-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        With HACS (recommended)
+        From the Marketplace (recommended)
       
     </span>
   </a>
@@ -2016,10 +2016,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#with-hacs-recommended" class="md-nav__link">
+  <a href="#from-the-marketplace-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        With HACS (recommended)
+        From the Marketplace (recommended)
       
     </span>
   </a>
@@ -2074,11 +2074,15 @@
 
 
 <h1 id="downloading-the-integration">Downloading the integration<a class="headerlink" href="#downloading-the-integration" title="Permanent link">&para;</a></h1>
-<h2 id="with-hacs-recommended">With HACS (recommended)<a class="headerlink" href="#with-hacs-recommended" title="Permanent link">&para;</a></h2>
-<p>Smart Irrigation is in the HACS default store, and HACS handles the updates. Open it in HACS in one click:</p>
-<p><a href="https://my.home-assistant.io/redirect/_change/?redirect=marketplace_repository%2F%3Fowner%3Daltmenorg%26repository%3DHAsmartirrigation%26category%3Dintegration"><img alt="Open Smart Irrigation in HACS on your Home Assistant" src="https://my.home-assistant.io/badges/hacs_repository.svg" /></a></p>
-<p>or search for <strong>Smart Irrigation</strong> in the <a href="https://hacs.xyz">HACS</a> panel. Then click <strong>Download</strong>.</p>
+<h2 id="from-the-marketplace-recommended">From the Marketplace (recommended)<a class="headerlink" href="#from-the-marketplace-recommended" title="Permanent link">&para;</a></h2>
+<p>Smart Irrigation is in the catalog of the Home Assistant <a href="https://www.home-assistant.io/integrations/marketplace/">Marketplace</a>, which handles the updates. Open it in one click:</p>
+<p><a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=altmenorg&amp;repository=HAsmartirrigation&amp;category=integration"><img alt="Open Smart Irrigation in the Marketplace on your Home Assistant" src="https://my.home-assistant.io/badges/marketplace_repository.svg" /></a></p>
+<p>or go to <strong>Settings › Marketplace</strong> and search for <strong>Smart Irrigation</strong>. Then select <strong>Install</strong>, and <strong>Install</strong> again in the dialog. The first time, the Marketplace asks you to accept a warning before it installs anything.</p>
 <p>If you added this repository as a custom repository in the past, that entry is no longer needed.</p>
+<div class="admonition note">
+<p class="admonition-title">Home Assistant 2026.10 or older</p>
+<p>The Marketplace is built into Home Assistant from 2026.11. Before, it was <a href="https://hacs.xyz">HACS</a>, a community integration that the Marketplace replaces: the same button opens Smart Irrigation there, or search for it in HACS, then click <strong>Download</strong>. When you update Home Assistant, the Marketplace takes over Smart Irrigation by itself, updates included: there is nothing to do.</p>
+</div>
 <h2 id="by-hand">By hand<a class="headerlink" href="#by-hand" title="Permanent link">&para;</a></h2>
 <p>Download the <a href="https://github.com/altmenorg/HAsmartirrigation/releases">latest release</a> as a zip file and extract it into the <code>custom_components</code> folder of your Home Assistant configuration. You should end up with <code>custom_components/smart_irrigation/</code>.</p>
 <h2 id="then">Then<a class="headerlink" href="#then" title="Permanent link">&para;</a></h2>
